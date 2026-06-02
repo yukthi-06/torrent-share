@@ -18,6 +18,11 @@
     -text-secondary: #9ca3af;
 }
 
+/* ─── Global Label Text Color ──────────────────────────────────────── */
+.label {
+    -fx-text-fill: -text-primary;
+}
+
 /* Styled Scrollbars */
 .scroll-bar:vertical, .scroll-bar:horizontal {
     -fx-background-color: transparent;
@@ -28,6 +33,15 @@
 }
 .scroll-bar .thumb:hover {
     -fx-background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* ─── ScrollPane — force transparent viewport so dark theme shows through ── */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
 }
 
 /* Glassmorphism Panel Container */
@@ -108,6 +122,7 @@
 .text-field, .text-area {
     -fx-background-color: rgba(0, 0, 0, 0.3);
     -fx-text-fill: white;
+    -fx-prompt-text-fill: rgba(156, 163, 175, 0.7);
     -fx-highlight-fill: -primary-color;
     -fx-border-color: rgba(255, 255, 255, 0.1);
     -fx-border-radius: 8px;
@@ -117,6 +132,36 @@
 .text-field:focused, .text-area:focused {
     -fx-border-color: -primary-color;
     -fx-effect: dropshadow(three-pass-box, -primary-glow, 8, 0, 0, 0);
+}
+
+/* ─── ListView (Trackers list) ──────────────────────────────────────── */
+.list-view {
+    -fx-background-color: rgba(0, 0, 0, 0.3);
+    -fx-border-color: rgba(255, 255, 255, 0.1);
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 4px;
+}
+.list-view .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: -text-primary;
+    -fx-padding: 8 12;
+    -fx-font-size: 13px;
+}
+.list-view .list-cell:odd {
+    -fx-background-color: rgba(255, 255, 255, 0.02);
+}
+.list-view .list-cell:filled:hover {
+    -fx-background-color: rgba(99, 102, 241, 0.12);
+    -fx-text-fill: white;
+}
+.list-view .list-cell:filled:selected {
+    -fx-background-color: rgba(99, 102, 241, 0.25);
+    -fx-text-fill: white;
+}
+.list-view .list-cell:filled:selected:focused {
+    -fx-background-color: rgba(99, 102, 241, 0.35);
+    -fx-text-fill: white;
 }
 
 /* Drag and Drop Zone styling */
@@ -151,6 +196,9 @@
     -fx-font-weight: bold;
     -fx-padding: 14 10 14 10;
 }
+.table-view .column-header .label {
+    -fx-text-fill: -text-secondary;
+}
 .table-view .table-row-cell {
     -fx-background-color: transparent;
     -fx-text-fill: -text-primary;
@@ -158,11 +206,17 @@
     -fx-border-width: 0 0 1 0;
     -fx-padding: 10 0 10 0;
 }
+.table-view .table-row-cell .label {
+    -fx-text-fill: -text-primary;
+}
 .table-view .table-row-cell:filled:hover {
     -fx-background-color: rgba(255, 255, 255, 0.04);
 }
 .table-view .table-row-cell:filled:selected {
     -fx-background-color: rgba(99, 102, 241, 0.15);
+    -fx-text-fill: white;
+}
+.table-view .table-row-cell:filled:selected .label {
     -fx-text-fill: white;
 }
 
@@ -195,4 +249,7 @@
 }
 .dialog-pane .content {
     -fx-padding: 24px;
+}
+.dialog-pane .label {
+    -fx-text-fill: -text-primary;
 }

@@ -1,1 +1,2 @@
-gradlew jar
+call gradlew jar
+call r.bat
