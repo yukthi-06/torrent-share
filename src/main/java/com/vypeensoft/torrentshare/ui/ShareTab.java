@@ -106,9 +106,11 @@ public class ShareTab {
 
         Label dropText = new Label("Drag & Drop File or Folder Here to Share");
         dropText.setFont(Font.font("Outfit", FontWeight.BOLD, 18));
+        dropText.setStyle("-fx-text-fill: -fx-text-base-color;");
 
         Label dropSubtext = new Label("Accepts single files, multiple files, and full directories recursively");
         dropSubtext.setFont(Font.font("Inter", 12));
+        dropSubtext.setStyle("-fx-text-fill: -fx-text-base-color;");
 
         dragContent.getChildren().addAll(dropIcon, dropText, dropSubtext);
         dragZone.getChildren().add(dragContent);
@@ -120,9 +122,11 @@ public class ShareTab {
         infoPanel = new VBox(20);
         infoPanel.getStyleClass().add("glass-panel");
         infoPanel.setVisible(false);
+        infoPanel.setStyle("-fx-background-color: -fx-control-inner-background; -fx-border-color: -fx-box-border; -fx-border-width: 1px; -fx-border-radius: 8px; -fx-background-radius: 8px; -fx-padding: 20px;");
 
         Label panelTitle = new Label("Torrent Sharing Metadata");
         panelTitle.setFont(Font.font("Outfit", FontWeight.BOLD, 18));
+        panelTitle.setStyle("-fx-text-fill: -fx-text-base-color;");
 
         GridPane grid = new GridPane();
         grid.setHgap(30);
@@ -138,6 +142,7 @@ public class ShareTab {
         VBox magnetBox = new VBox(8);
         Label magnetTitle = new Label("Generated Magnet URI:");
         magnetTitle.setFont(Font.font("Inter", FontWeight.BOLD, 12));
+        magnetTitle.setStyle("-fx-text-fill: -fx-text-base-color;");
 
         magnetText = new TextArea();
         magnetText.setEditable(false);
@@ -177,10 +182,12 @@ public class ShareTab {
     private Label createMetaLabel(GridPane grid, String title, int row) {
         Label titleLbl = new Label(title);
         titleLbl.setFont(Font.font("Inter", FontWeight.BOLD, 13));
+        titleLbl.setStyle("-fx-text-fill: -fx-text-base-color;");
         grid.add(titleLbl, 0, row);
 
         Label valLbl = new Label("---");
         valLbl.setFont(Font.font("Inter", 13));
+        valLbl.setStyle("-fx-text-fill: -fx-text-base-color;");
         grid.add(valLbl, 1, row);
         return valLbl;
     }
@@ -334,6 +341,7 @@ public class ShareTab {
 
             Label caption = new Label("Scan to Download via TorrentShare Client");
             caption.setFont(Font.font("Outfit", FontWeight.BOLD, 14));
+            caption.setStyle("-fx-text-fill: -fx-text-base-color;");
 
             Button savePngBtn = new Button("Save as PNG");
             savePngBtn.getStyleClass().add("button-primary");
@@ -387,6 +395,7 @@ public class ShareTab {
 
             Label title = new Label("Hashing and Creating Torrent...");
             title.setFont(Font.font("Outfit", FontWeight.BOLD, 16));
+            title.setStyle("-fx-text-fill: -fx-text-base-color;");
 
             ProgressBar pb = new ProgressBar();
             pb.progressProperty().bind(task.progressProperty());
@@ -395,6 +404,7 @@ public class ShareTab {
             Label message = new Label();
             message.textProperty().bind(task.messageProperty());
             message.setFont(Font.font("Inter", 12));
+            message.setStyle("-fx-text-fill: -fx-text-base-color;");
 
             box.getChildren().addAll(title, pb, message);
             setScene(new Scene(box));
