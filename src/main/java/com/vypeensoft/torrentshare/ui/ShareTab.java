@@ -93,6 +93,8 @@ public class ShareTab {
         dragZone = new StackPane();
         dragZone.getStyleClass().add("drag-zone");
         dragZone.setMinHeight(200);
+        dragZone.setPickOnBounds(true);
+        dragZone.setStyle("-fx-border-color: -fx-box-border; -fx-border-width: 2px; -fx-border-style: dashed; -fx-border-radius: 16px; -fx-background-color: -fx-control-inner-background; -fx-background-radius: 16px; -fx-padding: 48px; -fx-cursor: hand;");
 
         VBox dragContent = new VBox(12);
         dragContent.setAlignment(Pos.CENTER);
@@ -177,22 +179,24 @@ public class ShareTab {
     }
 
     private void setupDragAndDrop() {
+        String normalStyle = "-fx-border-color: -fx-box-border; -fx-border-width: 2px; -fx-border-style: dashed; -fx-border-radius: 16px; -fx-background-color: -fx-control-inner-background; -fx-background-radius: 16px; -fx-padding: 48px; -fx-cursor: hand;";
+        String activeStyle = "-fx-border-color: -fx-accent; -fx-border-width: 2px; -fx-border-style: dashed; -fx-border-radius: 16px; -fx-background-color: derive(-fx-control-inner-background, -5%); -fx-background-radius: 16px; -fx-padding: 48px; -fx-cursor: hand;";
+
         dragZone.setOnDragOver(event -> {
             if (event.getGestureSource() != dragZone && event.getDragboard().hasFiles()) {
                 event.acceptTransferModes(TransferMode.COPY);
-                if (!dragZone.getStyleClass().contains("drag-zone-active")) {
-                    dragZone.getStyleClass().add("drag-zone-active");
-                }
+                dragZone.setStyle(activeStyle);
             }
             event.consume();
         });
 
         dragZone.setOnDragExited(event -> {
-            dragZone.getStyleClass().remove("drag-zone-active");
+            dragZone.setStyle(normalStyle);
             event.consume();
         });
 
         dragZone.setOnDragDropped(event -> {
+            dragZone.setStyle(normalStyle);
             Dragboard db = event.getDragboard();
             boolean success = false;
             if (db.hasFiles()) {
