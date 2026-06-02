@@ -48,7 +48,7 @@ javafx {
 }
 
 application {
-    mainClass = 'com.torrentshare.Launcher'
+    mainClass = 'com.vypeensoft.torrentshare.Launcher'
 }
 
 tasks.withType(JavaCompile).configureEach {
@@ -62,7 +62,7 @@ test {
 jar {
     manifest {
         attributes(
-            'Main-Class': 'com.torrentshare.Launcher'
+            'Main-Class': 'com.vypeensoft.torrentshare.Launcher'
         )
     }
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE

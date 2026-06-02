@@ -47,9 +47,9 @@ public class TorrentManager {
      */
     public void restoreSavedSession() {
         log.info("Restoring previous download sessions from SQLite db...");
-        List<com.torrentshare.model.TorrentInfo> torrents = torrentRepository.findAll();
+        List<com.vypeensoft.torrentshare.model.TorrentInfo> torrents = torrentRepository.findAll();
 
-        for (com.torrentshare.model.TorrentInfo entry : torrents) {
+        for (com.vypeensoft.torrentshare.model.TorrentInfo entry : torrents) {
             try {
                 restoreTorrent(entry);
             } catch (Exception e) {
@@ -59,7 +59,7 @@ public class TorrentManager {
         log.info("Finished restoring sessions.");
     }
 
-    private void restoreTorrent(com.torrentshare.model.TorrentInfo entry) {
+    private void restoreTorrent(com.vypeensoft.torrentshare.model.TorrentInfo entry) {
         log.info("Attempting to restore: {} (Hash: {})", entry.name(), entry.infoHash());
 
         byte[] resumeBytes = resumeManager.loadResumeData(entry.infoHash());
@@ -132,7 +132,7 @@ public class TorrentManager {
         sessionManager.getJlibtorrentSession().download(ti, sourcePath.getParentFile());
 
         // Persist torrent metadata
-        com.torrentshare.model.TorrentInfo info = new com.torrentshare.model.TorrentInfo(
+        com.vypeensoft.torrentshare.model.TorrentInfo info = new com.vypeensoft.torrentshare.model.TorrentInfo(
             infoHashStr,
             ti.name(),
             magnet,
@@ -164,7 +164,7 @@ public class TorrentManager {
         sessionManager.getJlibtorrentSession().swig().add_torrent(atp.swig(), ec);
 
         // Persist initial state
-        com.torrentshare.model.TorrentInfo info = new com.torrentshare.model.TorrentInfo(
+        com.vypeensoft.torrentshare.model.TorrentInfo info = new com.vypeensoft.torrentshare.model.TorrentInfo(
             infoHashStr,
             "Downloading Metadata...",
             completeMagnet,
@@ -252,9 +252,9 @@ public class TorrentManager {
                     
                     // Update torrent entry name in database
                     String infoHash = th.infoHash().toString();
-                    com.torrentshare.model.TorrentInfo existing = torrentRepository.findByHash(infoHash);
+                    com.vypeensoft.torrentshare.model.TorrentInfo existing = torrentRepository.findByHash(infoHash);
                     if (existing != null) {
-                        com.torrentshare.model.TorrentInfo updated = new com.torrentshare.model.TorrentInfo(
+                        com.vypeensoft.torrentshare.model.TorrentInfo updated = new com.vypeensoft.torrentshare.model.TorrentInfo(
                             existing.infoHash(),
                             th.name(),
                             existing.magnetUri(),
