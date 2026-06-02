@@ -215,7 +215,14 @@ public class ShareTab {
             boolean success = false;
             if (db.hasFiles()) {
                 List<File> files = db.getFiles();
-                if (!files.isEmpty()) {
+                if (files.size() > 1) {
+                    showWarning(
+                        "Multiple Files Dropped",
+                        "Sharing multiple individual files directly is not supported.\n\n" +
+                        "To share these files, please collect them into a single folder, " +
+                        "and then drop that folder here to package and share them together."
+                    );
+                } else if (!files.isEmpty()) {
                     // Start async hashing of first dragged item or full folders
                     processFilesForTorrent(files.get(0));
                     success = true;
@@ -377,6 +384,16 @@ public class ShareTab {
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(details);
+        alert.getDialogPane().setMinHeight(javafx.scene.layout.Region.USE_PREF_SIZE);
+        alert.showAndWait();
+    }
+
+    private void showWarning(String title, String details) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(details);
+        alert.getDialogPane().setMinHeight(javafx.scene.layout.Region.USE_PREF_SIZE);
         alert.showAndWait();
     }
 
