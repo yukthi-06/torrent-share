@@ -1,0 +1,6 @@
+# Global Markdown File Rules for TorrentShare
+
+1. Save any MD file created by the AI in the current project folder itself under a folder named 'Prompts'. If the folder does not exist, create it.
+2. The filename MUST be prefixed with the timestamp in `yyyyMMdd.hhmmss` format (e.g., `20260602.100234_implementation_plan.md`).
+3. ALWAYS capture the exact user prompt at the top of any generated Markdown file under a `# User Prompt` header.
+4. An implementation plan or similar MD file should be created automatically detailing the steps and logic before or alongside any code changes made.

@@ -1,0 +1,60 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.1.0'
+}
+
+group = 'com.torrentshare'
+version = '1.0.0'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(19)
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        url "https://dl.frostwire.com/maven"
+    }
+}
+
+dependencies {
+    // Core jlibtorrent bindings and platform-specific native libraries
+    implementation 'com.frostwire:jlibtorrent:2.0.12.9'
+    implementation 'com.frostwire:jlibtorrent-windows:2.0.12.9'
+
+
+    // SQLite JDBC Driver
+    implementation 'org.xerial:sqlite-jdbc:3.45.1.0'
+
+    // SLF4J and Logback Logging
+    implementation 'org.slf4j:slf4j-api:2.0.12'
+    implementation 'ch.qos.logback:logback-classic:1.5.3'
+
+    // ZXing for QR Code generation
+    implementation 'com.google.zxing:core:3.5.3'
+    implementation 'com.google.zxing:javase:3.5.3'
+
+    // JUnit for testing
+    testImplementation platform('org.junit:junit-bom:5.10.2')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+javafx {
+    version = "21"
+    modules = [ 'javafx.controls', 'javafx.fxml', 'javafx.graphics', 'javafx.swing' ]
+}
+
+application {
+    mainClass = 'com.torrentshare.Launcher'
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+test {
+    useJUnitPlatform()
+}

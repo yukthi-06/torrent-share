@@ -1,0 +1,595 @@
+You are a senior Java desktop architect and principal engineer.
+
+Build a complete production-quality desktop application called **TorrentShare**.
+
+The application is a native desktop BitTorrent-based file sharing tool that allows users to share files and folders by generating magnet links and allows other users running the same application to download those files by pasting the magnet link.
+
+The application must support resumable downloads, automatic seeding, DHT peer discovery, tracker support, and persistent session recovery.
+
+Generate a complete multi-module project with all source code, build files, package structure, classes, interfaces, and implementations.
+
+Do not generate pseudocode.
+
+Generate compilable Java code.
+
+---
+
+# Technology Stack
+
+Use:
+
+* Java 21
+* JavaFX 21
+* Gradle
+* SQLite
+* jlibtorrent (Java bindings for libtorrent)
+* SLF4J
+* Logback
+
+Do NOT use:
+
+* Electron
+* Node.js
+* Web UI
+* Browser-based UI
+* Spring
+* Java EE
+* Kotlin
+
+The application must be a standalone desktop application.
+
+---
+
+# Product Goal
+
+The application should work as follows:
+
+## Sender Workflow
+
+1. User launches TorrentShare.
+2. User drags and drops a file or folder into the application.
+3. The application creates a torrent in the background.
+4. The application saves a .torrent file locally.
+5. The application immediately begins seeding.
+6. The application generates a complete magnet URI.
+7. The application displays:
+
+   * Magnet URI
+   * Info Hash
+   * File Name
+   * File Size
+   * Tracker List
+8. User copies the magnet URI and sends it to a friend.
+
+---
+
+## Receiver Workflow
+
+1. User opens TorrentShare.
+2. User clicks "Add Magnet".
+3. User pastes a magnet URI.
+4. User selects a download directory.
+5. Download starts.
+6. Download progress is displayed.
+7. User can pause/resume.
+8. If application closes:
+
+   * Download state is preserved.
+   * Resume data is saved.
+9. When application reopens:
+
+   * All torrents are automatically restored.
+   * Downloads continue from the exact point where they stopped.
+
+No user action should be required to restore downloads.
+
+---
+
+# Architecture
+
+Use clean architecture.
+
+```text
+UI Layer (JavaFX)
+
+        ↓
+
+Application Services
+
+        ↓
+
+Torrent Layer
+
+        ↓
+
+jlibtorrent
+
+        ↓
+
+DHT + Trackers + Peer Discovery
+```
+
+---
+
+# Project Structure
+
+Generate the project using the following structure:
+
+```text
+TorrentShare/
+
+├── build.gradle
+├── settings.gradle
+
+├── src/main/java/com/torrentshare/
+
+│   ├── Main.java
+
+│   ├── ui/
+│   │   ├── MainWindow.java
+│   │   ├── ShareTab.java
+│   │   ├── DownloadsTab.java
+│   │   ├── SettingsTab.java
+│   │   ├── TorrentDetailsDialog.java
+│   │   └── AddMagnetDialog.java
+
+│   ├── torrent/
+│   │   ├── TorrentManager.java
+│   │   ├── SessionManager.java
+│   │   ├── ResumeManager.java
+│   │   ├── TrackerManager.java
+│   │   ├── TorrentCreator.java
+│   │   └── TorrentMonitor.java
+
+│   ├── persistence/
+│   │   ├── DatabaseManager.java
+│   │   ├── TorrentRepository.java
+│   │   └── SettingsRepository.java
+
+│   ├── model/
+│   │   ├── TorrentInfo.java
+│   │   ├── TorrentStatus.java
+│   │   ├── ApplicationSettings.java
+│   │   └── TrackerEntry.java
+
+│   ├── service/
+│   │   ├── ShareService.java
+│   │   ├── DownloadService.java
+│   │   └── SettingsService.java
+
+│   ├── util/
+│   │   ├── FileUtils.java
+│   │   ├── MagnetUtils.java
+│   │   └── LoggingUtils.java
+
+│   └── worker/
+│       ├── TorrentCreationTask.java
+│       └── StatusRefreshTask.java
+
+└── src/main/resources/
+```
+
+---
+
+# Main Window Requirements
+
+Use JavaFX.
+
+Window title:
+
+TorrentShare
+
+Minimum size:
+
+1200x800
+
+Use a TabPane with three tabs:
+
+1. Share
+2. Downloads
+3. Settings
+
+---
+
+# Share Tab
+
+The Share tab must contain:
+
+## Drag and Drop Zone
+
+Accept:
+
+* Single file
+* Multiple files
+* Entire folders
+
+Show visual highlight during drag operations.
+
+---
+
+## Share Information Panel
+
+Display:
+
+* Name
+* Total Size
+* Info Hash
+* Piece Size
+* Number of Files
+
+---
+
+## Magnet URI Section
+
+Large read-only text area.
+
+Display complete magnet URI.
+
+Include:
+
+* xt
+* dn
+* tr entries
+
+Buttons:
+
+* Copy Magnet
+* Save Torrent File
+* Show QR Code
+
+---
+
+# Downloads Tab
+
+Display torrents in a TableView.
+
+Columns:
+
+* Name
+* Progress
+* State
+* Download Speed
+* Upload Speed
+* Peers
+* Seeds
+* ETA
+* Size
+
+Context menu:
+
+* Pause
+* Resume
+* Remove
+* Open Folder
+* View Details
+
+Double-click opens Torrent Details Dialog.
+
+---
+
+# Settings Tab
+
+Allow configuring:
+
+* Download Directory
+* Share Directory
+* Listening Port
+* Upload Speed Limit
+* Download Speed Limit
+* Maximum Connections
+* Maximum Active Torrents
+
+Settings must persist in SQLite.
+
+---
+
+# Torrent Creation
+
+When files are dropped:
+
+1. Scan files.
+2. Create torrent metadata.
+3. Add trackers.
+4. Calculate info hash.
+5. Save .torrent file.
+6. Start seeding immediately.
+7. Generate magnet URI.
+8. Update UI.
+
+Torrent creation must run on a background thread.
+
+UI must never freeze.
+
+---
+
+# Tracker Support
+
+Default trackers:
+
+udp://tracker.opentrackr.org:1337/announce
+
+udp://tracker.openbittorrent.com:6969/announce
+
+udp://tracker.torrent.eu.org:451/announce
+
+udp://tracker.dler.org:6969/announce
+
+Allow users to add custom trackers.
+
+Persist tracker list.
+
+Include trackers in all generated magnet URIs.
+
+---
+
+# Magnet URI Generation
+
+Generated magnet links must include:
+
+* xt
+* dn
+* tr
+
+Example:
+
+magnet:?xt=urn:btih:HASH
+&dn=filename
+&tr=udp://tracker.opentrackr.org:1337/announce
+&tr=udp://tracker.openbittorrent.com:6969/announce
+
+Provide one-click copy to clipboard.
+
+---
+
+# Add Magnet Dialog
+
+Fields:
+
+* Magnet URI
+* Download Location
+
+Buttons:
+
+* Start Download
+* Cancel
+
+Validate magnet format before accepting.
+
+Display clear error messages.
+
+---
+
+# Session Configuration
+
+Create a single jlibtorrent SessionManager.
+
+Enable:
+
+* DHT
+* Local Service Discovery (LSD)
+* UPnP
+* NAT-PMP
+
+Configure sensible defaults.
+
+Persist session settings.
+
+---
+
+# Resume Support (Critical Requirement)
+
+Downloads must survive:
+
+* Application restart
+* Operating system reboot
+* Unexpected shutdown
+* Power failure
+
+Use jlibtorrent fast resume support.
+
+Store resume files in:
+
+```text
+data/resume/
+```
+
+Example:
+
+```text
+A1B2C3.fastresume
+D4E5F6.fastresume
+```
+
+On shutdown:
+
+1. Save resume data.
+2. Persist torrent state.
+3. Close session cleanly.
+
+On startup:
+
+1. Load resume files.
+2. Restore torrents.
+3. Restore session state.
+4. Continue downloads automatically.
+
+User must never need to re-add magnet links.
+
+---
+
+# SQLite Persistence
+
+Create SQLite database:
+
+```text
+data/torrentshare.db
+```
+
+Create tables:
+
+settings
+
+trackers
+
+torrents
+
+download_history
+
+Store:
+
+* Magnet URI
+* Save Path
+* Resume File
+* Info Hash
+* Added Date
+* Current Status
+
+Automatically restore state at startup.
+
+---
+
+# Torrent Monitoring
+
+Refresh UI every second.
+
+Display:
+
+* Progress
+* Download Speed
+* Upload Speed
+* Peer Count
+* Seed Count
+* ETA
+* State
+
+States:
+
+* Downloading
+* Seeding
+* Paused
+* Checking
+* Queued
+* Error
+
+---
+
+# Torrent Details Dialog
+
+Display:
+
+General:
+
+* Name
+* Hash
+* Size
+* Piece Count
+* Piece Size
+
+Network:
+
+* Peers
+* Seeds
+* DHT Nodes
+* Tracker List
+
+Transfer:
+
+* Downloaded
+* Uploaded
+* Ratio
+
+Files:
+
+* Tree view of all files
+
+---
+
+# QR Code Support
+
+Generate QR codes for magnet URIs.
+
+Display QR code in a modal dialog.
+
+Allow saving QR code as PNG.
+
+---
+
+# Logging
+
+Use SLF4J + Logback.
+
+Log directory:
+
+```text
+data/logs/
+```
+
+Log:
+
+* Application startup
+* Torrent creation
+* Session startup
+* Resume restoration
+* Tracker events
+* Download events
+* Errors
+
+Implement rolling logs.
+
+---
+
+# Error Handling
+
+Handle gracefully:
+
+* Invalid magnet URI
+* Corrupted torrent files
+* Corrupted resume data
+* Tracker failures
+* Missing files
+* Disk full
+* Permission denied
+* Network failures
+
+Display user-friendly error dialogs.
+
+Application must not crash.
+
+---
+
+# Threading Requirements
+
+Use JavaFX Task and ExecutorService.
+
+Run all long-running operations off the UI thread:
+
+* Torrent creation
+* Torrent loading
+* Resume restoration
+* Metadata fetching
+* Progress updates
+
+Use Platform.runLater() only for UI updates.
+
+---
+
+# Code Quality Requirements
+
+Use:
+
+* SOLID principles
+* Dependency injection through constructors
+* Immutable models where possible
+* Java records where appropriate
+* Extensive Javadoc
+* Proper exception handling
+* Clean package separation
+* Production-ready code
+
+Generate complete code for every file.
+
+Do not generate placeholders.
+
+Do not generate pseudocode.
+
+Produce a fully functional, compilable Gradle project.
