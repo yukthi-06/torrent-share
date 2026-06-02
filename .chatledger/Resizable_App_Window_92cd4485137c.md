@@ -7,9 +7,9 @@
 | **Trajectory ID** | `c7e411e2-9311-4f48-a17c-24cb8bb47a1a` |
 | **Cascade ID** | `052688b5-1a5f-4a39-97e6-92cd4485137c` |
 | **Type** | Agent Conversation |
-| **Total Steps** | 42 |
+| **Total Steps** | 80 |
 | **Started** | 2 June 2026, 12:51 pm |
-| **Completed** | 2 June 2026, 12:56 pm |
+| **Completed** | 2 June 2026, 1:01 pm |
 
 ---
 
@@ -1833,6 +1833,573 @@ tasks.register('refactorPackage') {
 
 **Status:** Cancelled
 **Created:** 2 June 2026, 12:52 pm
+
+---
+
+## User Request
+
+Make the app window resizeable to any extent.
+Start the app with a decent default window size
+
+<details>
+<summary>Context</summary>
+
+**Active File:** `.cursorrules`
+**Language:** plaintext
+</details>
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `list_permissions`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Medium)
+</details>
+
+---
+
+### CORTEX_STEP_TYPE_GENERIC
+
+**Status:** Completed
+**Created:** 2 June 2026, 12:56 pm
+
+---
+
+## Agent Response
+
+### Thinking
+
+**Confirming Workspace Access**
+
+Okay, I've verified read and write permissions within the specified workspace: `x:\Projects_X\0_Active\1_Java_Active\Torrent_Share_Java_GITHUB`. This confirms I have the ability to write files. Now, I need to specifically check whether that extends to the `Prompts` folder within this workspace.
+
+
+
+
+### Actions
+
+**Tool:** `write_to_file`
+
+<details>
+<summary>Metadata</summary>
+
+- **Thinking Duration:** 0.036988300s
+- **Model:** Gemini 3.5 Flash (Medium)
+</details>
+
+---
+
+### Code Edit
+
+**Status:** Completed
+**Created:** 2 June 2026, 12:57 pm
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `write_to_file`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Medium)
+</details>
+
+---
+
+### Code Edit
+
+**Status:** Completed
+**Created:** 2 June 2026, 12:57 pm
+
+---
+
+## Agent Response
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Medium)
+</details>
+
+---
+
+### CORTEX_STEP_TYPE_SYSTEM_MESSAGE
+
+**Status:** Completed
+**Created:** 2 June 2026, 12:57 pm
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `write_to_file`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Medium)
+</details>
+
+---
+
+### Code Edit
+
+**Status:** Completed
+**Created:** 2 June 2026, 12:57 pm
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `write_to_file`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Medium)
+</details>
+
+---
+
+### Code Edit
+
+**Status:** Completed
+**Created:** 2 June 2026, 12:57 pm
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `replace_file_content`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Medium)
+</details>
+
+---
+
+### Code Edit
+
+**Status:** Completed
+**Created:** 2 June 2026, 12:57 pm
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `write_to_file`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Medium)
+</details>
+
+---
+
+### Code Edit
+
+**Status:** Completed
+**Created:** 2 June 2026, 12:57 pm
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `write_to_file`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Medium)
+</details>
+
+---
+
+### Code Edit
+
+**Status:** Completed
+**Created:** 2 June 2026, 12:57 pm
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `run_command`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Medium)
+</details>
+
+---
+
+### Terminal Command Execution
+
+**Status:** Cancelled
+**Created:** 2 June 2026, 12:57 pm
+
+---
+
+## User Request
+
+start window with a bit more smaller(75% of currennt screen size)
+
+<details>
+<summary>Context</summary>
+
+**Active File:** `20260602.125654_window_resize_plan.md`
+**Language:** markdown
+
+**Open Files:**
+- `20260602.125654_window_resize_plan.md`
+- `20260602.125654_task.md`
+- `MainWindow.java`
+</details>
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `view_file`
+**File:** `MainWindow.java`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Medium)
+</details>
+
+---
+
+<details>
+<summary>File: `Unknown file`</summary>
+
+**Path:** `Unknown file`
+
+```
+package com.vypeensoft.torrentshare.ui;
+
+import com.vypeensoft.torrentshare.service.DownloadService;
+import com.vypeensoft.torrentshare.service.ShareService;
+import com.vypeensoft.torrentshare.service.SettingsService;
+import com.vypeensoft.torrentshare.torrent.TorrentMonitor;
+import com.vypeensoft.torrentshare.torrent.TrackerManager;
+import com.vypeensoft.torrentshare.worker.StatusRefreshTask;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.stage.Stage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+```
+
+</details>
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `view_file`
+**File:** `20260602.125654_window_resize_plan.md`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Medium)
+</details>
+
+---
+
+<details>
+<summary>File: `Unknown file`</summary>
+
+**Path:** `Unknown file`
+
+```
+# User Prompt
+```text
+Make the app window resizeable to any extent.
+Start the app with a decent default window size
+```
+
+# Implementation Plan - Fully Resizeable App Window
+
+This plan outlines the changes required to allow the TorrentShare application window to be resized to any extent, while starting with a decent default window size.
+
+## User Review Required
+
+> [!NOTE]
+> The current default window size is **1200x800 pixels**, which is an elegant desktop landscape aspect ratio. We will keep this as the initial default startup size while removing the constraints that block resizing below this size.
+
+## Open Questions
+
+None. The requirements are clear and simple.
+
+## Proposed Changes
+
+### UI Layer
+
+We will remove the minimum width and height constraints from the main Stage setup to enable resizing to any size.
+
+---
+
+#### [MODIFY] [MainWindow.java](file:///x:/Projects_X/0_Active/1_Java_Active/Torrent_Share_Java_GITHUB/src/main/java/com/vypeensoft/torrentshare/ui/MainWindow.java)
+
+We will modify [MainWindow.java](file:///x:/Projects_X/0_Active/1_Java_Active/Torrent_Share_Java_GITHUB/src/main/java/com/vypeensoft/torrentshare/ui/MainWindow.java) to remove the calls to:
+- `stage.setMinWidth(1200);`
+- `stage.setMinHeight(800);`
+
+The scene will continue to be initialized with a width of 1200 and height of 800:
+`Scene scene = new Scene(root, 1200, 800);`
+This ensures the app starts with a decent default size on startup.
+
+## Verification Plan
+
+### Automated Tests
+- Run Gradle Java compilation task: `.\gradlew.bat compileJava` to ensure code compiles with no errors.
+
+### Manual Verification
+- Launch the application, verify that the window opens with the default 1200x800 size, and verify that the window borders can be dragged to make the window smaller or larger without any restrictions.
+
+```
+
+</details>
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `replace_file_content`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Medium)
+</details>
+
+---
+
+### Code Edit
+
+**Status:** Completed
+**Created:** 2 June 2026, 1:01 pm
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `write_to_file`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Medium)
+</details>
+
+---
+
+### Code Edit
+
+**Status:** Completed
+**Created:** 2 June 2026, 1:01 pm
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `write_to_file`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Medium)
+</details>
+
+---
+
+### Code Edit
+
+**Status:** Completed
+**Created:** 2 June 2026, 1:01 pm
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `write_to_file`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Medium)
+</details>
+
+---
+
+### Code Edit
+
+**Status:** Completed
+**Created:** 2 June 2026, 1:01 pm
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `view_file`
+**File:** `MainWindow.java`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Medium)
+</details>
+
+---
+
+<details>
+<summary>File: `Unknown file` (L44-89)</summary>
+
+**Path:** `Unknown file`
+
+```
+        this.shareService = shareService;
+        this.downloadService = downloadService;
+        this.settingsService = settingsService;
+        this.trackerManager = trackerManager;
+        this.torrentMonitor = torrentMonitor;
+    }
+
+    /**
+     * Initializes the stage and mounts the subtab components.
+     */
+    public void start(Stage stage) {
+        stage.setTitle("TorrentShare");
+
+        BorderPane root = new BorderPane();
+        root.setStyle("-fx-background-color: #0c0c0e;");
+
+        // Header Panel with brand title
+        HBox header = buildHeader();
+        root.setTop(header);
+
+        // Core Tabs
+        TabPane tabPane = new TabPane();
+        tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
+
+        shareTab = new ShareTab(shareService, settingsService);
+        downloadsTab = new DownloadsTab(downloadService, settingsService, trackerManager, torrentMonitor);
+        settingsTab = new SettingsTab(settingsService, trackerManager);
+
+        Tab tab1 = new Tab("Share Files", shareTab.getContent());
+        Tab tab2 = new Tab("Active Downloads", downloadsTab.getContent());
+        Tab tab3 = new Tab("Settings Panel", settingsTab.getContent());
+
+        tabPane.getTabs().addAll(tab1, tab2, tab3);
+        root.setCenter(tabPane);
+
+        Scene scene = new Scene(root, 1200, 800);
+        scene.getStylesheets().add(getClass().getResource("/index.css").toExternalForm());
+        stage.setScene(scene);
+        stage.show();
+
+        // Start real-time speeds and progress updates daemon polling
+        log.info("Starting background refresh loop...");
+        refreshTask = new StatusRefreshTask(torrentMonitor, activeStats -> {
+            downloadsTab.updateActiveDownloads(activeStats);
+        });
+        refreshTask.start();
+```
+
+</details>
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `view_file`
+**File:** `MainWindow.java`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Medium)
+</details>
+
+---
+
+<details>
+<summary>File: `Unknown file` (L14-24)</summary>
+
+**Path:** `Unknown file`
+
+```
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.stage.Stage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+```
+
+</details>
 
 ---
 

@@ -18,6 +18,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.geometry.Rectangle2D;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -77,7 +79,12 @@ public class MainWindow {
         tabPane.getTabs().addAll(tab1, tab2, tab3);
         root.setCenter(tabPane);
 
-        Scene scene = new Scene(root, 1200, 800);
+        // Dynamically compute starting window size to exactly 75% of primary screen bounds
+        Rectangle2D visualBounds = Screen.getPrimary().getVisualBounds();
+        double defaultWidth = visualBounds.getWidth() * 0.75;
+        double defaultHeight = visualBounds.getHeight() * 0.75;
+
+        Scene scene = new Scene(root, defaultWidth, defaultHeight);
         scene.getStylesheets().add(getClass().getResource("/index.css").toExternalForm());
         stage.setScene(scene);
         stage.show();
