@@ -54,8 +54,6 @@ public class MainWindow {
      */
     public void start(Stage stage) {
         stage.setTitle("TorrentShare");
-        stage.setMinWidth(1200);
-        stage.setMinHeight(800);
 
         BorderPane root = new BorderPane();
         root.setStyle("-fx-background-color: #0c0c0e;");
