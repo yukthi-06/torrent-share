@@ -87,18 +87,18 @@ public class ShareTab {
     }
 
     private void buildUI() {
-        root = new VBox(20);
-        root.setPadding(new Insets(25));
+        root = new VBox(10);
+        root.setPadding(new Insets(12));
         root.setStyle("-fx-background-color: transparent;");
 
         // Top Drag and Drop Zone Container
         dragZone = new StackPane();
         dragZone.getStyleClass().add("drag-zone");
-        dragZone.setMinHeight(200);
+        dragZone.setMinHeight(120);
         dragZone.setPickOnBounds(true);
-        dragZone.setStyle("-fx-border-color: -fx-box-border; -fx-border-width: 2px; -fx-border-style: dashed; -fx-border-radius: 16px; -fx-background-color: -fx-control-inner-background; -fx-background-radius: 16px; -fx-padding: 48px; -fx-cursor: hand;");
+        dragZone.setStyle("-fx-border-color: -fx-box-border; -fx-border-width: 2px; -fx-border-style: dashed; -fx-border-radius: 16px; -fx-background-color: -fx-control-inner-background; -fx-background-radius: 16px; -fx-padding: 20px; -fx-cursor: hand;");
 
-        VBox dragContent = new VBox(12);
+        VBox dragContent = new VBox(6);
         dragContent.setAlignment(Pos.CENTER);
         
         Label dropIcon = new Label("📥");
@@ -119,10 +119,10 @@ public class ShareTab {
         setupDragAndDrop();
 
         // Info Panel - hidden until torrent creation completes
-        infoPanel = new VBox(20);
+        infoPanel = new VBox(10);
         infoPanel.getStyleClass().add("glass-panel");
         infoPanel.setVisible(false);
-        infoPanel.setStyle("-fx-background-color: -fx-control-inner-background; -fx-border-color: -fx-box-border; -fx-border-width: 1px; -fx-border-radius: 8px; -fx-background-radius: 8px; -fx-padding: 20px;");
+        infoPanel.setStyle("-fx-background-color: -fx-control-inner-background; -fx-border-color: -fx-box-border; -fx-border-width: 1px; -fx-border-radius: 8px; -fx-background-radius: 8px; -fx-padding: 12px;");
 
         Label panelTitle = new Label("Torrent Sharing Metadata");
         panelTitle.setFont(Font.font("Outfit", FontWeight.BOLD, 18));
@@ -130,8 +130,8 @@ public class ShareTab {
 
         GridPane grid = new GridPane();
         grid.setHgap(30);
-        grid.setVgap(12);
-        grid.setPadding(new Insets(10, 0, 10, 0));
+        grid.setVgap(6);
+        grid.setPadding(new Insets(4, 0, 4, 0));
 
         nameVal = createMetaLabel(grid, "Name:", 0);
         sizeVal = createMetaLabel(grid, "Total Size:", 1);
@@ -139,7 +139,7 @@ public class ShareTab {
         pieceVal = createMetaLabel(grid, "Piece Size:", 3);
         countVal = createMetaLabel(grid, "Number of Files:", 4);
 
-        VBox magnetBox = new VBox(8);
+        VBox magnetBox = new VBox(4);
         Label magnetTitle = new Label("Generated Magnet URI:");
         magnetTitle.setFont(Font.font("Inter", FontWeight.BOLD, 12));
         magnetTitle.setStyle("-fx-text-fill: -fx-text-base-color;");
@@ -147,13 +147,13 @@ public class ShareTab {
         magnetText = new TextArea();
         magnetText.setEditable(false);
         magnetText.setWrapText(true);
-        magnetText.setPrefRowCount(4);
+        magnetText.setPrefRowCount(2);
         magnetText.setFont(Font.font("Consolas", 12));
 
         magnetBox.getChildren().addAll(magnetTitle, magnetText);
 
         // Control Buttons
-        HBox actions = new HBox(12);
+        HBox actions = new HBox(8);
         actions.setAlignment(Pos.CENTER_LEFT);
 
         Button copyBtn = new Button("Copy Magnet URI");
@@ -193,8 +193,8 @@ public class ShareTab {
     }
 
     private void setupDragAndDrop() {
-        String normalStyle = "-fx-border-color: -fx-box-border; -fx-border-width: 2px; -fx-border-style: dashed; -fx-border-radius: 16px; -fx-background-color: -fx-control-inner-background; -fx-background-radius: 16px; -fx-padding: 48px; -fx-cursor: hand;";
-        String activeStyle = "-fx-border-color: -fx-accent; -fx-border-width: 2px; -fx-border-style: dashed; -fx-border-radius: 16px; -fx-background-color: derive(-fx-control-inner-background, -5%); -fx-background-radius: 16px; -fx-padding: 48px; -fx-cursor: hand;";
+        String normalStyle = "-fx-border-color: -fx-box-border; -fx-border-width: 2px; -fx-border-style: dashed; -fx-border-radius: 16px; -fx-background-color: -fx-control-inner-background; -fx-background-radius: 16px; -fx-padding: 20px; -fx-cursor: hand;";
+        String activeStyle = "-fx-border-color: -fx-accent; -fx-border-width: 2px; -fx-border-style: dashed; -fx-border-radius: 16px; -fx-background-color: derive(-fx-control-inner-background, -5%); -fx-background-radius: 16px; -fx-padding: 20px; -fx-cursor: hand;";
 
         dragZone.setOnDragOver(event -> {
             if (event.getGestureSource() != dragZone && event.getDragboard().hasFiles()) {

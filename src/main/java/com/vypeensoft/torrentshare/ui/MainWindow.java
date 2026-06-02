@@ -80,8 +80,8 @@ public class MainWindow {
 
         // Dynamically compute starting window size to exactly 75% of primary screen bounds
         Rectangle2D visualBounds = Screen.getPrimary().getVisualBounds();
-        double defaultWidth = visualBounds.getWidth() * 0.75;
-        double defaultHeight = visualBounds.getHeight() * 0.75;
+        double defaultWidth = visualBounds.getWidth() * 0.80;
+        double defaultHeight = visualBounds.getHeight() * 0.80;
 
         Scene scene = new Scene(root, defaultWidth, defaultHeight);
         stage.setScene(scene);
