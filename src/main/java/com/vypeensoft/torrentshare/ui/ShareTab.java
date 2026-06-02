@@ -15,6 +15,7 @@ import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -60,6 +61,7 @@ public class ShareTab {
     });
 
     private VBox root;
+    private ScrollPane scrollPane;
     private StackPane dragZone;
     private VBox infoPanel;
 
@@ -80,8 +82,8 @@ public class ShareTab {
         buildUI();
     }
 
-    public VBox getContent() {
-        return root;
+    public Parent getContent() {
+        return scrollPane;
     }
 
     private void buildUI() {
@@ -165,6 +167,11 @@ public class ShareTab {
 
         infoPanel.getChildren().addAll(panelTitle, grid, magnetBox, actions);
         root.getChildren().addAll(dragZone, infoPanel);
+
+        // Wrap VBox root in a ScrollPane to support resizability/scroll capabilities
+        scrollPane = new ScrollPane(root);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setStyle("-fx-background-color: transparent; -fx-background: transparent;");
     }
 
     private Label createMetaLabel(GridPane grid, String title, int row) {
