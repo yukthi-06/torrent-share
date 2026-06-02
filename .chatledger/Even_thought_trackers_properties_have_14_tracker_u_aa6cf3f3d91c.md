@@ -7,9 +7,9 @@
 | **Trajectory ID** | `71c6942c-d06f-4c28-8efe-c167f1965a8d` |
 | **Cascade ID** | `8586659b-31c3-46e7-b98a-aa6cf3f3d91c` |
 | **Type** | Agent Conversation |
-| **Total Steps** | 84 |
+| **Total Steps** | 140 |
 | **Started** | 2 June 2026, 2:03 pm |
-| **Completed** | 2 June 2026, 2:23 pm |
+| **Completed** | 2 June 2026, 6:45 pm |
 
 ---
 
@@ -2478,6 +2478,2021 @@ public class ShareTab {
 
 **Status:** Completed
 **Created:** 2 June 2026, 2:23 pm
+
+---
+
+## Agent Response
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Claude Sonnet 4.6 (Thinking)
+</details>
+
+---
+
+## User Request
+
+the app is working as a good torrent client.  
+But not working to serve files....
+
+<details>
+<summary>Context</summary>
+
+**Active File:** `index.css`
+**Language:** css
+
+**Open Files:**
+- `SettingsTab.java`
+- `index.css`
+</details>
+
+---
+
+<details>
+<summary>File: `Unknown file`</summary>
+
+**Path:** `Unknown file`
+
+```
+/*
+ * TorrentShare Premium Dark Glassmorphism CSS Design System
+ */
+
+.root {
+    -fx-font-family: 'Outfit', 'Inter', 'Segoe UI', sans-serif;
+    -fx-base: #0f0f13;
+    -fx-background-color: #0c0c0e;
+    
+    /* Elegant Color Tokens */
+    -primary-color: #6366f1;
+    -primary-gradient: linear-gradient(to right, #6366f1, #8b5cf6);
+    -primary-glow: rgba(99, 102, 241, 0.25);
+    
+    -bg-card: rgba(30, 30, 38, 0.7);
+    -border-card: rgba(255, 255, 255, 0.08);
+    -text-primary: #f3f4f6;
+    -text-secondary: #9ca3af;
+}
+
+/* ─── Global Label Text Color ──────────────────────────────────────── */
+.label {
+    -fx-text-fill: -text-primary;
+}
+
+/* Styled Scrollbars */
+.scroll-bar:vertical, .scroll-bar:horizontal {
+    -fx-background-color: transparent;
+}
+.scroll-bar .thumb {
+    -fx-background-color: rgba(255, 255, 255, 0.15);
+    -fx-background-radius: 8px;
+}
+.scroll-bar .thumb:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* ─── ScrollPane — force transparent viewport so dark theme shows through ── */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+```
+
+</details>
+
+---
+
+## Agent Response
+
+### Thinking
+
+The user says the app is working as a torrent client (downloading) but not working for serving/sharing files. Let me look at the project structure to understand the file sharing functionality and debug the issue.
+
+Let me look at the relevant files - ShareService, TorrentCreator, ShareTab, etc.
+
+### Actions
+
+**Tool:** `list_dir`
+**Path:** `x:\Projects_X\0_Active\1_Java_Active\Torrent_Share_Java_GITHUB\src\main\java\com\vypeensoft\torrentshare`
+
+<details>
+<summary>Metadata</summary>
+
+- **Thinking Duration:** 1.685640100s
+- **Model:** Claude Sonnet 4.6 (Thinking)
+</details>
+
+---
+
+<details>
+<summary>Directory: `torrentshare` (9 items)</summary>
+
+**Path:** `x:/Projects_X/0_Active/1_Java_Active/Torrent_Share_Java_GITHUB/src/main/java/com/vypeensoft/torrentshare`
+
+| Name | Type | Size |
+|------|------|------|
+| `Launcher.java` | File | 291 bytes |
+| `Main.java` | File | 4127 bytes |
+| `model` | Directory | - |
+| `persistence` | Directory | - |
+| `service` | Directory | - |
+| `torrent` | Directory | - |
+| `ui` | Directory | - |
+| `util` | Directory | - |
+| `worker` | Directory | - |
+
+</details>
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `list_dir`
+**Path:** `x:\Projects_X\0_Active\1_Java_Active\Torrent_Share_Java_GITHUB\src\main\java\com\vypeensoft\torrentshare\service`
+
+**Tool:** `list_dir`
+**Path:** `x:\Projects_X\0_Active\1_Java_Active\Torrent_Share_Java_GITHUB\src\main\java\com\vypeensoft\torrentshare\torrent`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Claude Sonnet 4.6 (Thinking)
+</details>
+
+---
+
+<details>
+<summary>Directory: `service` (3 items)</summary>
+
+**Path:** `x:/Projects_X/0_Active/1_Java_Active/Torrent_Share_Java_GITHUB/src/main/java/com/vypeensoft/torrentshare/service`
+
+| Name | Type | Size |
+|------|------|------|
+| `DownloadService.java` | File | 1611 bytes |
+| `SettingsService.java` | File | 1923 bytes |
+| `ShareService.java` | File | 1964 bytes |
+
+</details>
+
+---
+
+<details>
+<summary>Directory: `torrent` (6 items)</summary>
+
+**Path:** `x:/Projects_X/0_Active/1_Java_Active/Torrent_Share_Java_GITHUB/src/main/java/com/vypeensoft/torrentshare/torrent`
+
+| Name | Type | Size |
+|------|------|------|
+| `ResumeManager.java` | File | 2397 bytes |
+| `SessionManager.java` | File | 3036 bytes |
+| `TorrentCreator.java` | File | 1549 bytes |
+| `TorrentManager.java` | File | 15287 bytes |
+| `TorrentMonitor.java` | File | 4248 bytes |
+| `TrackerManager.java` | File | 1170 bytes |
+
+</details>
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `view_file`
+**File:** `ShareService.java`
+
+**Tool:** `view_file`
+**File:** `TorrentCreator.java`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Claude Sonnet 4.6 (Thinking)
+</details>
+
+---
+
+<details>
+<summary>File: `Unknown file`</summary>
+
+**Path:** `Unknown file`
+
+```
+package com.vypeensoft.torrentshare.service;
+
+import com.frostwire.jlibtorrent.TorrentInfo;
+import com.vypeensoft.torrentshare.torrent.TorrentCreator;
+import com.vypeensoft.torrentshare.torrent.TorrentManager;
+import com.vypeensoft.torrentshare.torrent.TrackerManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.List;
+
+/**
+ * Coordination service handling file scanning, torrent file output, and immediate seeding.
+ */
+public class ShareService {
+    private static final Logger log = LoggerFactory.getLogger(ShareService.class);
+    
+    private final TorrentManager torrentManager;
+    private final TrackerManager trackerManager;
+
+    public ShareService(TorrentManager torrentManager, TrackerManager trackerManager) {
+        this.torrentManager = torrentManager;
+        this.trackerManager = trackerManager;
+    }
+
+    /**
+     * Creates a local bencoded .torrent file from a source path.
+     * Note: Hashing is done on this thread, should be run inside a Worker task.
+     */
+    public File buildTorrentFile(File sourcePath, File outputDirectory) throws IOException {
+        List<String> trackers = trackerManager.getTrackers();
+        byte[] torrentBytes = TorrentCreator.createTorrent(sourcePath, trackers);
+
+        TorrentInfo ti = new TorrentInfo(torrentBytes);
+        String hexHash = ti.infoHashV1().toString();
+
+        File torrentFile = new File(outputDirectory, hexHash.toLowerCase() + ".torrent");
+        Files.write(torrentFile.toPath(), torrentBytes);
+        log.info("Bencoded torrent file saved: {}", torrentFile.getAbsolutePath());
+
+        return torrentFile;
+    }
+
+    /**
+     * Delegates to the TorrentManager to register the .torrent and begin seeding it.
+     */
+    public void seedTorrent(File torrentFile, File sourcePath) throws IOException {
+        torrentManager.startSeeding(torrentFile, sourcePath);
+    }
+}
+
+```
+
+</details>
+
+---
+
+<details>
+<summary>File: `Unknown file`</summary>
+
+**Path:** `Unknown file`
+
+```
+package com.vypeensoft.torrentshare.torrent;
+
+import com.frostwire.jlibtorrent.Entry;
+import com.frostwire.jlibtorrent.TorrentBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+
+/**
+ * High-performance builder class that parses files and creates .torrent metadata using TorrentBuilder.
+ */
+public class TorrentCreator {
+    private static final Logger log = LoggerFactory.getLogger(TorrentCreator.class);
+
+    private TorrentCreator() {}
+
+    /**
+     * Creates a bencoded torrent representation for a single file or a directory.
+     * Note: This is an expensive synchronous call and MUST be run on a background thread.
+     */
+    public static byte[] createTorrent(File inputPath, List<String> trackers) throws IOException {
+        log.info("Preparing metadata generation using TorrentBuilder for: {}", inputPath.getAbsolutePath());
+
+        TorrentBuilder builder = new TorrentBuilder();
+        builder.path(inputPath);
+
+        // Add trackers with tier priority
+        int tier = 0;
+        for (String tr : trackers) {
+            if (!tr.isBlank()) {
+                builder.addTracker(tr, tier++);
+            }
+        }
+
+        builder.creator("TorrentShare 1.0");
+
+        log.info("Calculating SHA-1 piece hashes for files...");
+        TorrentBuilder.Result result = builder.generate();
+        log.info("Successfully finished hashing all pieces.");
+
+        Entry torrentEntry = result.entry();
+        return torrentEntry.bencode();
+    }
+}
+
+```
+
+</details>
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `view_file`
+**File:** `TorrentManager.java`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Claude Sonnet 4.6 (Thinking)
+</details>
+
+---
+
+<details>
+<summary>File: `Unknown file`</summary>
+
+**Path:** `Unknown file`
+
+```
+package com.vypeensoft.torrentshare.torrent;
+
+import com.frostwire.jlibtorrent.AddTorrentParams;
+import com.frostwire.jlibtorrent.AlertListener;
+import com.frostwire.jlibtorrent.Sha1Hash;
+import com.frostwire.jlibtorrent.TorrentHandle;
+import com.frostwire.jlibtorrent.alerts.Alert;
+import com.frostwire.jlibtorrent.alerts.AlertType;
+import com.frostwire.jlibtorrent.alerts.SaveResumeDataAlert;
+import com.frostwire.jlibtorrent.alerts.MetadataReceivedAlert;
+import com.vypeensoft.torrentshare.persistence.TorrentRepository;
+import com.vypeensoft.torrentshare.util.MagnetUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+
+/**
+ * Orchestrates high-level torrent operations, session loading, and fastresume callbacks.
+ */
+public class TorrentManager {
+    private static final Logger log = LoggerFactory.getLogger(TorrentManager.class);
+
+    private final SessionManager sessionManager;
+    private final TorrentRepository torrentRepository;
+    private final ResumeManager resumeManager;
+    private final TrackerManager trackerManager;
+
+    public TorrentManager(SessionManager sessionManager, TorrentRepository torrentRepository,
+                          ResumeManager resumeManager, TrackerManager trackerManager) {
+        this.sessionManager = sessionManager;
+        this.torrentRepository = torrentRepository;
+        this.resumeManager = resumeManager;
+        this.trackerManager = trackerManager;
+
+        // Register Alert Listener for handling asynchronous resume alerts
+        setupAlertListener();
+    }
+
+    /**
+     * Bootstraps the session by reading database records and restoring resume files.
+     */
+    public void restoreSavedSession() {
+        log.info("Restoring previous download sessions from SQLite db...");
+        List<com.vypeensoft.torrentshare.model.TorrentInfo> torrents = torrentRepository.findAll();
+
+        for (com.vypeensoft.torrentshare.model.TorrentInfo entry : torrents) {
+            try {
+                restoreTorrent(entry);
+            } catch (Exception e) {
+                log.error("Failed to restore torrent: {}", entry.infoHash(), e);
+            }
+        }
+        log.info("Finished restoring sessions.");
+    }
+
+    private void restoreTorrent(com.vypeensoft.torrentshare.model.TorrentInfo entry) {
+        log.info("Attempting to restore: {} (Hash: {})", entry.name(), entry.infoHash());
+
+        byte[] resumeBytes = resumeManager.loadResumeData(entry.infoHash());
+        if (resumeBytes != null) {
+            try {
+                // Restore via fastresume data
+                com.frostwire.jlibtorrent.swig.error_code ec = new com.frostwire.jlibtorrent.swig.error_code();
+                com.frostwire.jlibtorrent.swig.byte_vector buffer = com.frostwire.jlibtorrent.Vectors.bytes2byte_vector(resumeBytes);
+                com.frostwire.jlibtorrent.swig.add_torrent_params nativeParams = com.frostwire.jlibtorrent.swig.add_torrent_params.read_resume_data(buffer, ec);
+                if (ec.value() != 0) {
+                    throw new IllegalArgumentException("Corrupt resume data: " + ec.message());
+                }
+                AddTorrentParams atp = new AddTorrentParams(nativeParams);
+                atp.savePath(entry.savePath());
+                
+                sessionManager.getJlibtorrentSession().swig().add_torrent(atp.swig(), ec);
+                log.info("Restored torrent {} successfully using fastresume.", entry.name());
+                return;
+            } catch (Exception e) {
+                log.warn("Fastresume file for {} was corrupt or outdated, falling back to full check", entry.name(), e);
+            }
+        }
+
+        // Fallback: If no resume data is available, check if we have the local .torrent file
+        File torrentFile = new File("data/torrents/" + entry.infoHash().toLowerCase() + ".torrent");
+        if (torrentFile.exists()) {
+            try {
+                byte[] torrentBytes = Files.readAllBytes(torrentFile.toPath());
+                com.frostwire.jlibtorrent.TorrentInfo ti = new com.frostwire.jlibtorrent.TorrentInfo(torrentBytes);
+                sessionManager.getJlibtorrentSession().download(ti, new File(entry.savePath()));
+                log.info("Restored torrent {} from local .torrent file backup.", entry.name());
+                return;
+            } catch (IOException e) {
+                log.error("Failed to read backup torrent file for {}", entry.name(), e);
+            }
+        }
+
+        // Last resort fallback: Restore via magnet link if available
+        if (entry.magnetUri() != null && !entry.magnetUri().isBlank()) {
+            AddTorrentParams atp = AddTorrentParams.parseMagnetUri(magnetWithAllTrackers(entry.magnetUri()));
+            atp.savePath(entry.savePath());
+            com.frostwire.jlibtorrent.swig.error_code ec = new com.frostwire.jlibtorrent.swig.error_code();
+            sessionManager.getJlibtorrentSession().swig().add_torrent(atp.swig(), ec);
+            log.info("Restored torrent {} from Magnet link fallback.", entry.name());
+        }
+    }
+
+    /**
+     * Seeds a locally created torrent file and registers it in database.
+     */
+    public void startSeeding(File torrentFile, File sourcePath) throws IOException {
+        byte[] torrentBytes = Files.readAllBytes(torrentFile.toPath());
+        com.frostwire.jlibtorrent.TorrentInfo ti = new com.frostwire.jlibtorrent.TorrentInfo(torrentBytes);
+        String infoHashStr = ti.infoHashV1().toString();
+
+        log.info("Registering newly created torrent for seeding: {} (Hash: {})", ti.name(), infoHashStr);
+
+        // Copy .torrent to backup dir
+        File backupDir = new File("data/torrents");
+        if (!backupDir.exists()) {
+            backupDir.mkdirs();
+        }
+        File backupFile = new File(backupDir, infoHashStr.toLowerCase() + ".torrent");
+        Files.write(backupFile.toPath(), torrentBytes);
+
+        // Build Magnet URI
+        String magnet = MagnetUtils.generateMagnet(infoHashStr, ti.name(), trackerManager.getTrackers());
+
+        // Add to jlibtorrent session
+        sessionManager.getJlibtorrentSession().download(ti, sourcePath.getParentFile());
+
+        // Persist torrent metadata
+        com.vypeensoft.torrentshare.model.TorrentInfo info = new com.vypeensoft.torrentshare.model.TorrentInfo(
+            infoHashStr,
+            ti.name(),
+            magnet,
+            sourcePath.getParentFile().getAbsolutePath(),
+            System.currentTimeMillis(),
+            "Seeding",
+            backupFile.getAbsolutePath()
+        );
+        torrentRepository.save(info);
+    }
+
+    /**
+     * Starts downloading a magnet link.
+     */
+    public void startDownloading(String magnetUri, File savePath) {
+        String infoHashStr = MagnetUtils.extractHash(magnetUri);
+        if (infoHashStr == null) {
+            log.error("Invalid magnet link, cannot start download: {}", magnetUri);
+            return;
+        }
+
+        String completeMagnet = magnetWithAllTrackers(magnetUri);
+        log.info("Adding download task for magnet: {} to path: {}", completeMagnet, savePath.getAbsolutePath());
+
+        // Add to jlibtorrent session
+        AddTorrentParams atp = AddTorrentParams.parseMagnetUri(completeMagnet);
+        atp.savePath(savePath.getAbsolutePath());
+        com.frostwire.jlibtorrent.swig.error_code ec = new com.frostwire.jlibtorrent.swig.error_code();
+        sessionManager.getJlibtorrentSession().swig().add_torrent(atp.swig(), ec);
+
+        // Persist initial state
+        com.vypeensoft.torrentshare.model.TorrentInfo info = new com.vypeensoft.torrentshare.model.TorrentInfo(
+            infoHashStr,
+            "Downloading Metadata...",
+            completeMagnet,
+            savePath.getAbsolutePath(),
+            System.currentTimeMillis(),
+            "Downloading",
+            ""
+        );
+        torrentRepository.save(info);
+    }
+
+    public void pauseTorrent(String infoHash) {
+        TorrentHandle th = sessionManager.getJlibtorrentSession().find(new Sha1Hash(infoHash));
+        if (th != null && th.isValid()) {
+            th.pause();
+            torrentRepository.updateStatus(infoHash, "Paused");
+            // Request fastresume capture
+            th.saveResumeData();
+            log.info("Paused torrent: {}", infoHash);
+        }
+    }
+
+    public void resumeTorrent(String infoHash) {
+        TorrentHandle th = sessionManager.getJlibtorrentSession().find(new Sha1Hash(infoHash));
+        if (th != null && th.isValid()) {
+            th.resume();
+            torrentRepository.updateStatus(infoHash, "Downloading");
+            log.info("Resumed torrent: {}", infoHash);
+        }
+    }
+
+    public void removeTorrent(String infoHash, boolean deleteData) {
+        TorrentHandle th = sessionManager.getJlibtorrentSession().find(new Sha1Hash(infoHash));
+        if (th != null && th.isValid()) {
+            if (deleteData) {
+                sessionManager.getJlibtorrentSession().remove(th, com.frostwire.jlibtorrent.swig.session_handle.delete_files);
+            } else {
+                sessionManager.getJlibtorrentSession().remove(th);
+            }
+            log.info("Removed torrent from jlibtorrent session: {}", infoHash);
+        }
+        torrentRepository.delete(infoHash);
+        resumeManager.deleteResumeData(infoHash);
+
+        // Clean up backup torrent file if exists
+        File backupFile = new File("data/torrents/" + infoHash.toLowerCase() + ".torrent");
+        if (backupFile.exists()) {
+            backupFile.delete();
+        }
+    }
+
+    /**
+     * Dynamic AlertListener to automatically write fastresume when libtorrent fires it.
+     */
+    private void setupAlertListener() {
+        sessionManager.addListener(new AlertListener() {
+            @Override
+            public int[] types() {
+                return new int[] {
+                    AlertType.SAVE_RESUME_DATA.swig(),
+                    AlertType.SAVE_RESUME_DATA_FAILED.swig(),
+                    AlertType.METADATA_RECEIVED.swig()
+                };
+            }
+
+            @Override
+            public void alert(Alert<?> alert) {
+                if (alert.type() == AlertType.SAVE_RESUME_DATA) {
+                    SaveResumeDataAlert rAlert = (SaveResumeDataAlert) alert;
+                    String infoHash = rAlert.handle().infoHash().toString();
+                    try {
+                        AddTorrentParams params = rAlert.params();
+                        byte[] data = AddTorrentParams.writeResumeData(params).bencode();
+                        resumeManager.saveResumeData(infoHash, data);
+
+                        // Save the actual bencoded torrent backup if we just got metadata
+                        saveTorrentBackupIfNeeded(rAlert.handle());
+                    } catch (Exception e) {
+                        log.error("Failed to extract fastresume bytes from alert", e);
+                    }
+                } else if (alert.type() == AlertType.METADATA_RECEIVED) {
+                    MetadataReceivedAlert mAlert = (MetadataReceivedAlert) alert;
+                    TorrentHandle th = mAlert.handle();
+                    log.info("Metadata loaded for magnet torrent: {}. Updating database.", th.name());
+                    
+                    // Update torrent entry name in database
+                    String infoHash = th.infoHash().toString();
+                    com.vypeensoft.torrentshare.model.TorrentInfo existing = torrentRepository.findByHash(infoHash);
+                    if (existing != null) {
+                        com.vypeensoft.torrentshare.model.TorrentInfo updated = new com.vypeensoft.torrentshare.model.TorrentInfo(
+                            existing.infoHash(),
+                            th.name(),
+                            existing.magnetUri(),
+                            existing.savePath(),
+                            existing.addedDate(),
+                            existing.status(),
+                            existing.resumeFile()
+                        );
+                        torrentRepository.save(updated);
+                    }
+                    
+                    // Force initial fastresume generation
+                    th.saveResumeData();
+                }
+            }
+        });
+    }
+
+    private void saveTorrentBackupIfNeeded(TorrentHandle th) {
+        String infoHash = th.infoHash().toString();
+        File backupFile = new File("data/torrents/" + infoHash.toLowerCase() + ".torrent");
+        if (!backupFile.exists() && th.torrentFile() != null) {
+            try {
+                File dir = backupFile.getParentFile();
+                if (!dir.exists()) dir.mkdirs();
+
+                byte[] bencoded = th.torrentFile().bencode();
+                Files.write(backupFile.toPath(), bencoded);
+                torrentRepository.updateResumeFile(infoHash, backupFile.getAbsolutePath());
+                log.info("Created backup .torrent file for: {}", th.name());
+            } catch (Exception e) {
+                log.error("Failed to create backup torrent file for {}", th.name(), e);
+            }
+        }
+    }
+
+    /**
+     * Appends all user custom trackers onto a magnet link.
+     */
+    private String magnetWithAllTrackers(String magnet) {
+        String hash = MagnetUtils.extractHash(magnet);
+        if (hash == null) return magnet;
+        
+        List<String> activeTrackers = trackerManager.getTrackers();
+        return MagnetUtils.generateMagnet(hash, "", activeTrackers);
+    }
+
+    /**
+     * Flushes fastresume files dynamically on clean shutdown.
+     */
+    public void prepareShutdown() {
+        log.info("Preparing for clean shutdown, flushing all fastresume states...");
+        TorrentHandle[] handles = sessionManager.getJlibtorrentSession().getTorrentHandles();
+        if (handles == null || handles.length == 0) {
+            return;
+        }
+
+        CountDownLatch latch = new CountDownLatch(handles.length);
+        
+        // Add one-time listener to count down finished fastresume saves
+        AlertListener shutdownListener = new AlertListener() {
+            @Override
+            public int[] types() {
+                return new int[] {
+                    AlertType.SAVE_RESUME_DATA.swig(),
+                    AlertType.SAVE_RESUME_DATA_FAILED.swig()
+                };
+            }
+
+            @Override
+            public void alert(Alert<?> alert) {
+                latch.countDown();
+            }
+        };
+        sessionManager.addListener(shutdownListener);
+
+        for (TorrentHandle th : handles) {
+            if (th.isValid()) {
+                th.saveResumeData();
+            } else {
+                latch.countDown();
+            }
+        }
+
+        try {
+            // Wait up to 3 seconds for all fastresume parameters to flush
+            if (!latch.await(3, TimeUnit.SECONDS)) {
+                log.warn("Shutdown timeout reached while waiting for fastresume flush.");
+            }
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        } finally {
+            sessionManager.removeListener(shutdownListener);
+        }
+    }
+}
+
+```
+
+</details>
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `view_file`
+**File:** `worker`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Claude Sonnet 4.6 (Thinking)
+</details>
+
+---
+
+### Execution Error
+
+**Status:** Completed
+**Created:** 2 June 2026, 6:32 pm
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `list_dir`
+**Path:** `x:\Projects_X\0_Active\1_Java_Active\Torrent_Share_Java_GITHUB\src\main\java\com\vypeensoft\torrentshare\worker`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Claude Sonnet 4.6 (Thinking)
+</details>
+
+---
+
+<details>
+<summary>Directory: `worker` (2 items)</summary>
+
+**Path:** `x:/Projects_X/0_Active/1_Java_Active/Torrent_Share_Java_GITHUB/src/main/java/com/vypeensoft/torrentshare/worker`
+
+| Name | Type | Size |
+|------|------|------|
+| `StatusRefreshTask.java` | File | 2283 bytes |
+| `TorrentCreationTask.java` | File | 1602 bytes |
+
+</details>
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `view_file`
+**File:** `TorrentCreationTask.java`
+
+**Tool:** `view_file`
+**File:** `SessionManager.java`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Claude Sonnet 4.6 (Thinking)
+</details>
+
+---
+
+<details>
+<summary>File: `Unknown file`</summary>
+
+**Path:** `Unknown file`
+
+```
+package com.vypeensoft.torrentshare.worker;
+
+import com.vypeensoft.torrentshare.service.ShareService;
+import javafx.concurrent.Task;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.File;
+
+/**
+ * Background worker task that executes heavy file scanning and pieces hashing.
+ */
+public class TorrentCreationTask extends Task<File> {
+    private static final Logger log = LoggerFactory.getLogger(TorrentCreationTask.class);
+
+    private final ShareService shareService;
+    private final File sourceFile;
+    private final File targetDir;
+
+    public TorrentCreationTask(ShareService shareService, File sourceFile, File targetDir) {
+        this.shareService = shareService;
+        this.sourceFile = sourceFile;
+        this.targetDir = targetDir;
+        
+        updateTitle("Torrent Creation Task");
+        updateMessage("Initializing...");
+        updateProgress(0, 100);
+    }
+
+    @Override
+    protected File call() throws Exception {
+        log.info("Executing background hashing task for source: {}", sourceFile.getAbsolutePath());
+        updateMessage("Scanning files and calculating SHA-1 hashes...");
+        updateProgress(-1, 100); // Indeterminate progress during deep native calculations
+
+        File torrentFile = shareService.buildTorrentFile(sourceFile, targetDir);
+
+        updateMessage("Seeding registration...");
+        updateProgress(90, 100);
+
+        shareService.seedTorrent(torrentFile, sourceFile);
+
+        updateMessage("Torrent created and seeding started successfully!");
+        updateProgress(100, 100);
+        return torrentFile;
+    }
+}
+
+```
+
+</details>
+
+---
+
+<details>
+<summary>File: `Unknown file`</summary>
+
+**Path:** `Unknown file`
+
+```
+package com.vypeensoft.torrentshare.torrent;
+
+import com.frostwire.jlibtorrent.AlertListener;
+import com.frostwire.jlibtorrent.SessionParams;
+import com.frostwire.jlibtorrent.SettingsPack;
+import com.frostwire.jlibtorrent.alerts.Alert;
+import com.frostwire.jlibtorrent.alerts.AlertType;
+import com.frostwire.jlibtorrent.swig.settings_pack;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * Manages the lifetime and network features of the jlibtorrent Session.
+ */
+public class SessionManager {
+    private static final Logger log = LoggerFactory.getLogger(SessionManager.class);
+    private final com.frostwire.jlibtorrent.SessionManager sm;
+    private boolean running = false;
+
+    public SessionManager() {
+        this.sm = new com.frostwire.jlibtorrent.SessionManager();
+    }
+
+    public synchronized void start(int listeningPort) {
+        if (running) {
+            return;
+        }
+
+        log.info("Starting jlibtorrent SessionManager on port {}...", listeningPort);
+
+        SessionParams params = new SessionParams();
+        SettingsPack settings = params.getSettings();
+
+        settings.setBoolean(settings_pack.bool_types.enable_dht.swigValue(), true);
+        settings.setBoolean(settings_pack.bool_types.enable_lsd.swigValue(), true);
+        settings.setBoolean(settings_pack.bool_types.enable_upnp.swigValue(), true);
+        settings.setBoolean(settings_pack.bool_types.enable_natpmp.swigValue(), true);
+        settings.setString(settings_pack.string_types.listen_interfaces.swigValue(), "0.0.0.0:" + listeningPort);
+
+        // Standard optimization configs
+        settings.activeDownloads(20);
+        settings.activeSeeds(20);
+        settings.setInteger(settings_pack.int_types.active_limit.swigValue(), 40);
+
+        sm.start(params);
+        running = true;
+        log.info("jlibtorrent SessionManager started successfully.");
+    }
+
+    public synchronized void stop() {
+        if (!running) {
+            return;
+        }
+        log.info("Stopping jlibtorrent SessionManager cleanly...");
+        sm.stop();
+        running = false;
+        log.info("jlibtorrent SessionManager stopped.");
+    }
+
+    public com.frostwire.jlibtorrent.SessionManager getJlibtorrentSession() {
+        return sm;
+    }
+
+    public void addListener(AlertListener listener) {
+        sm.addListener(listener);
+    }
+
+    public void removeListener(AlertListener listener) {
+        sm.removeListener(listener);
+    }
+
+    public void setUploadRateLimit(int limitInBytesPerSec) {
+        sm.uploadRateLimit(limitInBytesPerSec);
+        log.debug("Set session upload rate limit to {} B/s", limitInBytesPerSec);
+    }
+
+    public void setDownloadRateLimit(int limitInBytesPerSec) {
+        sm.downloadRateLimit(limitInBytesPerSec);
+        log.debug("Set session download rate limit to {} B/s", limitInBytesPerSec);
+    }
+
+    public void setMaxConnections(int maxConnections) {
+        sm.maxConnections(maxConnections);
+        log.debug("Set session max connections limit to {}", maxConnections);
+    }
+}
+
+```
+
+</details>
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `view_file`
+**File:** `TorrentManager.java`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Claude Sonnet 4.6 (Thinking)
+</details>
+
+---
+
+<details>
+<summary>File: `Unknown file` (L112-144)</summary>
+
+**Path:** `Unknown file`
+
+```
+    public void startSeeding(File torrentFile, File sourcePath) throws IOException {
+        byte[] torrentBytes = Files.readAllBytes(torrentFile.toPath());
+        com.frostwire.jlibtorrent.TorrentInfo ti = new com.frostwire.jlibtorrent.TorrentInfo(torrentBytes);
+        String infoHashStr = ti.infoHashV1().toString();
+
+        log.info("Registering newly created torrent for seeding: {} (Hash: {})", ti.name(), infoHashStr);
+
+        // Copy .torrent to backup dir
+        File backupDir = new File("data/torrents");
+        if (!backupDir.exists()) {
+            backupDir.mkdirs();
+        }
+        File backupFile = new File(backupDir, infoHashStr.toLowerCase() + ".torrent");
+        Files.write(backupFile.toPath(), torrentBytes);
+
+        // Build Magnet URI
+        String magnet = MagnetUtils.generateMagnet(infoHashStr, ti.name(), trackerManager.getTrackers());
+
+        // Add to jlibtorrent session
+        sessionManager.getJlibtorrentSession().download(ti, sourcePath.getParentFile());
+
+        // Persist torrent metadata
+        com.vypeensoft.torrentshare.model.TorrentInfo info = new com.vypeensoft.torrentshare.model.TorrentInfo(
+            infoHashStr,
+            ti.name(),
+            magnet,
+            sourcePath.getParentFile().getAbsolutePath(),
+            System.currentTimeMillis(),
+            "Seeding",
+            backupFile.getAbsolutePath()
+        );
+        torrentRepository.save(info);
+    }
+```
+
+</details>
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `write_to_file`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Claude Sonnet 4.6 (Thinking)
+</details>
+
+---
+
+### Code Edit
+
+**Status:** Completed
+**Created:** 2 June 2026, 6:33 pm
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `grep_search`
+**Query:** `TorrentFlags`
+
+**Tool:** `grep_search`
+**Query:** `seed_mode`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Claude Sonnet 4.6 (Thinking)
+</details>
+
+---
+
+### Local File Search
+
+**Status:** Completed
+**Created:** 2 June 2026, 6:33 pm
+
+---
+
+### Local File Search
+
+**Status:** Completed
+**Created:** 2 June 2026, 6:33 pm
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `grep_search`
+**Query:** `TorrentFlags.SEED`
+
+**Tool:** `grep_search`
+**Query:** `jlibtorrent`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Claude Sonnet 4.6 (Thinking)
+</details>
+
+---
+
+### Local File Search
+
+**Status:** Completed
+**Created:** 2 June 2026, 6:33 pm
+
+---
+
+### Local File Search
+
+**Status:** Completed
+**Created:** 2 June 2026, 6:33 pm
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `view_file`
+**File:** `TorrentMonitor.java`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Claude Sonnet 4.6 (Thinking)
+</details>
+
+---
+
+<details>
+<summary>File: `Unknown file`</summary>
+
+**Path:** `Unknown file`
+
+```
+package com.vypeensoft.torrentshare.torrent;
+
+import com.frostwire.jlibtorrent.Sha1Hash;
+import com.frostwire.jlibtorrent.TorrentHandle;
+import com.vypeensoft.torrentshare.model.TorrentStatus;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Periodically polls status metrics from the active jlibtorrent session.
+ */
+public class TorrentMonitor {
+    private static final Logger log = LoggerFactory.getLogger(TorrentMonitor.class);
+    private final SessionManager sessionManager;
+
+    public TorrentMonitor(SessionManager sessionManager) {
+        this.sessionManager = sessionManager;
+    }
+
+    public SessionManager getSessionManager() {
+        return sessionManager;
+    }
+
+
+    /**
+     * Obtains the live list of all torrent statuses in the session.
+     */
+    public List<TorrentStatus> getActiveStatuses() {
+        List<TorrentStatus> statuses = new ArrayList<>();
+        TorrentHandle[] handles = sessionManager.getJlibtorrentSession().getTorrentHandles();
+
+        if (handles == null) {
+            return statuses;
+        }
+
+        for (TorrentHandle th : handles) {
+            if (!th.isValid()) {
+                continue;
+            }
+
+            try {
+                com.frostwire.jlibtorrent.TorrentStatus ts = th.status();
+                String infoHash = ts.infoHash().toString();
+                String name = th.name();
+                if (name == null || name.isBlank()) {
+                    name = "Fetching metadata...";
+                }
+
+                long size = ts.totalWanted();
+                if (size == 0 && th.torrentFile() != null) {
+                    size = th.torrentFile().totalSize();
+                }
+
+                double progress = ts.progress();
+                
+                // Determine user-friendly state
+                String stateStr = mapState(ts);
+
+                long downloadSpeed = ts.downloadRate();
+                long uploadSpeed = ts.uploadRate();
+                int peers = ts.numPeers();
+                int seeds = ts.numSeeds();
+
+                long downloaded = ts.totalDone();
+                long uploaded = ts.allTimeUpload();
+                double ratio = downloaded > 0 ? (double) uploaded / downloaded : 0.0;
+
+                long eta = -1;
+                long remaining = size - downloaded;
+                if (downloadSpeed > 0 && remaining > 0) {
+                    eta = remaining / downloadSpeed;
+                }
+
+                statuses.add(new TorrentStatus(
+                    infoHash,
+                    name,
+                    size,
+                    progress,
+                    stateStr,
+                    downloadSpeed,
+                    uploadSpeed,
+                    peers,
+                    seeds,
+                    eta,
+                    downloaded,
+                    uploaded,
+                    ratio
+                ));
+            } catch (Exception e) {
+                log.error("Error building status for torrent handle", e);
+            }
+        }
+
+        return statuses;
+    }
+
+    private String mapState(com.frostwire.jlibtorrent.TorrentStatus ts) {
+        if (ts.flags().and_(com.frostwire.jlibtorrent.TorrentFlags.PAUSED).non_zero()) {
+            return "Paused";
+        }
+
+        com.frostwire.jlibtorrent.TorrentStatus.State state = ts.state();
+        if (state == null) {
+            return "Unknown";
+        }
+
+        if (state == com.frostwire.jlibtorrent.TorrentStatus.State.CHECKING_FILES) {
+            return "Checking";
+        } else if (state == com.frostwire.jlibtorrent.TorrentStatus.State.DOWNLOADING_METADATA) {
+            return "Metadata";
+        } else if (state == com.frostwire.jlibtorrent.TorrentStatus.State.DOWNLOADING) {
+            return "Downloading";
+        } else if (state == com.frostwire.jlibtorrent.TorrentStatus.State.FINISHED) {
+            return "Finished";
+        } else if (state == com.frostwire.jlibtorrent.TorrentStatus.State.SEEDING) {
+            return "Seeding";
+        } else if (state == com.frostwire.jlibtorrent.TorrentStatus.State.CHECKING_RESUME_DATA) {
+            return "Checking Resume";
+        } else {
+            return "Queued";
+        }
+    }
+}
+
+```
+
+</details>
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `multi_replace_file_content`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Claude Sonnet 4.6 (Thinking)
+</details>
+
+---
+
+### Code Edit
+
+**Status:** Completed
+**Created:** 2 June 2026, 6:34 pm
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `search_web`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Claude Sonnet 4.6 (Thinking)
+</details>
+
+---
+
+### Web Research
+
+**Status:** Completed
+**Created:** 2 June 2026, 6:34 pm
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `multi_replace_file_content`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Claude Sonnet 4.6 (Thinking)
+</details>
+
+---
+
+### Code Edit
+
+**Status:** Completed
+**Created:** 2 June 2026, 6:34 pm
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `write_to_file`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Claude Sonnet 4.6 (Thinking)
+</details>
+
+---
+
+### Code Edit
+
+**Status:** Completed
+**Created:** 2 June 2026, 6:35 pm
+
+---
+
+## Agent Response
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Claude Sonnet 4.6 (Thinking)
+</details>
+
+---
+
+## User Request
+
+on "Active Downloads" tab, when a row is selected , it is getting unselected immediately. fix it
+
+<details>
+<summary>Context</summary>
+
+**Active File:** `20260602.183156_fix_file_serving_plan.md`
+**Language:** markdown
+</details>
+
+---
+
+## Agent Response
+
+### Thinking
+
+The user says that when a row is selected in the "Active Downloads" tab, it gets unselected immediately. This is a classic JavaFX TableView issue where a periodic refresh (using a timeline or scheduled task) replaces the items list completely, which causes the selection to be lost.
+
+Let me look at the Downloads/Active Downloads tab UI code and the StatusRefreshTask.
+
+### Actions
+
+**Tool:** `list_dir`
+**Path:** `x:\Projects_X\0_Active\1_Java_Active\Torrent_Share_Java_GITHUB\src\main\java\com\vypeensoft\torrentshare\ui`
+
+<details>
+<summary>Metadata</summary>
+
+- **Thinking Duration:** 2.033068300s
+- **Model:** Claude Sonnet 4.6 (Thinking)
+</details>
+
+---
+
+<details>
+<summary>Directory: `ui` (6 items)</summary>
+
+**Path:** `x:/Projects_X/0_Active/1_Java_Active/Torrent_Share_Java_GITHUB/src/main/java/com/vypeensoft/torrentshare/ui`
+
+| Name | Type | Size |
+|------|------|------|
+| `AddMagnetDialog.java` | File | 5139 bytes |
+| `DownloadsTab.java` | File | 11973 bytes |
+| `MainWindow.java` | File | 4655 bytes |
+| `SettingsTab.java` | File | 10494 bytes |
+| `ShareTab.java` | File | 18066 bytes |
+| `TorrentDetailsDialog.java` | File | 9394 bytes |
+
+</details>
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `view_file`
+**File:** `DownloadsTab.java`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Claude Sonnet 4.6 (Thinking)
+</details>
+
+---
+
+<details>
+<summary>File: `Unknown file`</summary>
+
+**Path:** `Unknown file`
+
+```
+package com.vypeensoft.torrentshare.ui;
+
+import com.vypeensoft.torrentshare.model.TorrentStatus;
+import com.vypeensoft.torrentshare.service.DownloadService;
+import com.vypeensoft.torrentshare.service.SettingsService;
+import com.vypeensoft.torrentshare.torrent.TorrentMonitor;
+import com.vypeensoft.torrentshare.torrent.TrackerManager;
+import com.vypeensoft.torrentshare.util.FileUtils;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.stage.Stage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+import java.util.Optional;
+
+/**
+ * Handles presentation and context commands for torrent downloads in progress.
+ */
+public class DownloadsTab {
+    private static final Logger log = LoggerFactory.getLogger(DownloadsTab.class);
+
+    private final DownloadService downloadService;
+    private final SettingsService settingsService;
+    private final TrackerManager trackerManager;
+    private final TorrentMonitor torrentMonitor;
+
+    private VBox root;
+    private TableView<TorrentStatus> tableView;
+
+    public DownloadsTab(DownloadService downloadService, SettingsService settingsService,
+                        TrackerManager trackerManager, TorrentMonitor torrentMonitor) {
+        this.downloadService = downloadService;
+        this.settingsService = settingsService;
+        this.trackerManager = trackerManager;
+        this.torrentMonitor = torrentMonitor;
+        buildUI();
+    }
+
+    public VBox getContent() {
+        return root;
+    }
+
+    private void buildUI() {
+        root = new VBox(20);
+        root.setPadding(new Insets(25));
+        root.setStyle("-fx-background-color: transparent;");
+
+        // Top Toolbar
+        HBox toolbar = new HBox(15);
+        toolbar.setAlignment(Pos.CENTER_LEFT);
+
+        Label tabTitle = new Label("Transmission Overview");
+        tabTitle.setFont(Font.font("Outfit", FontWeight.BOLD, 18));
+
+        // Flexible spacing
+        VBox.setVgrow(root, Priority.ALWAYS);
+        HBox spacer = new HBox();
+        HBox.setHgrow(spacer, Priority.ALWAYS);
+
+        Button addMagnetBtn = new Button("+ Add Magnet Link");
+        addMagnetBtn.getStyleClass().add("button-primary");
+        addMagnetBtn.setStyle("-fx-padding: 8 16;");
+        addMagnetBtn.setOnAction(e -> openAddMagnetDialog());
+
+        toolbar.getChildren().addAll(tabTitle, spacer, addMagnetBtn);
+
+        // Core TableView Setup
+        tableView = new TableView<>();
+        tableView.setPlaceholder(new Label("No active torrent downloads. Add a magnet link to start!"));
+
+        TableColumn<TorrentStatus, String> nameCol = new TableColumn<>("Name");
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        nameCol.setMinWidth(250);
+
+        TableColumn<TorrentStatus, Double> progressCol = new TableColumn<>("Progress");
+        progressCol.setCellValueFactory(new PropertyValueFactory<>("progress"));
+        progressCol.setMinWidth(200);
+        progressCol.setCellFactory(col -> new TableCell<>() {
+            private final ProgressBar bar = new ProgressBar();
+            @Override
+            protected void updateItem(Double item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setGraphic(null);
+                    setText(null);
+                } else {
+                    bar.setProgress(item);
+                    bar.setPrefWidth(100);
+                    setGraphic(bar);
+                    setText(String.format(" %.1f%%", item * 100));
+                    setContentDisplay(ContentDisplay.RIGHT);
+                }
+            }
+        });
+
+        TableColumn<TorrentStatus, String> stateCol = new TableColumn<>("State");
+        stateCol.setCellValueFactory(new PropertyValueFactory<>("state"));
+        stateCol.setPrefWidth(100);
+
+        TableColumn<TorrentStatus, String> dlCol = new TableColumn<>("DL Speed");
+        dlCol.setCellValueFactory(cellData -> new SimpleStringProperty(FileUtils.formatSpeed(cellData.getValue().getDownloadSpeed())));
+        dlCol.setPrefWidth(110);
+
+        TableColumn<TorrentStatus, String> ulCol = new TableColumn<>("UL Speed");
+        ulCol.setCellValueFactory(cellData -> new SimpleStringProperty(FileUtils.formatSpeed(cellData.getValue().getUploadSpeed())));
+        ulCol.setPrefWidth(110);
+
+        TableColumn<TorrentStatus, Integer> peerCol = new TableColumn<>("Peers");
+        peerCol.setCellValueFactory(new PropertyValueFactory<>("peers"));
+        peerCol.setPrefWidth(70);
+
+        TableColumn<TorrentStatus, Integer> seedCol = new TableColumn<>("Seeds");
+        seedCol.setCellValueFactory(new PropertyValueFactory<>("seeds"));
+        seedCol.setPrefWidth(70);
+
+        TableColumn<TorrentStatus, String> sizeCol = new TableColumn<>("Size");
+        sizeCol.setCellValueFactory(cellData -> new SimpleStringProperty(FileUtils.formatSize(cellData.getValue().getSize())));
+        sizeCol.setPrefWidth(100);
+
+        TableColumn<TorrentStatus, String> etaCol = new TableColumn<>("ETA");
+        etaCol.setCellValueFactory(cellData -> new SimpleStringProperty(formatETA(cellData.getValue().getEta())));
+        etaCol.setPrefWidth(100);
+
+        tableView.getColumns().addAll(nameCol, progressCol, stateCol, dlCol, ulCol, peerCol, seedCol, sizeCol, etaCol);
+
+        // Bind Context Menu actions
+        setupContextMenu();
+
+        // Bind double click to details dialog
+        setupDoubleClickHandler();
+
+        root.getChildren().addAll(toolbar, tableView);
+    }
+
+    private void setupContextMenu() {
+        ContextMenu menu = new ContextMenu();
+
+        MenuItem pauseItem = new MenuItem("Pause Transmission");
+        pauseItem.setOnAction(e -> handlePause());
+
+        MenuItem resumeItem = new MenuItem("Resume Transmission");
+        resumeItem.setOnAction(e -> handleResume());
+
+        MenuItem removeItem = new MenuItem("Remove Torrent...");
+        removeItem.setOnAction(e -> handleRemove());
+
+        MenuItem openFolderItem = new MenuItem("Open Save Folder");
+        openFolderItem.setOnAction(e -> handleOpenFolder());
+
+        MenuItem viewDetailsItem = new MenuItem("View Transfer Details");
+        viewDetailsItem.setOnAction(e -> handleViewDetails());
+
+        menu.getItems().addAll(pauseItem, resumeItem, new SeparatorMenuItem(), openFolderItem, viewDetailsItem, new SeparatorMenuItem(), removeItem);
+
+        tableView.setContextMenu(menu);
+    }
+
+    private void setupDoubleClickHandler() {
+        tableView.setRowFactory(tv -> {
+            TableRow<TorrentStatus> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
+                    TorrentStatus item = row.getItem();
+                    showDetailsDialog(item.getInfoHash());
+                }
+            });
+            return row;
+        });
+    }
+
+    public void updateActiveDownloads(List<TorrentStatus> statuses) {
+        tableView.getItems().setAll(statuses);
+    }
+
+    private void openAddMagnetDialog() {
+        Stage stage = (Stage) root.getScene().getWindow();
+        String defDir = settingsService.getSettings().downloadDir();
+        AddMagnetDialog dialog = new AddMagnetDialog(stage, downloadService, defDir, () -> {
+            log.info("Magnet link download launched from dialog.");
+        });
+        dialog.showAndWait();
+    }
+
+    private void handlePause() {
+        TorrentStatus selected = tableView.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            downloadService.pause(selected.getInfoHash());
+        }
+    }
+
+    private void handleResume() {
+        TorrentStatus selected = tableView.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            downloadService.resume(selected.getInfoHash());
+        }
+    }
+
+    private void handleRemove() {
+        TorrentStatus selected = tableView.getSelectionModel().getSelectedItem();
+        if (selected == null) return;
+
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+        confirm.setTitle("Confirm Deletion");
+        confirm.setHeaderText("Remove " + selected.getName() + "?");
+        confirm.setContentText("Do you want to completely erase the downloaded files from disk as well?");
+
+        ButtonType btnKeep = new ButtonType("Remove Only (Keep Files)");
+        ButtonType btnDelete = new ButtonType("Remove & Erase Data Files");
+        ButtonType btnCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+        confirm.getButtonTypes().setAll(btnKeep, btnDelete, btnCancel);
+
+        Optional<ButtonType> result = confirm.showAndWait();
+        if (result.isPresent() && result.get() != btnCancel) {
+            boolean deleteFiles = (result.get() == btnDelete);
+            downloadService.remove(selected.getInfoHash(), deleteFiles);
+            log.info("Deleted torrent: {} (Delete files: {})", selected.getName(), deleteFiles);
+        }
+    }
+
+    private void handleOpenFolder() {
+        TorrentStatus selected = tableView.getSelectionModel().getSelectedItem();
+        if (selected == null) return;
+
+        // Fetch save path details from active handle
+        var th = torrentMonitor.getActiveStatuses().stream()
+            .filter(s -> s.getInfoHash().equals(selected.getInfoHash()))
+            .findFirst();
+
+        if (th.isPresent()) {
+            // Find download folder in filesystem
+            var ts = torrentMonitor.getActiveStatuses().stream().findFirst();
+            // In our system, active seeding/download directories are loaded via TorrentManager.
+            // Let's obtain the active save path of the torrent. Since we store this in the TorrentInfo SQLite database,
+            // we can retrieve it directly by looking up the torrent details or asking TorrentManager.
+            // For simplicity and resilience, we check the directory using Java's Desktop.
+            File dir = new File(settingsService.getSettings().downloadDir());
+            if (dir.exists() && Desktop.isDesktopSupported()) {
+                try {
+                    Desktop.getDesktop().open(dir);
+                    log.info("Opened folder in Explorer: {}", dir.getAbsolutePath());
+                } catch (IOException e) {
+                    log.error("Failed to open folder", e);
+                }
+            }
+        }
+    }
+
+    private void handleViewDetails() {
+        TorrentStatus selected = tableView.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            showDetailsDialog(selected.getInfoHash());
+        }
+    }
+
+    private void showDetailsDialog(String infoHash) {
+        Stage stage = (Stage) root.getScene().getWindow();
+        TorrentDetailsDialog dialog = new TorrentDetailsDialog(
+            stage,
+            infoHash,
+            torrentMonitor.getSessionManager(),
+            trackerManager
+        );
+        dialog.showAndWait();
+    }
+
+    private String formatETA(long seconds) {
+        if (seconds < 0) return "---";
+        if (seconds == 0) return "Done";
+        long d = seconds / 86400;
+        long h = (seconds % 86400) / 3600;
+        long m = (seconds % 3600) / 60;
+        long s = seconds % 60;
+        if (d > 0) return String.format("%dd %dh", d, h);
+        if (h > 0) return String.format("%dh %dm", h, m);
+        if (m > 0) return String.format("%dm %ds", m, s);
+        return String.format("%ds", s);
+    }
+}
+
+```
+
+</details>
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `grep_search`
+**Query:** `updateActiveDownloads`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Claude Sonnet 4.6 (Thinking)
+</details>
+
+---
+
+### Local File Search
+
+**Status:** Completed
+**Created:** 2 June 2026, 6:44 pm
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `view_file`
+**File:** `MainWindow.java`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Claude Sonnet 4.6 (Thinking)
+</details>
+
+---
+
+<details>
+<summary>File: `Unknown file`</summary>
+
+**Path:** `Unknown file`
+
+```
+package com.vypeensoft.torrentshare.ui;
+
+import com.vypeensoft.torrentshare.service.DownloadService;
+import com.vypeensoft.torrentshare.service.ShareService;
+import com.vypeensoft.torrentshare.service.SettingsService;
+import com.vypeensoft.torrentshare.torrent.TorrentMonitor;
+import com.vypeensoft.torrentshare.torrent.TrackerManager;
+import com.vypeensoft.torrentshare.worker.StatusRefreshTask;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.geometry.Rectangle2D;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * Main application window for TorrentShare.
+ */
+public class MainWindow {
+    private static final Logger log = LoggerFactory.getLogger(MainWindow.class);
+
+    private final ShareService shareService;
+    private final DownloadService downloadService;
+    private final SettingsService settingsService;
+    private final TrackerManager trackerManager;
+    private final TorrentMonitor torrentMonitor;
+
+    private ShareTab shareTab;
+    private DownloadsTab downloadsTab;
+    private SettingsTab settingsTab;
+    private StatusRefreshTask refreshTask;
+
+    public MainWindow(ShareService shareService, DownloadService downloadService,
+                      SettingsService settingsService, TrackerManager trackerManager,
+                      TorrentMonitor torrentMonitor) {
+        this.shareService = shareService;
+        this.downloadService = downloadService;
+        this.settingsService = settingsService;
+        this.trackerManager = trackerManager;
+        this.torrentMonitor = torrentMonitor;
+    }
+
+    /**
+     * Initializes the stage and mounts the subtab components.
+     */
+    public void start(Stage stage) {
+        stage.setTitle("TorrentShare");
+
+        BorderPane root = new BorderPane();
+
+        // Header Panel with brand title
+        HBox header = buildHeader();
+        root.setTop(header);
+
+        // Core Tabs
+        TabPane tabPane = new TabPane();
+        tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
+
+        shareTab = new ShareTab(shareService, settingsService);
+        downloadsTab = new DownloadsTab(downloadService, settingsService, trackerManager, torrentMonitor);
+        settingsTab = new SettingsTab(settingsService, trackerManager);
+
+        Tab tab1 = new Tab("Share Files", shareTab.getContent());
+        Tab tab2 = new Tab("Active Downloads", downloadsTab.getContent());
+        Tab tab3 = new Tab("Settings Panel", settingsTab.getContent());
+
+        tabPane.getTabs().addAll(tab1, tab2, tab3);
+        root.setCenter(tabPane);
+
+        // Dynamically compute starting window size to exactly 75% of primary screen bounds
+        Rectangle2D visualBounds = Screen.getPrimary().getVisualBounds();
+        double defaultWidth = visualBounds.getWidth() * 0.80;
+        double defaultHeight = visualBounds.getHeight() * 0.80;
+
+        Scene scene = new Scene(root, defaultWidth, defaultHeight);
+        stage.setScene(scene);
+        stage.show();
+
+        // Start real-time speeds and progress updates daemon polling
+        log.info("Starting background refresh loop...");
+        refreshTask = new StatusRefreshTask(torrentMonitor, activeStats -> {
+            downloadsTab.updateActiveDownloads(activeStats);
+        });
+        refreshTask.start();
+    }
+
+    private HBox buildHeader() {
+        HBox container = new HBox();
+        container.setPadding(new Insets(20, 30, 15, 30));
+        container.setAlignment(Pos.CENTER_LEFT);
+        container.setStyle("-fx-background-color: -fx-control-inner-background; -fx-border-color: -fx-box-border; -fx-border-width: 0 0 1 0;");
+
+        VBox titleBox = new VBox(2);
+        
+        Label title = new Label("TorrentShare");
+        title.setFont(Font.font("Outfit", FontWeight.BOLD, 26));
+
+        Label subtitle = new Label("Secure Native P2P Desktop File Seeding & Resuming");
+        subtitle.setFont(Font.font("Inter", 12));
+
+        titleBox.getChildren().addAll(title, subtitle);
+        container.getChildren().add(titleBox);
+        return container;
+    }
+
+    /**
+     * Terminate the UI polling background scheduler threads cleanly on stop.
+     */
+    public void shutdownMonitor() {
+        if (refreshTask != null) {
+            refreshTask.stop();
+        }
+    }
+}
+
+```
+
+</details>
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `view_file`
+**File:** `StatusRefreshTask.java`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Claude Sonnet 4.6 (Thinking)
+</details>
+
+---
+
+<details>
+<summary>File: `Unknown file`</summary>
+
+**Path:** `Unknown file`
+
+```
+package com.vypeensoft.torrentshare.worker;
+
+import com.vypeensoft.torrentshare.model.TorrentStatus;
+import com.vypeensoft.torrentshare.torrent.TorrentMonitor;
+import javafx.application.Platform;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
+
+/**
+ * Periodically polls active transfer speeds and progress metrics, posting updates to JavaFX.
+ */
+public class StatusRefreshTask {
+    private static final Logger log = LoggerFactory.getLogger(StatusRefreshTask.class);
+
+    private final TorrentMonitor monitor;
+    private final Consumer<List<TorrentStatus>> callback;
+    private ScheduledExecutorService scheduler;
+
+    public StatusRefreshTask(TorrentMonitor monitor, Consumer<List<TorrentStatus>> callback) {
+        this.monitor = monitor;
+        this.callback = callback;
+    }
+
+    /**
+     * Spawns a scheduled background daemon thread execution loop at 1-second intervals.
+     */
+    public synchronized void start() {
+        if (scheduler != null && !scheduler.isShutdown()) {
+            return;
+        }
+
+        scheduler = Executors.newSingleThreadScheduledExecutor(runnable -> {
+            Thread thread = new Thread(runnable, "torrent-status-refresh-worker");
+            thread.setDaemon(true);
+            return thread;
+        });
+
+        scheduler.scheduleAtFixedRate(this::pollAndDispatch, 0, 1, TimeUnit.SECONDS);
+        log.info("Status monitoring refresh thread scheduler started.");
+    }
+
+    /**
+     * Shuts down the scheduled polling threads loop.
+     */
+    public synchronized void stop() {
+        if (scheduler != null) {
+            scheduler.shutdown();
+            scheduler = null;
+            log.info("Status monitoring refresh thread scheduler stopped.");
+        }
+    }
+
+    private void pollAndDispatch() {
+        try {
+            List<TorrentStatus> statuses = monitor.getActiveStatuses();
+            // Dispatch back onto JavaFX UI thread safely
+            Platform.runLater(() -> callback.accept(statuses));
+        } catch (Exception e) {
+            log.error("Fatal error during status poll cycle", e);
+        }
+    }
+}
+
+```
+
+</details>
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `write_to_file`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Claude Sonnet 4.6 (Thinking)
+</details>
+
+---
+
+### Code Edit
+
+**Status:** Completed
+**Created:** 2 June 2026, 6:45 pm
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `multi_replace_file_content`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Claude Sonnet 4.6 (Thinking)
+</details>
+
+---
+
+### Code Edit
+
+**Status:** Completed
+**Created:** 2 June 2026, 6:45 pm
 
 ---
 

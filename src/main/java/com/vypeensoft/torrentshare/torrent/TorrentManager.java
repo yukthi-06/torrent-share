@@ -3,6 +3,7 @@ package com.vypeensoft.torrentshare.torrent;
 import com.frostwire.jlibtorrent.AddTorrentParams;
 import com.frostwire.jlibtorrent.AlertListener;
 import com.frostwire.jlibtorrent.Sha1Hash;
+import com.frostwire.jlibtorrent.TorrentFlags;
 import com.frostwire.jlibtorrent.TorrentHandle;
 import com.frostwire.jlibtorrent.alerts.Alert;
 import com.frostwire.jlibtorrent.alerts.AlertType;
@@ -128,15 +129,31 @@ public class TorrentManager {
         // Build Magnet URI
         String magnet = MagnetUtils.generateMagnet(infoHashStr, ti.name(), trackerManager.getTrackers());
 
-        // Add to jlibtorrent session
-        sessionManager.getJlibtorrentSession().download(ti, sourcePath.getParentFile());
+        // The save path for libtorrent is the directory that CONTAINS the torrent's root
+        // (i.e. the parent of a dropped file, or the parent of a dropped folder).
+        File savePath = sourcePath.getParentFile();
+
+        // Add to jlibtorrent session in SEED_MODE — data already exists locally.
+        // SEED_MODE tells libtorrent to skip re-downloading/re-checking and start seeding immediately.
+        AddTorrentParams atp = new AddTorrentParams();
+        atp.torrentInfo(ti);
+        atp.savePath(savePath.getAbsolutePath());
+        atp.flags(TorrentFlags.SEED_MODE);
+
+        com.frostwire.jlibtorrent.swig.error_code ec = new com.frostwire.jlibtorrent.swig.error_code();
+        sessionManager.getJlibtorrentSession().swig().add_torrent(atp.swig(), ec);
+        if (ec.value() != 0) {
+            log.error("Failed to add seeding torrent to session: {}", ec.message());
+            throw new IOException("libtorrent error adding seed: " + ec.message());
+        }
+        log.info("Torrent '{}' added to session in seed mode at: {}", ti.name(), savePath.getAbsolutePath());
 
         // Persist torrent metadata
         com.vypeensoft.torrentshare.model.TorrentInfo info = new com.vypeensoft.torrentshare.model.TorrentInfo(
             infoHashStr,
             ti.name(),
             magnet,
-            sourcePath.getParentFile().getAbsolutePath(),
+            savePath.getAbsolutePath(),
             System.currentTimeMillis(),
             "Seeding",
             backupFile.getAbsolutePath()

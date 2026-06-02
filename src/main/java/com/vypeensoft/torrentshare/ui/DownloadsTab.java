@@ -26,7 +26,9 @@ import org.slf4j.LoggerFactory;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -184,8 +186,47 @@ public class DownloadsTab {
         });
     }
 
+    /**
+     * Updates the table with fresh status data while preserving the current row selection.
+     * Using setAll() would clear the selection model on every 1-second refresh tick.
+     * Instead, we do a smart in-place merge: update existing rows, remove stale ones, append new ones.
+     */
     public void updateActiveDownloads(List<TorrentStatus> statuses) {
-        tableView.getItems().setAll(statuses);
+        // 1. Remember which row was selected (by infoHash, which is stable)
+        TorrentStatus selected = tableView.getSelectionModel().getSelectedItem();
+        String selectedHash = (selected != null) ? selected.getInfoHash() : null;
+
+        // 2. Build a lookup map of the incoming statuses
+        Map<String, TorrentStatus> incoming = new HashMap<>();
+        for (TorrentStatus s : statuses) {
+            incoming.put(s.getInfoHash(), s);
+        }
+
+        // 3. Update existing rows in-place and remove stale ones (iterate backwards to allow safe removal)
+        List<TorrentStatus> items = tableView.getItems();
+        for (int i = items.size() - 1; i >= 0; i--) {
+            String hash = items.get(i).getInfoHash();
+            if (incoming.containsKey(hash)) {
+                // Replace the object in-place so cells refresh, but the row index stays the same
+                items.set(i, incoming.get(hash));
+                incoming.remove(hash); // Mark as handled
+            } else {
+                items.remove(i); // Torrent is gone
+            }
+        }
+
+        // 4. Append any new torrents that weren't already in the list
+        items.addAll(incoming.values());
+
+        // 5. Restore the selection if the previously selected torrent is still present
+        if (selectedHash != null) {
+            for (int i = 0; i < items.size(); i++) {
+                if (selectedHash.equals(items.get(i).getInfoHash())) {
+                    tableView.getSelectionModel().select(i);
+                    break;
+                }
+            }
+        }
     }
 
     private void openAddMagnetDialog() {
