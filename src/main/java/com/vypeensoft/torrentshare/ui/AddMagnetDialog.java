@@ -49,11 +49,10 @@ public class AddMagnetDialog extends Stage {
     private void buildUI() {
         VBox root = new VBox(20);
         root.setPadding(new Insets(24));
-        root.setStyle("-fx-background-color: #0f0f13; -fx-pref-width: 550px;");
+        root.setStyle("-fx-pref-width: 550px;");
 
         Label headerTitle = new Label("Add New Magnet Download");
         headerTitle.setFont(Font.font("Outfit", FontWeight.BOLD, 18));
-        headerTitle.setTextFill(Color.WHITE);
 
         GridPane grid = new GridPane();
         grid.setHgap(15);
@@ -61,7 +60,6 @@ public class AddMagnetDialog extends Stage {
         grid.setAlignment(Pos.CENTER_LEFT);
 
         Label magnetLabel = new Label("Magnet Link URI:");
-        magnetLabel.setTextFill(Color.web("#9ca3af"));
         magnetLabel.setFont(Font.font("Inter", FontWeight.BOLD, 12));
         grid.add(magnetLabel, 0, 0);
 
@@ -71,7 +69,6 @@ public class AddMagnetDialog extends Stage {
         grid.add(magnetField, 1, 0);
 
         Label pathLabel = new Label("Save Directory:");
-        pathLabel.setTextFill(Color.web("#9ca3af"));
         pathLabel.setFont(Font.font("Inter", FontWeight.BOLD, 12));
         grid.add(pathLabel, 0, 1);
 
@@ -108,7 +105,6 @@ public class AddMagnetDialog extends Stage {
         root.getChildren().addAll(headerTitle, grid, errorLabel, buttons);
 
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("/index.css").toExternalForm());
         setScene(scene);
     }
 

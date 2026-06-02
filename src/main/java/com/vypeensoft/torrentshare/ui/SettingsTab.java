@@ -69,7 +69,6 @@ public class SettingsTab {
 
         Label genTitle = new Label("Bandwidth & Paths Settings");
         genTitle.setFont(Font.font("Outfit", FontWeight.BOLD, 18));
-        genTitle.setTextFill(Color.WHITE);
 
         GridPane grid = new GridPane();
         grid.setHgap(20);
@@ -98,7 +97,6 @@ public class SettingsTab {
 
         Label trackTitle = new Label("BitTorrent Trackers Manager");
         trackTitle.setFont(Font.font("Outfit", FontWeight.BOLD, 18));
-        trackTitle.setTextFill(Color.WHITE);
 
         trackersList = new ListView<>();
         trackersList.setPrefHeight(150);
@@ -142,7 +140,6 @@ public class SettingsTab {
     private void createBrowseRow(GridPane grid, String title, TextField tf, int row) {
         Label lbl = new Label(title);
         lbl.setFont(Font.font("Inter", FontWeight.BOLD, 12));
-        lbl.setTextFill(Color.web("#9ca3af"));
         grid.add(lbl, 0, row);
 
         HBox box = new HBox(8);
@@ -158,14 +155,12 @@ public class SettingsTab {
     private void createInputRow(GridPane grid, String title, TextField tf, int row, String tooltip) {
         Label lbl = new Label(title);
         lbl.setFont(Font.font("Inter", FontWeight.BOLD, 12));
-        lbl.setTextFill(Color.web("#9ca3af"));
         grid.add(lbl, 0, row);
 
         HBox box = new HBox(12);
         tf.setPrefWidth(200);
         Label hint = new Label(tooltip);
         hint.setFont(Font.font("Inter", 11));
-        hint.setTextFill(Color.web("#6b7280"));
         hint.setAlignment(Pos.CENTER_LEFT);
         box.getChildren().addAll(tf, hint);
         grid.add(box, 1, row);

@@ -52,7 +52,7 @@ public class TorrentDetailsDialog extends Stage {
     private void buildUI() {
         root = new VBox(20);
         root.setPadding(new Insets(20));
-        root.setStyle("-fx-background-color: #0f0f13; -fx-pref-width: 650px; -fx-pref-height: 550px;");
+        root.setStyle("-fx-pref-width: 650px; -fx-pref-height: 550px;");
 
         // Load active native handle
         TorrentHandle th = sessionManager.getJlibtorrentSession().find(new Sha1Hash(infoHash));
@@ -89,7 +89,6 @@ public class TorrentDetailsDialog extends Stage {
         root.getChildren().addAll(tabPane, closeBtn);
 
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("/index.css").toExternalForm());
         setScene(scene);
     }
 
@@ -139,7 +138,6 @@ public class TorrentDetailsDialog extends Stage {
         // Show trackers list
         Label trackerLbl = new Label("Active Trackers Announce URIs:");
         trackerLbl.setFont(Font.font("Inter", FontWeight.BOLD, 12));
-        trackerLbl.setTextFill(Color.web("#9ca3af"));
 
         ListView<String> trackersList = new ListView<>();
         trackersList.setPrefHeight(180);
@@ -185,7 +183,6 @@ public class TorrentDetailsDialog extends Stage {
         if (ti == null) {
             Label loading = new Label("Metadata is still downloading from network peers...\nFiles tree will be available shortly.");
             loading.setFont(Font.font("Inter", 13));
-            loading.setTextFill(Color.web("#9ca3af"));
             box.getChildren().add(loading);
         } else {
             FileStorage fs = ti.files();
@@ -242,12 +239,10 @@ public class TorrentDetailsDialog extends Stage {
     private void createMetaRow(GridPane grid, String key, String value, int row) {
         Label keyLbl = new Label(key);
         keyLbl.setFont(Font.font("Inter", FontWeight.BOLD, 13));
-        keyLbl.setTextFill(Color.web("#9ca3af"));
         grid.add(keyLbl, 0, row);
 
         Label valLbl = new Label(value);
         valLbl.setFont(Font.font("Inter", 13));
-        valLbl.setTextFill(Color.WHITE);
         grid.add(valLbl, 1, row);
     }
 }

@@ -99,15 +99,12 @@ public class ShareTab {
         
         Label dropIcon = new Label("📥");
         dropIcon.setFont(Font.font(36));
-        dropIcon.setTextFill(Color.web("#9ca3af"));
 
         Label dropText = new Label("Drag & Drop File or Folder Here to Share");
         dropText.setFont(Font.font("Outfit", FontWeight.BOLD, 18));
-        dropText.setTextFill(Color.WHITE);
 
         Label dropSubtext = new Label("Accepts single files, multiple files, and full directories recursively");
         dropSubtext.setFont(Font.font("Inter", 12));
-        dropSubtext.setTextFill(Color.web("#6b7280"));
 
         dragContent.getChildren().addAll(dropIcon, dropText, dropSubtext);
         dragZone.getChildren().add(dragContent);
@@ -122,7 +119,6 @@ public class ShareTab {
 
         Label panelTitle = new Label("Torrent Sharing Metadata");
         panelTitle.setFont(Font.font("Outfit", FontWeight.BOLD, 18));
-        panelTitle.setTextFill(Color.WHITE);
 
         GridPane grid = new GridPane();
         grid.setHgap(30);
@@ -138,7 +134,6 @@ public class ShareTab {
         VBox magnetBox = new VBox(8);
         Label magnetTitle = new Label("Generated Magnet URI:");
         magnetTitle.setFont(Font.font("Inter", FontWeight.BOLD, 12));
-        magnetTitle.setTextFill(Color.web("#9ca3af"));
 
         magnetText = new TextArea();
         magnetText.setEditable(false);
@@ -173,12 +168,10 @@ public class ShareTab {
     private Label createMetaLabel(GridPane grid, String title, int row) {
         Label titleLbl = new Label(title);
         titleLbl.setFont(Font.font("Inter", FontWeight.BOLD, 13));
-        titleLbl.setTextFill(Color.web("#9ca3af"));
         grid.add(titleLbl, 0, row);
 
         Label valLbl = new Label("---");
         valLbl.setFont(Font.font("Inter", 13));
-        valLbl.setTextFill(Color.WHITE);
         grid.add(valLbl, 1, row);
         return valLbl;
     }
@@ -326,11 +319,10 @@ public class ShareTab {
             dialog.setTitle("Magnet Link QR Code");
 
             VBox container = new VBox(15);
-            container.setStyle("-fx-background-color: #0f0f13; -fx-padding: 24px; -fx-alignment: center;");
+            container.setStyle("-fx-padding: 24px; -fx-alignment: center;");
 
             Label caption = new Label("Scan to Download via TorrentShare Client");
             caption.setFont(Font.font("Outfit", FontWeight.BOLD, 14));
-            caption.setTextFill(Color.WHITE);
 
             Button savePngBtn = new Button("Save as PNG");
             savePngBtn.getStyleClass().add("button-primary");
@@ -380,11 +372,10 @@ public class ShareTab {
             VBox box = new VBox(15);
             box.setPadding(new Insets(24));
             box.setAlignment(Pos.CENTER);
-            box.setStyle("-fx-background-color: #121214; -fx-pref-width: 400px;");
+            box.setStyle("-fx-pref-width: 400px;");
 
             Label title = new Label("Hashing and Creating Torrent...");
             title.setFont(Font.font("Outfit", FontWeight.BOLD, 16));
-            title.setTextFill(Color.WHITE);
 
             ProgressBar pb = new ProgressBar();
             pb.progressProperty().bind(task.progressProperty());
@@ -392,7 +383,6 @@ public class ShareTab {
 
             Label message = new Label();
             message.textProperty().bind(task.messageProperty());
-            message.setTextFill(Color.web("#9ca3af"));
             message.setFont(Font.font("Inter", 12));
 
             box.getChildren().addAll(title, pb, message);

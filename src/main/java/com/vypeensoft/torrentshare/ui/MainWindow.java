@@ -58,7 +58,6 @@ public class MainWindow {
         stage.setTitle("TorrentShare");
 
         BorderPane root = new BorderPane();
-        root.setStyle("-fx-background-color: #0c0c0e;");
 
         // Header Panel with brand title
         HBox header = buildHeader();
@@ -85,7 +84,6 @@ public class MainWindow {
         double defaultHeight = visualBounds.getHeight() * 0.75;
 
         Scene scene = new Scene(root, defaultWidth, defaultHeight);
-        scene.getStylesheets().add(getClass().getResource("/index.css").toExternalForm());
         stage.setScene(scene);
         stage.show();
 
@@ -101,18 +99,15 @@ public class MainWindow {
         HBox container = new HBox();
         container.setPadding(new Insets(20, 30, 15, 30));
         container.setAlignment(Pos.CENTER_LEFT);
-        container.setStyle("-fx-background-color: rgba(15,15,19,0.9); -fx-border-color: rgba(255,255,255,0.05); -fx-border-width: 0 0 1 0;");
+        container.setStyle("-fx-background-color: -fx-control-inner-background; -fx-border-color: -fx-box-border; -fx-border-width: 0 0 1 0;");
 
         VBox titleBox = new VBox(2);
         
         Label title = new Label("TorrentShare");
         title.setFont(Font.font("Outfit", FontWeight.BOLD, 26));
-        title.setTextFill(Color.WHITE);
-        title.setStyle("-fx-effect: dropshadow(three-pass-box, rgba(99,102,241,0.4), 10, 0, 0, 0);");
 
         Label subtitle = new Label("Secure Native P2P Desktop File Seeding & Resuming");
         subtitle.setFont(Font.font("Inter", 12));
-        subtitle.setTextFill(Color.web("#9ca3af"));
 
         titleBox.getChildren().addAll(title, subtitle);
         container.getChildren().add(titleBox);

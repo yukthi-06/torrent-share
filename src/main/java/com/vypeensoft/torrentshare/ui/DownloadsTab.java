@@ -67,7 +67,6 @@ public class DownloadsTab {
 
         Label tabTitle = new Label("Transmission Overview");
         tabTitle.setFont(Font.font("Outfit", FontWeight.BOLD, 18));
-        tabTitle.setTextFill(Color.WHITE);
 
         // Flexible spacing
         VBox.setVgrow(root, Priority.ALWAYS);
