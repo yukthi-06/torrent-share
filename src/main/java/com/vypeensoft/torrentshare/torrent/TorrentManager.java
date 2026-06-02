@@ -3,7 +3,6 @@ package com.vypeensoft.torrentshare.torrent;
 import com.frostwire.jlibtorrent.AddTorrentParams;
 import com.frostwire.jlibtorrent.AlertListener;
 import com.frostwire.jlibtorrent.Sha1Hash;
-import com.frostwire.jlibtorrent.TorrentFlags;
 import com.frostwire.jlibtorrent.TorrentHandle;
 import com.frostwire.jlibtorrent.alerts.Alert;
 import com.frostwire.jlibtorrent.alerts.AlertType;
@@ -17,6 +16,8 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -126,27 +127,34 @@ public class TorrentManager {
         File backupFile = new File(backupDir, infoHashStr.toLowerCase() + ".torrent");
         Files.write(backupFile.toPath(), torrentBytes);
 
-        // Build Magnet URI
-        String magnet = MagnetUtils.generateMagnet(infoHashStr, ti.name(), trackerManager.getTrackers());
+        // Build Magnet URI with direct peer address hint (x.pe=) so the receiver can connect
+        // to this machine immediately without needing tracker or DHT peer discovery.
+        String localIp = MagnetUtils.getLocalNetworkIP();
+        int sessionPort = sessionManager.getJlibtorrentSession().swig().listen_port();
+        List<String> peerHints = new ArrayList<>();
+        if (localIp != null && sessionPort > 0) {
+            peerHints.add(localIp + ":" + sessionPort);
+            log.info("Embedding peer hint in magnet: {}:{}", localIp, sessionPort);
+        }
+        String magnet = MagnetUtils.generateMagnet(infoHashStr, ti.name(), trackerManager.getTrackers(), peerHints);
 
         // The save path for libtorrent is the directory that CONTAINS the torrent's root
-        // (i.e. the parent of a dropped file, or the parent of a dropped folder).
+        // (i.e. parent of a dropped file, or parent of a dropped folder).
         File savePath = sourcePath.getParentFile();
 
-        // Add to jlibtorrent session in SEED_MODE — data already exists locally.
-        // SEED_MODE tells libtorrent to skip re-downloading/re-checking and start seeding immediately.
-        AddTorrentParams atp = new AddTorrentParams();
-        atp.torrentInfo(ti);
-        atp.savePath(savePath.getAbsolutePath());
-        atp.flags(TorrentFlags.SEED_MODE);
+        // Use download() to register the torrent — libtorrent will quickly verify the already-complete
+        // pieces and then transition to SEEDING state. More reliable than SEED_MODE flag manipulation.
+        sessionManager.getJlibtorrentSession().download(ti, savePath);
+        log.info("Torrent '{}' added to session at: {}", ti.name(), savePath.getAbsolutePath());
 
-        com.frostwire.jlibtorrent.swig.error_code ec = new com.frostwire.jlibtorrent.swig.error_code();
-        sessionManager.getJlibtorrentSession().swig().add_torrent(atp.swig(), ec);
-        if (ec.value() != 0) {
-            log.error("Failed to add seeding torrent to session: {}", ec.message());
-            throw new IOException("libtorrent error adding seed: " + ec.message());
+        // Force an IMMEDIATE announce to all trackers.
+        // Without this, the first tracker announcement can be delayed 30+ minutes (tracker-defined interval).
+        // Behind CG-NAT the receiver can only find us via trackers or DHT, so announcing now is critical.
+        TorrentHandle th = sessionManager.getJlibtorrentSession().find(new Sha1Hash(infoHashStr));
+        if (th != null && th.isValid()) {
+            th.forceReannounce();
+            log.info("Forced immediate tracker re-announce for: {}", ti.name());
         }
-        log.info("Torrent '{}' added to session in seed mode at: {}", ti.name(), savePath.getAbsolutePath());
 
         // Persist torrent metadata
         com.vypeensoft.torrentshare.model.TorrentInfo info = new com.vypeensoft.torrentshare.model.TorrentInfo(
@@ -309,14 +317,26 @@ public class TorrentManager {
     }
 
     /**
-     * Appends all user custom trackers onto a magnet link.
+     * Merges the original magnet's trackers with the local tracker list, preserves the display name,
+     * and passes through direct peer address hints (x.pe=) so the receiver can connect to the
+     * sender immediately on LAN without waiting for trackers or DHT.
      */
     private String magnetWithAllTrackers(String magnet) {
         String hash = MagnetUtils.extractHash(magnet);
         if (hash == null) return magnet;
-        
-        List<String> activeTrackers = trackerManager.getTrackers();
-        return MagnetUtils.generateMagnet(hash, "", activeTrackers);
+
+        // Preserve the original display name if present
+        String dn = MagnetUtils.extractDisplayName(magnet);
+
+        // Union: original trackers first, then local DB trackers (deduplicated)
+        LinkedHashSet<String> allTrackers = new LinkedHashSet<>();
+        allTrackers.addAll(MagnetUtils.extractTrackers(magnet));
+        allTrackers.addAll(trackerManager.getTrackers());
+
+        // Preserve x.pe= direct peer hints (sender's LAN IP:port) — critical for LAN discovery
+        List<String> peerAddresses = MagnetUtils.extractPeerAddresses(magnet);
+
+        return MagnetUtils.generateMagnet(hash, dn != null ? dn : "", new ArrayList<>(allTrackers), peerAddresses);
     }
 
     /**

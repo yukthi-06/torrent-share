@@ -110,7 +110,7 @@ public class TorrentMonitor {
         if (state == com.frostwire.jlibtorrent.TorrentStatus.State.CHECKING_FILES) {
             return "Checking";
         } else if (state == com.frostwire.jlibtorrent.TorrentStatus.State.DOWNLOADING_METADATA) {
-            return "Metadata";
+            return "Fetching Metadata...";
         } else if (state == com.frostwire.jlibtorrent.TorrentStatus.State.DOWNLOADING) {
             return "Downloading";
         } else if (state == com.frostwire.jlibtorrent.TorrentStatus.State.FINISHED) {
