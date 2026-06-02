@@ -104,12 +104,29 @@ public class DatabaseManager {
 
     private void seedDefaultTrackers(Connection conn) throws SQLException {
         try (Statement stmt = conn.createStatement()) {
-            var rs = stmt.executeQuery("SELECT COUNT(*) FROM trackers");
-            if (rs.next() && rs.getInt(1) == 0) {
-                log.info("Seeding default trackers into SQLite database...");
-                List<String> defaults = MagnetUtils.loadDefaultTrackers();
+            log.info("Syncing default trackers with SQLite database...");
+            List<String> defaults = MagnetUtils.loadDefaultTrackers();
+            
+            // Delete any existing non-custom default trackers that are no longer in the defaults list
+            if (defaults != null && !defaults.isEmpty()) {
+                StringBuilder sb = new StringBuilder("DELETE FROM trackers WHERE is_custom = 0 AND url NOT IN (");
+                for (int i = 0; i < defaults.size(); i++) {
+                    if (i > 0) {
+                        sb.append(",");
+                    }
+                    sb.append("'").append(defaults.get(i).replace("'", "''")).append("'");
+                }
+                sb.append(")");
+                stmt.execute(sb.toString());
+            } else {
+                stmt.execute("DELETE FROM trackers WHERE is_custom = 0");
+            }
+            
+            // Insert or ignore all current default trackers
+            if (defaults != null) {
                 for (String url : defaults) {
-                    stmt.execute("INSERT OR IGNORE INTO trackers (url, is_custom) VALUES ('" + url + "', 0)");
+                    String escapedUrl = url.replace("'", "''");
+                    stmt.execute("INSERT OR IGNORE INTO trackers (url, is_custom) VALUES ('" + escapedUrl + "', 0)");
                 }
             }
         }

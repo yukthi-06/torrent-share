@@ -1,12 +1,16 @@
 package com.vypeensoft.torrentshare.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.BufferedReader;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -14,33 +18,38 @@ import java.util.regex.Pattern;
  * Parses and builds standard BitTorrent Magnet URIs.
  */
 public class MagnetUtils {
+    private static final Logger log = LoggerFactory.getLogger(MagnetUtils.class);
     private static final Pattern BTIH_PATTERN = Pattern.compile("xt=urn:btih:([a-zA-Z0-9]{32,40})");
 
     private MagnetUtils() {}
 
     /**
-     * Loads default trackers from properties resource file.
+     * Loads default trackers from trackers.properties (plain text, one URL per line).
+     * Lines starting with '#' and blank lines are ignored.
      */
     public static List<String> loadDefaultTrackers() {
-        Properties props = new Properties();
         try (InputStream input = MagnetUtils.class.getResourceAsStream("/trackers.properties")) {
             if (input != null) {
-                props.load(input);
-                String trackersVal = props.getProperty("trackers");
-                if (trackersVal != null && !trackersVal.isBlank()) {
-                    String[] split = trackersVal.split(",");
-                    List<String> list = new ArrayList<>();
-                    for (String s : split) {
-                        String trimmed = s.trim();
-                        if (!trimmed.isEmpty()) {
+                List<String> list = new ArrayList<>();
+                try (BufferedReader reader = new BufferedReader(
+                        new InputStreamReader(input, StandardCharsets.UTF_8))) {
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        String trimmed = line.trim();
+                        if (!trimmed.isEmpty() && !trimmed.startsWith("#")) {
                             list.add(trimmed);
                         }
                     }
+                }
+                if (!list.isEmpty()) {
+                    log.info("Loaded {} default trackers from trackers.properties", list.size());
                     return list;
                 }
+            } else {
+                log.warn("trackers.properties not found on classpath — using built-in fallback list");
             }
         } catch (Exception e) {
-            // fallback handled below
+            log.error("Failed to load trackers.properties — using built-in fallback list", e);
         }
         return List.of(
             "udp://tracker.opentrackr.org:1337/announce",
