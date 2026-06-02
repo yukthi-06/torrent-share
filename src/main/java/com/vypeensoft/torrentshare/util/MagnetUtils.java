@@ -1,9 +1,12 @@
 package com.vypeensoft.torrentshare.util;
 
+import java.io.InputStream;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -14,6 +17,38 @@ public class MagnetUtils {
     private static final Pattern BTIH_PATTERN = Pattern.compile("xt=urn:btih:([a-zA-Z0-9]{32,40})");
 
     private MagnetUtils() {}
+
+    /**
+     * Loads default trackers from properties resource file.
+     */
+    public static List<String> loadDefaultTrackers() {
+        Properties props = new Properties();
+        try (InputStream input = MagnetUtils.class.getResourceAsStream("/trackers.properties")) {
+            if (input != null) {
+                props.load(input);
+                String trackersVal = props.getProperty("trackers");
+                if (trackersVal != null && !trackersVal.isBlank()) {
+                    String[] split = trackersVal.split(",");
+                    List<String> list = new ArrayList<>();
+                    for (String s : split) {
+                        String trimmed = s.trim();
+                        if (!trimmed.isEmpty()) {
+                            list.add(trimmed);
+                        }
+                    }
+                    return list;
+                }
+            }
+        } catch (Exception e) {
+            // fallback handled below
+        }
+        return List.of(
+            "udp://tracker.opentrackr.org:1337/announce",
+            "udp://tracker.openbittorrent.com:6969/announce",
+            "udp://tracker.torrent.eu.org:451/announce",
+            "udp://tracker.dler.org:6969/announce"
+        );
+    }
 
     /**
      * Validates if the string is a valid Magnet Link format.

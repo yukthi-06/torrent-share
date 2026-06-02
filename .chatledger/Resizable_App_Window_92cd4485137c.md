@@ -7,9 +7,8 @@
 | **Trajectory ID** | `c7e411e2-9311-4f48-a17c-24cb8bb47a1a` |
 | **Cascade ID** | `052688b5-1a5f-4a39-97e6-92cd4485137c` |
 | **Type** | Agent Conversation |
-| **Total Steps** | 289 |
+| **Total Steps** | 335 |
 | **Started** | 2 June 2026, 12:51 pm |
-| **Completed** | 2 June 2026, 1:25 pm |
 
 ---
 
@@ -6432,6 +6431,820 @@ I'm now diving into the `ShareTab.java` file, specifically examining the `setOnD
 
 - **Model:** Gemini 3.5 Flash (Medium)
 </details>
+
+---
+
+## User Request
+
+the "Multiple Files dropped" alert window is not showing the full text.
+
+<details>
+<summary>Context</summary>
+
+**Active File:** `20260602.131927_fix_text_visibility_plan.md`
+**Language:** markdown
+</details>
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `write_to_file`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Medium)
+</details>
+
+---
+
+### Code Edit
+
+**Status:** Completed
+**Created:** 2 June 2026, 1:27 pm
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `write_to_file`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Medium)
+</details>
+
+---
+
+### Code Edit
+
+**Status:** Completed
+**Created:** 2 June 2026, 1:27 pm
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `replace_file_content`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Medium)
+</details>
+
+---
+
+### Code Edit
+
+**Status:** Completed
+**Created:** 2 June 2026, 1:27 pm
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `write_to_file`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Medium)
+</details>
+
+---
+
+### Code Edit
+
+**Status:** Completed
+**Created:** 2 June 2026, 1:27 pm
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `write_to_file`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Medium)
+</details>
+
+---
+
+### Code Edit
+
+**Status:** Completed
+**Created:** 2 June 2026, 1:27 pm
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `write_to_file`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Medium)
+</details>
+
+---
+
+### Code Edit
+
+**Status:** Completed
+**Created:** 2 June 2026, 1:27 pm
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `write_to_file`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Medium)
+</details>
+
+---
+
+### Code Edit
+
+**Status:** Completed
+**Created:** 2 June 2026, 1:27 pm
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `write_to_file`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Medium)
+</details>
+
+---
+
+### Code Edit
+
+**Status:** Completed
+**Created:** 2 June 2026, 1:27 pm
+
+---
+
+## Agent Response
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Medium)
+</details>
+
+---
+
+### CORTEX_STEP_TYPE_SYSTEM_MESSAGE
+
+**Status:** Completed
+**Created:** 2 June 2026, 1:27 pm
+
+---
+
+## Agent Response
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Medium)
+</details>
+
+---
+
+## User Request
+
+the announce tracker list , do not hard code in java source.  move them to a properties file .  Also add more trackers to the list
+
+<details>
+<summary>Context</summary>
+
+**Active File:** `ShareTab.java`
+**Language:** java
+
+**Open Files:**
+- `ShareTab.java`
+- `DatabaseManager.java`
+- `20260602.131927_fix_text_visibility_plan.md`
+- `20260602.132712_fix_alert_clipping_plan.md`
+- `20260602.132712_fix_alert_clipping_task.md`
+- `20260602.132712_fix_alert_clipping_walkthrough.md`
+</details>
+
+---
+
+<details>
+<summary>File: `Unknown file` (L256-301)</summary>
+
+**Path:** `Unknown file`
+
+```
+            log.error("Torrent creation background worker failed", error);
+            showError("Torrent Generation Error", "Unable to scan and build torrent metadata: " + error.getMessage());
+        });
+
+        executor.submit(task);
+    }
+
+    private void populateTorrentMetadata(File source) {
+        try {
+            byte[] bytes = Files.readAllBytes(generatedTorrentFile.toPath());
+            TorrentInfo ti = new TorrentInfo(bytes);
+
+            nameVal.setText(ti.name());
+            sizeVal.setText(FileUtils.formatSize(ti.totalSize()));
+            hashVal.setText(ti.infoHashV1().toString());
+            pieceVal.setText(FileUtils.formatSize(ti.pieceLength()));
+            countVal.setText(String.valueOf(ti.numFiles()));
+
+            // Generate full magnet link
+            generatedMagnetLink = MagnetUtils.generateMagnet(
+                ti.infoHashV1().toString(),
+                ti.name(),
+                settingsService.getSettings().listeningPort() == 0 ? List.of() : List.of(
+                    "udp://tracker.opentrackr.org:1337/announce",
+                    "udp://tracker.openbittorrent.com:6969/announce"
+                )
+            );
+            magnetText.setText(generatedMagnetLink);
+            infoPanel.setVisible(true);
+
+        } catch (Exception e) {
+            log.error("Error reading newly created torrent file metadata", e);
+            showError("Metadata Parse Failure", "Failed to retrieve compiled torrent statistics: " + e.getMessage());
+        }
+    }
+
+    private void copyMagnetToClipboard() {
+        if (generatedMagnetLink == null) return;
+        Clipboard clipboard = Clipboard.getSystemClipboard();
+        ClipboardContent content = new ClipboardContent();
+        content.putString(generatedMagnetLink);
+        clipboard.setContent(content);
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Clipboard Copy");
+        alert.setHeaderText(null);
+```
+
+</details>
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `grep_search`
+**Query:** `tracker.opentrackr.org`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Medium)
+</details>
+
+---
+
+### Local File Search
+
+**Status:** Completed
+**Created:** 2 June 2026, 1:30 pm
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `view_file`
+**File:** `DatabaseManager.java`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Medium)
+</details>
+
+---
+
+<details>
+<summary>File: `Unknown file`</summary>
+
+**Path:** `Unknown file`
+
+```
+package com.vypeensoft.torrentshare.persistence;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.File;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.List;
+
+/**
+ * Manages the SQLite database lifetime, initialization, and connection pooling.
+ */
+public class DatabaseManager {
+    private static final Logger log = LoggerFactory.getLogger(DatabaseManager.class);
+    private static final String DB_DIR = "data";
+    private static final String DB_FILE = DB_DIR + "/torrentshare.db";
+    private static final String CONNECTION_URL = "jdbc:sqlite:" + DB_FILE;
+
+    private static DatabaseManager instance;
+
+    private DatabaseManager() {
+        initializeDatabase();
+    }
+
+    public static synchronized DatabaseManager getInstance() {
+        if (instance == null) {
+            instance = new DatabaseManager();
+        }
+        return instance;
+    }
+
+    /**
+     * Obtains a new connection to the SQLite database.
+     * The caller is responsible for closing this connection.
+     */
+    public Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(CONNECTION_URL);
+    }
+
+    private void initializeDatabase() {
+        File dir = new File(DB_DIR);
+        if (!dir.exists()) {
+            if (dir.mkdirs()) {
+                log.info("Created database directory: {}", DB_DIR);
+            }
+        }
+
+        try (Connection conn = getConnection();
+             Statement stmt = conn.createStatement()) {
+
+            // Create settings table
+            stmt.execute("""
+                CREATE TABLE IF NOT EXISTS settings (
+                    key TEXT PRIMARY KEY,
+                    value TEXT
+                )
+            """);
+
+            // Create trackers table
+            stmt.execute("""
+                CREATE TABLE IF NOT EXISTS trackers (
+                    url TEXT PRIMARY KEY,
+                    is_custom INTEGER DEFAULT 0
+                )
+            """);
+
+            // Create torrents table
+            stmt.execute("""
+                CREATE TABLE IF NOT EXISTS torrents (
+                    info_hash TEXT PRIMARY KEY,
+                    name TEXT,
+                    magnet_uri TEXT,
+                    save_path TEXT,
+                    added_date INTEGER,
+                    status TEXT,
+                    resume_file TEXT
+                )
+            """);
+
+            // Create download history table
+            stmt.execute("""
+                CREATE TABLE IF NOT EXISTS download_history (
+                    info_hash TEXT PRIMARY KEY,
+                    name TEXT,
+                    size INTEGER,
+                    completed_date INTEGER
+                )
+            """);
+
+            log.info("Database tables initialized successfully.");
+
+            // Seed default trackers if empty
+            seedDefaultTrackers(conn);
+
+        } catch (SQLException e) {
+            log.error("Fatal error during database schema initialization", e);
+            throw new RuntimeException("Failed to initialize database", e);
+        }
+    }
+
+    private void seedDefaultTrackers(Connection conn) throws SQLException {
+        try (Statement stmt = conn.createStatement()) {
+            var rs = stmt.executeQuery("SELECT COUNT(*) FROM trackers");
+            if (rs.next() && rs.getInt(1) == 0) {
+                log.info("Seeding default trackers into SQLite database...");
+                List<String> defaults = List.of(
+                    "udp://tracker.opentrackr.org:1337/announce",
+                    "udp://tracker.openbittorrent.com:6969/announce",
+                    "udp://tracker.torrent.eu.org:451/announce",
+                    "udp://tracker.dler.org:6969/announce"
+                );
+                for (String url : defaults) {
+                    stmt.execute("INSERT OR IGNORE INTO trackers (url, is_custom) VALUES ('" + url + "', 0)");
+                }
+            }
+        }
+    }
+}
+
+```
+
+</details>
+
+---
+
+## Agent Response
+
+### Thinking
+
+**Analyzing Database Interaction**
+
+I've been examining the `DatabaseManager.java` file and how it seeds default trackers into the SQLite database's 'trackers' table. I've also pivoted to `ShareTab.java` to check how the magnet link is being generated, particularly focusing on the use of `MagnetUtils.generateMagnet`.
+
+
+
+
+### Actions
+
+**Tool:** `view_file`
+**File:** `TrackerManager.java`
+
+<details>
+<summary>Metadata</summary>
+
+- **Thinking Duration:** 0.037974500s
+- **Model:** Gemini 3.5 Flash (Medium)
+</details>
+
+---
+
+<details>
+<summary>File: `Unknown file`</summary>
+
+**Path:** `Unknown file`
+
+```
+package com.vypeensoft.torrentshare.torrent;
+
+import com.vypeensoft.torrentshare.persistence.SettingsRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.List;
+
+/**
+ * Manages default and custom user tracker lists.
+ */
+public class TrackerManager {
+    private static final Logger log = LoggerFactory.getLogger(TrackerManager.class);
+    private final SettingsRepository settingsRepository;
+
+    public TrackerManager(SettingsRepository settingsRepository) {
+        this.settingsRepository = settingsRepository;
+    }
+
+    /**
+     * Gets the full list of active tracker URLs.
+     */
+    public List<String> getTrackers() {
+        return settingsRepository.getTrackers();
+    }
+
+    /**
+     * Registers a custom tracker.
+     */
+    public void addTracker(String url) {
+        if (url == null || url.isBlank()) {
+            return;
+        }
+        settingsRepository.addTracker(url.trim());
+    }
+
+    /**
+     * Removes an active tracker.
+     */
+    public void removeTracker(String url) {
+        if (url == null || url.isBlank()) {
+            return;
+        }
+        settingsRepository.deleteTracker(url.trim());
+    }
+}
+
+```
+
+</details>
+
+---
+
+## Agent Response
+
+### Thinking
+
+**Analyzing Tracker Retrieval**
+
+I've realized `TrackerManager` retrieves trackers through `settingsRepository.getTrackers()`, which ultimately fetches data from the `trackers` database table. I also noticed that the `ShareTab.java` file is involved in generating the magnet link. Further inspection of this area is needed.
+
+
+
+
+### Actions
+
+**Tool:** `view_file`
+**File:** `MagnetUtils.java`
+
+<details>
+<summary>Metadata</summary>
+
+- **Thinking Duration:** 0.001883600s
+- **Model:** Gemini 3.5 Flash (Medium)
+</details>
+
+---
+
+<details>
+<summary>File: `Unknown file`</summary>
+
+**Path:** `Unknown file`
+
+```
+package com.vypeensoft.torrentshare.util;
+
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+/**
+ * Parses and builds standard BitTorrent Magnet URIs.
+ */
+public class MagnetUtils {
+    private static final Pattern BTIH_PATTERN = Pattern.compile("xt=urn:btih:([a-zA-Z0-9]{32,40})");
+
+    private MagnetUtils() {}
+
+    /**
+     * Validates if the string is a valid Magnet Link format.
+     */
+    public static boolean isValidMagnet(String magnet) {
+        if (magnet == null || !magnet.trim().startsWith("magnet:?")) {
+            return false;
+        }
+        Matcher matcher = BTIH_PATTERN.matcher(magnet);
+        return matcher.find();
+    }
+
+    /**
+     * Extracts the Info Hash hex string from a magnet link.
+     */
+    public static String extractHash(String magnet) {
+        if (magnet == null) return null;
+        Matcher matcher = BTIH_PATTERN.matcher(magnet);
+        if (matcher.find()) {
+            String hash = matcher.group(1);
+            if (hash.length() == 32) {
+                // Base32 encoded (legacy)
+                return hash.toUpperCase();
+            }
+            return hash.toLowerCase();
+        }
+        return null;
+    }
+
+    /**
+     * Generates a fully formatted Magnet Link containing trackers and name.
+     */
+    public static String generateMagnet(String infoHash, String displayName, List<String> trackers) {
+        StringBuilder sb = new StringBuilder("magnet:?");
+        sb.append("xt=urn:btih:").append(infoHash.toLowerCase());
+
+        if (displayName != null && !displayName.isBlank()) {
+            sb.append("&dn=").append(URLEncoder.encode(displayName, StandardCharsets.UTF_8));
+        }
+
+        if (trackers != null) {
+            for (String tr : trackers) {
+                if (!tr.isBlank()) {
+                    sb.append("&tr=").append(URLEncoder.encode(tr, StandardCharsets.UTF_8));
+                }
+            }
+        }
+        return sb.toString();
+    }
+}
+
+```
+
+</details>
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `write_to_file`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Medium)
+</details>
+
+---
+
+### Code Edit
+
+**Status:** Completed
+**Created:** 2 June 2026, 1:31 pm
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `write_to_file`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Medium)
+</details>
+
+---
+
+### Code Edit
+
+**Status:** Completed
+**Created:** 2 June 2026, 1:31 pm
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `write_to_file`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Medium)
+</details>
+
+---
+
+### Code Edit
+
+**Status:** Completed
+**Created:** 2 June 2026, 1:31 pm
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `replace_file_content`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Medium)
+</details>
+
+---
+
+### Code Edit
+
+**Status:** Completed
+**Created:** 2 June 2026, 1:31 pm
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `replace_file_content`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Medium)
+</details>
+
+---
+
+### Code Edit
+
+**Status:** Completed
+**Created:** 2 June 2026, 1:31 pm
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `replace_file_content`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Medium)
+</details>
+
+---
+
+### Code Edit
+
+**Status:** Completed
+**Created:** 2 June 2026, 1:31 pm
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `write_to_file`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Medium)
+</details>
+
+---
+
+### Code Edit
+
+**Status:** Completed
+**Created:** 2 June 2026, 1:31 pm
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `write_to_file`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Medium)
+</details>
+
+---
+
+### Code Edit
+
+**Status:** CORTEX_STEP_STATUS_RUNNING
+**Created:** 2 June 2026, 1:31 pm
 
 ---
 

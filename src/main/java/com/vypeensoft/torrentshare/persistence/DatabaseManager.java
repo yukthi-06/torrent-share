@@ -1,5 +1,6 @@
 package com.vypeensoft.torrentshare.persistence;
 
+import com.vypeensoft.torrentshare.util.MagnetUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -106,12 +107,7 @@ public class DatabaseManager {
             var rs = stmt.executeQuery("SELECT COUNT(*) FROM trackers");
             if (rs.next() && rs.getInt(1) == 0) {
                 log.info("Seeding default trackers into SQLite database...");
-                List<String> defaults = List.of(
-                    "udp://tracker.opentrackr.org:1337/announce",
-                    "udp://tracker.openbittorrent.com:6969/announce",
-                    "udp://tracker.torrent.eu.org:451/announce",
-                    "udp://tracker.dler.org:6969/announce"
-                );
+                List<String> defaults = MagnetUtils.loadDefaultTrackers();
                 for (String url : defaults) {
                     stmt.execute("INSERT OR IGNORE INTO trackers (url, is_custom) VALUES ('" + url + "', 0)");
                 }

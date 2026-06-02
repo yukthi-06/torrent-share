@@ -276,10 +276,7 @@ public class ShareTab {
             generatedMagnetLink = MagnetUtils.generateMagnet(
                 ti.infoHashV1().toString(),
                 ti.name(),
-                settingsService.getSettings().listeningPort() == 0 ? List.of() : List.of(
-                    "udp://tracker.opentrackr.org:1337/announce",
-                    "udp://tracker.openbittorrent.com:6969/announce"
-                )
+                settingsService.getSettings().listeningPort() == 0 ? List.of() : MagnetUtils.loadDefaultTrackers()
             );
             magnetText.setText(generatedMagnetLink);
             infoPanel.setVisible(true);
