@@ -4,7 +4,7 @@ plugins {
     id 'org.openjfx.javafxplugin' version '0.1.0'
 }
 
-group = 'com.torrentshare'
+group = 'com.vypeensoft.torrentshare'
 version = '1.0.0'
 
 java {
@@ -57,4 +57,53 @@ tasks.withType(JavaCompile).configureEach {
 
 test {
     useJUnitPlatform()
+}
+
+jar {
+    manifest {
+        attributes(
+            'Main-Class': 'com.torrentshare.Launcher'
+        )
+    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+	archiveBaseName.set("TorrentShare-fatjar")
+}
+
+tasks.register('refactorPackage') {
+    doLast {
+        def srcDir = file("src/main/java/com/torrentshare")
+        def destDir = file("src/main/java/com/vypeensoft/torrentshare")
+        
+        if (!srcDir.exists()) {
+            println "Source directory src/main/java/com/torrentshare does not exist or already refactored."
+            return
+        }
+        
+        println "Refactoring Java package to com.vypeensoft.torrentshare..."
+        
+        // 1. Copy and refactor contents recursively
+        destDir.mkdirs()
+        
+        srcDir.eachFileRecurse { file ->
+            if (file.isFile() && file.name.endsWith(".java")) {
+                def relPath = srcDir.toPath().relativize(file.toPath()).toString()
+                def targetFile = new File(destDir, relPath)
+                targetFile.parentFile.mkdirs()
+                
+                def content = file.text
+                content = content.replaceAll("package com\\.torrentshare", "package com.vypeensoft.torrentshare")
+                content = content.replaceAll("import com\\.torrentshare", "import com.vypeensoft.torrentshare")
+                
+                targetFile.text = content
+                println "Refactored and moved: ${relPath}"
+            }
+        }
+        
+        // 2. Clean up old folder recursively
+        srcDir.deleteDir()
+        println "Old package directory com.torrentshare deleted successfully!"
+    }
 }
