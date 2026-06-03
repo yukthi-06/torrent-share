@@ -82,12 +82,24 @@
     -fx-effect: dropshadow(three-pass-box, -primary-glow, 10, 0, 0, 2);
 }
 
+/* ─── Global Button Font ─────────────────────────────────────────────
+   Inline setStyle() overrides class rules for properties it sets, but
+   does NOT reset properties it doesn't mention. So declaring font here
+   on the .button base class ensures every button gets bold 15px text
+   even when padding is set via setStyle(). */
+.button {
+    -fx-font-family: 'Outfit', 'Inter', 'Segoe UI', sans-serif;
+    -fx-font-weight: bold;
+    -fx-font-size: 15px;
+}
+
 /* Sleek Buttons with Hover Transitions */
 .button-primary {
     -fx-background-color: -primary-gradient;
     -fx-text-fill: white;
+    -fx-font-family: 'Outfit', 'Inter', 'Segoe UI', sans-serif;
     -fx-font-weight: bold;
-    -fx-font-size: 13px;
+    -fx-font-size: 15px;
     -fx-background-radius: 10px;
     -fx-padding: 12px 24px;
     -fx-cursor: hand;
@@ -106,8 +118,9 @@
 .button-secondary {
     -fx-background-color: rgba(255, 255, 255, 0.05);
     -fx-text-fill: -text-primary;
+    -fx-font-family: 'Outfit', 'Inter', 'Segoe UI', sans-serif;
     -fx-font-weight: bold;
-    -fx-font-size: 13px;
+    -fx-font-size: 15px;
     -fx-border-color: rgba(255, 255, 255, 0.15);
     -fx-border-radius: 10px;
     -fx-background-radius: 10px;

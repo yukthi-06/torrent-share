@@ -110,12 +110,10 @@ public class SettingsTab {
 
         Button addBtn = new Button("Add Tracker");
         addBtn.getStyleClass().add("button-primary");
-        addBtn.setStyle("-fx-padding: 8 16;");
         addBtn.setOnAction(e -> handleAddTracker());
 
         Button deleteBtn = new Button("Remove Tracker");
         deleteBtn.getStyleClass().add("button-secondary");
-        deleteBtn.setStyle("-fx-padding: 8 16;");
         deleteBtn.setOnAction(e -> handleDeleteTracker());
 
         trackerActions.getChildren().addAll(newTrackerField, addBtn, deleteBtn);
@@ -127,7 +125,6 @@ public class SettingsTab {
 
         Button saveBtn = new Button("Save Global Configuration");
         saveBtn.getStyleClass().add("button-primary");
-        saveBtn.setStyle("-fx-padding: 14 36;");
         saveBtn.setOnAction(e -> handleSaveSettings());
         footer.getChildren().add(saveBtn);
 
@@ -149,7 +146,6 @@ public class SettingsTab {
         tf.setPrefWidth(450);
         Button browse = new Button("Browse");
         browse.getStyleClass().add("button-secondary");
-        browse.setStyle("-fx-padding: 8 16;");
         browse.setOnAction(e -> selectDirectory(tf));
         box.getChildren().addAll(tf, browse);
         grid.add(box, 1, row);

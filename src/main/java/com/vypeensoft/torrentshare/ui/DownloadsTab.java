@@ -77,7 +77,6 @@ public class DownloadsTab {
 
         Button addMagnetBtn = new Button("+ Add Magnet Link");
         addMagnetBtn.getStyleClass().add("button-primary");
-        addMagnetBtn.setStyle("-fx-padding: 8 16;");
         addMagnetBtn.setOnAction(e -> openAddMagnetDialog());
 
         toolbar.getChildren().addAll(tabTitle, spacer, addMagnetBtn);

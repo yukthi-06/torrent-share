@@ -84,6 +84,16 @@ public class MainWindow {
         double defaultHeight = visualBounds.getHeight() * 0.80;
 
         Scene scene = new Scene(root, defaultWidth, defaultHeight);
+
+        // Load the application stylesheet — without this, ALL CSS rules in index.css are ignored
+        java.net.URL cssUrl = getClass().getResource("/index.css");
+        if (cssUrl != null) {
+            scene.getStylesheets().add(cssUrl.toExternalForm());
+            log.info("Loaded application stylesheet: {}", cssUrl);
+        } else {
+            log.warn("index.css not found on classpath — UI will use default JavaFX styling");
+        }
+
         stage.setScene(scene);
         stage.show();
 

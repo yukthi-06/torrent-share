@@ -78,7 +78,6 @@ public class AddMagnetDialog extends Stage {
         
         Button browseBtn = new Button("Browse");
         browseBtn.getStyleClass().add("button-secondary");
-        browseBtn.setStyle("-fx-padding: 8 16;");
         browseBtn.setOnAction(e -> selectDirectory());
 
         pathBox.getChildren().addAll(pathField, browseBtn);
