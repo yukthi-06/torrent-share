@@ -136,9 +136,21 @@ public class AddMagnetDialog extends Stage {
             return;
         }
 
+        if (savePath.isEmpty()) {
+            errorLabel.setText("Please select a valid download directory.");
+            return;
+        }
+
         File dir = new File(savePath);
-        if (savePath.isEmpty() || !dir.exists() || !dir.isDirectory()) {
-            errorLabel.setText("Please select a valid, existing download directory.");
+        if (!dir.exists()) {
+            boolean created = dir.mkdirs();
+            if (!created) {
+                errorLabel.setText("Failed to create download directory: " + savePath);
+                return;
+            }
+            log.info("Created missing download directory: {}", savePath);
+        } else if (!dir.isDirectory()) {
+            errorLabel.setText("Specified path exists but is not a directory.");
             return;
         }
 
