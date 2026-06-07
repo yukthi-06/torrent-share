@@ -50,4 +50,11 @@ public class ShareService {
     public void seedTorrent(File torrentFile, File sourcePath) throws IOException {
         torrentManager.startSeeding(torrentFile, sourcePath);
     }
+
+    /**
+     * Retrieves the magnet link for a given info hash from the torrent manager.
+     */
+    public String getMagnetUri(String infoHash) {
+        return torrentManager.getMagnetUri(infoHash);
+    }
 }

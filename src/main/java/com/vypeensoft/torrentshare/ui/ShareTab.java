@@ -272,12 +272,17 @@ public class ShareTab {
             pieceVal.setText(FileUtils.formatSize(ti.pieceLength()));
             countVal.setText(String.valueOf(ti.numFiles()));
 
-            // Generate full magnet link
-            generatedMagnetLink = MagnetUtils.generateMagnet(
-                ti.infoHashV1().toString(),
-                ti.name(),
-                settingsService.getSettings().listeningPort() == 0 ? List.of() : MagnetUtils.loadDefaultTrackers()
-            );
+            // Retrieve the saved magnet link containing trackers and peer hints
+            String savedMagnet = shareService.getMagnetUri(ti.infoHashV1().toString());
+            if (savedMagnet != null) {
+                generatedMagnetLink = savedMagnet;
+            } else {
+                generatedMagnetLink = MagnetUtils.generateMagnet(
+                    ti.infoHashV1().toString(),
+                    ti.name(),
+                    settingsService.getSettings().listeningPort() == 0 ? List.of() : MagnetUtils.loadDefaultTrackers()
+                );
+            }
             magnetText.setText(generatedMagnetLink);
             infoPanel.setVisible(true);
 

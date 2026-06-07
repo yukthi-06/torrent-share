@@ -35,7 +35,8 @@ public class SessionManager {
         settings.setBoolean(settings_pack.bool_types.enable_lsd.swigValue(), true);
         settings.setBoolean(settings_pack.bool_types.enable_upnp.swigValue(), true);
         settings.setBoolean(settings_pack.bool_types.enable_natpmp.swigValue(), true);
-        settings.setString(settings_pack.string_types.listen_interfaces.swigValue(), "0.0.0.0:" + listeningPort);
+        settings.setBoolean(settings_pack.bool_types.allow_multiple_connections_per_ip.swigValue(), true);
+        settings.setString(settings_pack.string_types.listen_interfaces.swigValue(), "0.0.0.0:" + listeningPort + ",[::]:" + listeningPort);
 
         // Standard optimization configs
         settings.activeDownloads(20);

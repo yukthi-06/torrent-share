@@ -25,4 +25,5 @@ replay_pid*
 .gradle
 .gradle/
 build/
-data
+data/
+downloads/

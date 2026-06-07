@@ -387,4 +387,12 @@ public class TorrentManager {
             sessionManager.removeListener(shutdownListener);
         }
     }
+
+    /**
+     * Gets the saved magnet URI for a torrent by its info hash from the repository.
+     */
+    public String getMagnetUri(String infoHash) {
+        com.vypeensoft.torrentshare.model.TorrentInfo entry = torrentRepository.findByHash(infoHash);
+        return entry != null ? entry.magnetUri() : null;
+    }
 }
