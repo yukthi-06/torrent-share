@@ -21,7 +21,6 @@ import javafx.scene.text.FontWeight;
 import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import com.vypeensoft.torrentshare.util.ThemeDetector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -59,9 +58,6 @@ public class MainWindow {
         stage.setTitle("TorrentShare");
 
         BorderPane root = new BorderPane();
-        if (ThemeDetector.isDarkMode()) {
-            root.getStyleClass().add("dark-theme");
-        }
 
         // Header Panel with brand title
         HBox header = buildHeader();

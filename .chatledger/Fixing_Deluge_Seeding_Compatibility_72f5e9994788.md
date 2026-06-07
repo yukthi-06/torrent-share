@@ -7,9 +7,9 @@
 | **Trajectory ID** | `4015f579-c9a2-4b2b-9112-e67a301cab60` |
 | **Cascade ID** | `6d3508a1-f4ee-441b-b3be-72f5e9994788` |
 | **Type** | Agent Conversation |
-| **Total Steps** | 89 |
+| **Total Steps** | 154 |
 | **Started** | 7 June 2026, 10:17 pm |
-| **Completed** | 7 June 2026, 10:24 pm |
+| **Completed** | 8 June 2026, 12:24 am |
 
 ---
 
@@ -3165,6 +3165,2041 @@ I'm making good progress on generating the walkthrough file now, and I've create
 
 **Status:** Completed
 **Created:** 7 June 2026, 10:24 pm
+
+---
+
+## Agent Response
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Low)
+</details>
+
+---
+
+## User Request
+
+when row is selected in "Active downloads", the row font color is indistinct from the background color of the list.
+
+<details>
+<summary>Context</summary>
+
+**Active File:** `ShareTab.java`
+**Language:** java
+
+**Open Files:**
+- `ShareTab.java`
+- `SessionManager.java`
+- `20260607.221757_fix_deluge_download_plan.md`
+- `20260607.221757_fix_deluge_download_task.md`
+- `TorrentManager.java`
+- `ShareService.java`
+- `20260607.221757_fix_deluge_download_walkthrough.md`
+</details>
+
+---
+
+<details>
+<summary>File: `Unknown file` (L252-297)</summary>
+
+**Path:** `Unknown file`
+
+```
+
+        task.setOnFailed(event -> {
+            progressDialog.close();
+            Throwable error = task.getException();
+            log.error("Torrent creation background worker failed", error);
+            showError("Torrent Generation Error", "Unable to scan and build torrent metadata: " + error.getMessage());
+        });
+
+        executor.submit(task);
+    }
+
+    private void populateTorrentMetadata(File source) {
+        try {
+            byte[] bytes = Files.readAllBytes(generatedTorrentFile.toPath());
+            TorrentInfo ti = new TorrentInfo(bytes);
+
+            nameVal.setText(ti.name());
+            sizeVal.setText(FileUtils.formatSize(ti.totalSize()));
+            hashVal.setText(ti.infoHashV1().toString());
+            pieceVal.setText(FileUtils.formatSize(ti.pieceLength()));
+            countVal.setText(String.valueOf(ti.numFiles()));
+
+            // Retrieve the saved magnet link containing trackers and peer hints
+            String savedMagnet = shareService.getMagnetUri(ti.infoHashV1().toString());
+            if (savedMagnet != null) {
+                generatedMagnetLink = savedMagnet;
+            } else {
+                generatedMagnetLink = MagnetUtils.generateMagnet(
+                    ti.infoHashV1().toString(),
+                    ti.name(),
+                    settingsService.getSettings().listeningPort() == 0 ? List.of() : MagnetUtils.loadDefaultTrackers()
+                );
+            }
+            magnetText.setText(generatedMagnetLink);
+            infoPanel.setVisible(true);
+
+        } catch (Exception e) {
+            log.error("Error reading newly created torrent file metadata", e);
+            showError("Metadata Parse Failure", "Failed to retrieve compiled torrent statistics: " + e.getMessage());
+        }
+    }
+
+    private void copyMagnetToClipboard() {
+        if (generatedMagnetLink == null) return;
+        Clipboard clipboard = Clipboard.getSystemClipboard();
+        ClipboardContent content = new ClipboardContent();
+```
+
+</details>
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `grep_search`
+**Query:** `.table-row-cell`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Low)
+</details>
+
+---
+
+### Local File Search
+
+**Status:** Completed
+**Created:** 8 June 2026, 12:18 am
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `view_file`
+**File:** `index.css`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Low)
+</details>
+
+---
+
+<details>
+<summary>File: `Unknown file`</summary>
+
+**Path:** `Unknown file`
+
+```
+/* Light theme (Default) */
+.root {
+    -fx-font-family: 'Outfit', 'Inter', 'Segoe UI', sans-serif;
+    -fx-base: #f9fafb;
+    
+    /* Elegant Color Tokens */
+    -primary-color: #6366f1;
+    -primary-gradient: linear-gradient(to right, #6366f1, #8b5cf6);
+    -primary-glow: rgba(99, 102, 241, 0.15);
+    
+    -bg-card: #ffffff;
+    -border-card: rgba(0, 0, 0, 0.08);
+    -text-primary: #111827;
+    -text-secondary: #4b5563;
+    -input-bg: #f3f4f6;
+    -input-border: rgba(0, 0, 0, 0.1);
+    -row-hover: rgba(0, 0, 0, 0.03);
+    -row-selected: rgba(99, 102, 241, 0.12);
+}
+
+/* Dark theme overrides */
+.dark-theme {
+    -fx-base: #0f0f13;
+    -fx-background-color: #0c0c0e;
+    
+    -primary-color: #6366f1;
+    -primary-gradient: linear-gradient(to right, #6366f1, #8b5cf6);
+    -primary-glow: rgba(99, 102, 241, 0.25);
+    
+    -bg-card: rgba(30, 30, 38, 0.7);
+    -border-card: rgba(255, 255, 255, 0.08);
+    -text-primary: #f3f4f6;
+    -text-secondary: #9ca3af;
+    -input-bg: rgba(0, 0, 0, 0.3);
+    -input-border: rgba(255, 255, 255, 0.1);
+    -row-hover: rgba(255, 255, 255, 0.04);
+    -row-selected: rgba(99, 102, 241, 0.2);
+}
+
+/* ─── Global Font & Text Colors ──────────────────────────────────────── */
+.label {
+    -fx-text-fill: -text-primary;
+}
+
+/* Styled Scrollbars */
+.scroll-bar:vertical, .scroll-bar:horizontal {
+    -fx-background-color: transparent;
+}
+.scroll-bar .thumb {
+    -fx-background-color: rgba(128, 128, 128, 0.2);
+    -fx-background-radius: 8px;
+}
+.scroll-bar .thumb:hover {
+    -fx-background-color: rgba(128, 128, 128, 0.4);
+}
+
+/* ─── ScrollPane — transparent viewport ── */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+/* Glassmorphism Panel Container */
+.glass-panel {
+    -fx-background-color: -bg-card;
+    -fx-background-radius: 16px;
+    -fx-border-color: -border-card;
+    -fx-border-width: 1px;
+    -fx-border-radius: 16px;
+    -fx-padding: 24px;
+}
+
+/* Main TabPane Styling */
+.tab-pane {
+    -fx-background-color: transparent;
+}
+.tab-pane .tab-header-area {
+    -fx-padding: 10 10 0 10;
+    -fx-background-color: transparent;
+}
+.tab-pane .tab {
+    -fx-background-color: rgba(128, 128, 128, 0.06);
+    -fx-background-radius: 8 8 0 0;
+    -fx-padding: 10 24 10 24;
+    -fx-text-fill: -text-secondary;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+}
+.tab-pane .tab:hover {
+    -fx-background-color: rgba(128, 128, 128, 0.12);
+    -fx-text-fill: -text-primary;
+}
+.tab-pane .tab:selected {
+    -fx-background-color: -primary-gradient;
+    -fx-text-fill: white;
+}
+
+/* ─── Global Button Font ───────────────────────────────────────────── */
+.button {
+    -fx-font-family: 'Outfit', 'Inter', 'Segoe UI', sans-serif;
+    -fx-font-weight: bold;
+    -fx-font-size: 15px;
+}
+
+/* Sleek Buttons with Hover Transitions */
+.button-primary {
+    -fx-background-color: -primary-gradient;
+    -fx-text-fill: white;
+    -fx-font-family: 'Outfit', 'Inter', 'Segoe UI', sans-serif;
+    -fx-font-weight: bold;
+    -fx-font-size: 15px;
+    -fx-background-radius: 10px;
+    -fx-padding: 12px 24px;
+    -fx-cursor: hand;
+    -fx-transition: all 0.2s ease-in-out;
+}
+.button-primary:hover {
+    -fx-effect: dropshadow(three-pass-box, -primary-glow, 15, 0.5, 0, 4);
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+}
+.button-primary:pressed {
+    -fx-scale-x: 0.98;
+    -fx-scale-y: 0.98;
+}
+
+.button-secondary {
+    -fx-background-color: rgba(128, 128, 128, 0.1);
+    -fx-text-fill: -text-primary;
+    -fx-font-family: 'Outfit', 'Inter', 'Segoe UI', sans-serif;
+    -fx-font-weight: bold;
+    -fx-font-size: 15px;
+    -fx-border-color: -border-card;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-padding: 12px 24px;
+    -fx-cursor: hand;
+}
+.button-secondary:hover {
+    -fx-background-color: rgba(128, 128, 128, 0.2);
+}
+
+/* Text Fields and Areas styling */
+.text-field, .text-area {
+    -fx-background-color: -input-bg;
+    -fx-text-fill: -text-primary;
+    -fx-prompt-text-fill: -text-secondary;
+    -fx-highlight-fill: -primary-color;
+    -fx-border-color: -input-border;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 12px;
+}
+.text-field:focused, .text-area:focused {
+    -fx-border-color: -primary-color;
+    -fx-effect: dropshadow(three-pass-box, -primary-glow, 8, 0, 0, 0);
+}
+
+/* ─── ListView (Trackers list) ──────────────────────────────────────── */
+.list-view {
+    -fx-background-color: -input-bg;
+    -fx-border-color: -input-border;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 4px;
+}
+.list-view .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: -text-primary;
+    -fx-padding: 8 12;
+    -fx-font-size: 13px;
+}
+.list-view .list-cell:odd {
+    -fx-background-color: -row-hover;
+}
+.list-view .list-cell:filled:hover {
+    -fx-background-color: -row-selected;
+}
+.list-view .list-cell:filled:selected {
+    -fx-background-color: -primary-color;
+    -fx-text-fill: white;
+}
+
+/* Drag and Drop Zone styling */
+.drag-zone {
+    -fx-border-color: -border-card;
+    -fx-border-width: 2px;
+    -fx-border-style: dashed;
+    -fx-border-radius: 16px;
+    -fx-background-color: -row-hover;
+    -fx-background-radius: 16px;
+    -fx-padding: 48px;
+    -fx-cursor: hand;
+}
+.drag-zone-active {
+    -fx-border-color: -primary-color;
+    -fx-background-color: -row-selected;
+}
+
+/* TableView Design */
+.table-view {
+    -fx-background-color: transparent;
+    -fx-border-color: -border-card;
+    -fx-border-radius: 12px;
+    -fx-background-radius: 12px;
+}
+.table-view .column-header-background {
+    -fx-background-color: -row-hover;
+}
+.table-view .column-header {
+    -fx-background-color: transparent;
+    -fx-text-fill: -text-secondary;
+    -fx-font-weight: bold;
+    -fx-padding: 14 10 14 10;
+}
+.table-view .column-header .label {
+    -fx-text-fill: -text-secondary;
+}
+.table-view .table-row-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: -text-primary;
+    -fx-border-color: -border-card;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 10 0 10 0;
+}
+.table-view .table-row-cell .label {
+    -fx-text-fill: -text-primary;
+}
+.table-view .table-row-cell:filled:hover {
+    -fx-background-color: -row-hover;
+}
+.table-view .table-row-cell:filled:selected {
+    -fx-background-color: -row-selected;
+}
+.table-view .table-row-cell:filled:selected .label {
+    -fx-text-fill: -text-primary;
+}
+
+/* Custom Progress Bar styling */
+.progress-bar {
+    -fx-indeterminate-bar-length: 120;
+    -fx-indeterminate-bar-escape: true;
+    -fx-background-color: -row-hover;
+    -fx-background-radius: 6px;
+}
+.progress-bar .track {
+    -fx-background-color: transparent;
+}
+.progress-bar .bar {
+    -fx-background-color: -primary-gradient;
+    -fx-background-radius: 6px;
+}
+
+```
+
+</details>
+
+---
+
+## Agent Response
+
+### Thinking
+
+**Analyzing CSS Styling**
+
+I'm currently focused on how specific CSS rules apply to the table row cells in the stylesheet. Particularly, I'm examining the effects of the `:filled` and `:selected` pseudo-classes on row background and label styling. I'm noting the use of variables like `-row-selected` and how they're being leveraged within these rule sets.
+
+
+
+
+### Actions
+
+**Tool:** `view_file`
+**File:** `DownloadsTab.java`
+
+<details>
+<summary>Metadata</summary>
+
+- **Thinking Duration:** 0.119830800s
+- **Model:** Gemini 3.5 Flash (Low)
+</details>
+
+---
+
+<details>
+<summary>File: `Unknown file`</summary>
+
+**Path:** `Unknown file`
+
+```
+package com.vypeensoft.torrentshare.ui;
+
+import com.vypeensoft.torrentshare.model.TorrentStatus;
+import com.vypeensoft.torrentshare.service.DownloadService;
+import com.vypeensoft.torrentshare.service.SettingsService;
+import com.vypeensoft.torrentshare.torrent.TorrentMonitor;
+import com.vypeensoft.torrentshare.torrent.TrackerManager;
+import com.vypeensoft.torrentshare.util.FileUtils;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.stage.Stage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
+/**
+ * Handles presentation and context commands for torrent downloads in progress.
+ */
+public class DownloadsTab {
+    private static final Logger log = LoggerFactory.getLogger(DownloadsTab.class);
+
+    private final DownloadService downloadService;
+    private final SettingsService settingsService;
+    private final TrackerManager trackerManager;
+    private final TorrentMonitor torrentMonitor;
+
+    private VBox root;
+    private TableView<TorrentStatus> tableView;
+
+    public DownloadsTab(DownloadService downloadService, SettingsService settingsService,
+                        TrackerManager trackerManager, TorrentMonitor torrentMonitor) {
+        this.downloadService = downloadService;
+        this.settingsService = settingsService;
+        this.trackerManager = trackerManager;
+        this.torrentMonitor = torrentMonitor;
+        buildUI();
+    }
+
+    public VBox getContent() {
+        return root;
+    }
+
+    private void buildUI() {
+        root = new VBox(20);
+        root.setPadding(new Insets(25));
+        root.setStyle("-fx-background-color: transparent;");
+
+        // Top Toolbar
+        HBox toolbar = new HBox(15);
+        toolbar.setAlignment(Pos.CENTER_LEFT);
+
+        Label tabTitle = new Label("Transmission Overview");
+        tabTitle.setFont(Font.font("Outfit", FontWeight.BOLD, 18));
+
+        // Flexible spacing
+        VBox.setVgrow(root, Priority.ALWAYS);
+        HBox spacer = new HBox();
+        HBox.setHgrow(spacer, Priority.ALWAYS);
+
+        Button addMagnetBtn = new Button("+ Add Magnet Link");
+        addMagnetBtn.getStyleClass().add("button-primary");
+        addMagnetBtn.setOnAction(e -> openAddMagnetDialog());
+
+        toolbar.getChildren().addAll(tabTitle, spacer, addMagnetBtn);
+
+        // Core TableView Setup
+        tableView = new TableView<>();
+        tableView.setPlaceholder(new Label("No active torrent downloads. Add a magnet link to start!"));
+
+        TableColumn<TorrentStatus, String> nameCol = new TableColumn<>("Name");
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        nameCol.setMinWidth(250);
+
+        TableColumn<TorrentStatus, Double> progressCol = new TableColumn<>("Progress");
+        progressCol.setCellValueFactory(new PropertyValueFactory<>("progress"));
+        progressCol.setMinWidth(200);
+        progressCol.setCellFactory(col -> new TableCell<>() {
+            private final ProgressBar bar = new ProgressBar();
+            @Override
+            protected void updateItem(Double item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setGraphic(null);
+                    setText(null);
+                } else {
+                    bar.setProgress(item);
+                    bar.setPrefWidth(100);
+                    setGraphic(bar);
+                    setText(String.format(" %.1f%%", item * 100));
+                    setContentDisplay(ContentDisplay.RIGHT);
+                }
+            }
+        });
+
+        TableColumn<TorrentStatus, String> stateCol = new TableColumn<>("State");
+        stateCol.setCellValueFactory(new PropertyValueFactory<>("state"));
+        stateCol.setPrefWidth(100);
+
+        TableColumn<TorrentStatus, String> dlCol = new TableColumn<>("DL Speed");
+        dlCol.setCellValueFactory(cellData -> new SimpleStringProperty(FileUtils.formatSpeed(cellData.getValue().getDownloadSpeed())));
+        dlCol.setPrefWidth(110);
+
+        TableColumn<TorrentStatus, String> ulCol = new TableColumn<>("UL Speed");
+        ulCol.setCellValueFactory(cellData -> new SimpleStringProperty(FileUtils.formatSpeed(cellData.getValue().getUploadSpeed())));
+        ulCol.setPrefWidth(110);
+
+        TableColumn<TorrentStatus, Integer> peerCol = new TableColumn<>("Peers");
+        peerCol.setCellValueFactory(new PropertyValueFactory<>("peers"));
+        peerCol.setPrefWidth(70);
+
+        TableColumn<TorrentStatus, Integer> seedCol = new TableColumn<>("Seeds");
+        seedCol.setCellValueFactory(new PropertyValueFactory<>("seeds"));
+        seedCol.setPrefWidth(70);
+
+        TableColumn<TorrentStatus, String> sizeCol = new TableColumn<>("Size");
+        sizeCol.setCellValueFactory(cellData -> new SimpleStringProperty(FileUtils.formatSize(cellData.getValue().getSize())));
+        sizeCol.setPrefWidth(100);
+
+        TableColumn<TorrentStatus, String> etaCol = new TableColumn<>("ETA");
+        etaCol.setCellValueFactory(cellData -> new SimpleStringProperty(formatETA(cellData.getValue().getEta())));
+        etaCol.setPrefWidth(100);
+
+        tableView.getColumns().addAll(nameCol, progressCol, stateCol, dlCol, ulCol, peerCol, seedCol, sizeCol, etaCol);
+
+        // Bind Context Menu actions
+        setupContextMenu();
+
+        // Bind double click to details dialog
+        setupDoubleClickHandler();
+
+        root.getChildren().addAll(toolbar, tableView);
+    }
+
+    private void setupContextMenu() {
+        ContextMenu menu = new ContextMenu();
+
+        MenuItem pauseItem = new MenuItem("Pause Transmission");
+        pauseItem.setOnAction(e -> handlePause());
+
+        MenuItem resumeItem = new MenuItem("Resume Transmission");
+        resumeItem.setOnAction(e -> handleResume());
+
+        MenuItem removeItem = new MenuItem("Remove Torrent...");
+        removeItem.setOnAction(e -> handleRemove());
+
+        MenuItem openFolderItem = new MenuItem("Open Save Folder");
+        openFolderItem.setOnAction(e -> handleOpenFolder());
+
+        MenuItem viewDetailsItem = new MenuItem("View Transfer Details");
+        viewDetailsItem.setOnAction(e -> handleViewDetails());
+
+        menu.getItems().addAll(pauseItem, resumeItem, new SeparatorMenuItem(), openFolderItem, viewDetailsItem, new SeparatorMenuItem(), removeItem);
+
+        tableView.setContextMenu(menu);
+    }
+
+    private void setupDoubleClickHandler() {
+        tableView.setRowFactory(tv -> {
+            TableRow<TorrentStatus> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
+                    TorrentStatus item = row.getItem();
+                    showDetailsDialog(item.getInfoHash());
+                }
+            });
+            return row;
+        });
+    }
+
+    /**
+     * Updates the table with fresh status data while preserving the current row selection.
+     * Using setAll() would clear the selection model on every 1-second refresh tick.
+     * Instead, we do a smart in-place merge: update existing rows, remove stale ones, append new ones.
+     */
+    public void updateActiveDownloads(List<TorrentStatus> statuses) {
+        // 1. Remember which row was selected (by infoHash, which is stable)
+        TorrentStatus selected = tableView.getSelectionModel().getSelectedItem();
+        String selectedHash = (selected != null) ? selected.getInfoHash() : null;
+
+        // 2. Build a lookup map of the incoming statuses
+        Map<String, TorrentStatus> incoming = new HashMap<>();
+        for (TorrentStatus s : statuses) {
+            incoming.put(s.getInfoHash(), s);
+        }
+
+        // 3. Update existing rows in-place and remove stale ones (iterate backwards to allow safe removal)
+        List<TorrentStatus> items = tableView.getItems();
+        for (int i = items.size() - 1; i >= 0; i--) {
+            String hash = items.get(i).getInfoHash();
+            if (incoming.containsKey(hash)) {
+                // Replace the object in-place so cells refresh, but the row index stays the same
+                items.set(i, incoming.get(hash));
+                incoming.remove(hash); // Mark as handled
+            } else {
+                items.remove(i); // Torrent is gone
+            }
+        }
+
+        // 4. Append any new torrents that weren't already in the list
+        items.addAll(incoming.values());
+
+        // 5. Restore the selection if the previously selected torrent is still present
+        if (selectedHash != null) {
+            for (int i = 0; i < items.size(); i++) {
+                if (selectedHash.equals(items.get(i).getInfoHash())) {
+                    tableView.getSelectionModel().select(i);
+                    break;
+                }
+            }
+        }
+    }
+
+    private void openAddMagnetDialog() {
+        Stage stage = (Stage) root.getScene().getWindow();
+        String defDir = settingsService.getSettings().downloadDir();
+        AddMagnetDialog dialog = new AddMagnetDialog(stage, downloadService, defDir, () -> {
+            log.info("Magnet link download launched from dialog.");
+        });
+        dialog.showAndWait();
+    }
+
+    private void handlePause() {
+        TorrentStatus selected = tableView.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            downloadService.pause(selected.getInfoHash());
+        }
+    }
+
+    private void handleResume() {
+        TorrentStatus selected = tableView.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            downloadService.resume(selected.getInfoHash());
+        }
+    }
+
+    private void handleRemove() {
+        TorrentStatus selected = tableView.getSelectionModel().getSelectedItem();
+        if (selected == null) return;
+
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+        confirm.setTitle("Confirm Deletion");
+        confirm.setHeaderText("Remove " + selected.getName() + "?");
+        confirm.setContentText("Do you want to completely erase the downloaded files from disk as well?");
+
+        ButtonType btnKeep = new ButtonType("Remove Only (Keep Files)");
+        ButtonType btnDelete = new ButtonType("Remove & Erase Data Files");
+        ButtonType btnCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+        confirm.getButtonTypes().setAll(btnKeep, btnDelete, btnCancel);
+
+        Optional<ButtonType> result = confirm.showAndWait();
+        if (result.isPresent() && result.get() != btnCancel) {
+            boolean deleteFiles = (result.get() == btnDelete);
+            downloadService.remove(selected.getInfoHash(), deleteFiles);
+            log.info("Deleted torrent: {} (Delete files: {})", selected.getName(), deleteFiles);
+        }
+    }
+
+    private void handleOpenFolder() {
+        TorrentStatus selected = tableView.getSelectionModel().getSelectedItem();
+        if (selected == null) return;
+
+        // Fetch save path details from active handle
+        var th = torrentMonitor.getActiveStatuses().stream()
+            .filter(s -> s.getInfoHash().equals(selected.getInfoHash()))
+            .findFirst();
+
+        if (th.isPresent()) {
+            // Find download folder in filesystem
+            var ts = torrentMonitor.getActiveStatuses().stream().findFirst();
+            // In our system, active seeding/download directories are loaded via TorrentManager.
+            // Let's obtain the active save path of the torrent. Since we store this in the TorrentInfo SQLite database,
+            // we can retrieve it directly by looking up the torrent details or asking TorrentManager.
+            // For simplicity and resilience, we check the directory using Java's Desktop.
+            File dir = new File(settingsService.getSettings().downloadDir());
+            if (dir.exists() && Desktop.isDesktopSupported()) {
+                try {
+                    Desktop.getDesktop().open(dir);
+                    log.info("Opened folder in Explorer: {}", dir.getAbsolutePath());
+                } catch (IOException e) {
+                    log.error("Failed to open folder", e);
+                }
+            }
+        }
+    }
+
+    private void handleViewDetails() {
+        TorrentStatus selected = tableView.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            showDetailsDialog(selected.getInfoHash());
+        }
+    }
+
+    private void showDetailsDialog(String infoHash) {
+        Stage stage = (Stage) root.getScene().getWindow();
+        TorrentDetailsDialog dialog = new TorrentDetailsDialog(
+            stage,
+            infoHash,
+            torrentMonitor.getSessionManager(),
+            trackerManager
+        );
+        dialog.showAndWait();
+    }
+
+    private String formatETA(long seconds) {
+        if (seconds < 0) return "---";
+        if (seconds == 0) return "Done";
+        long d = seconds / 86400;
+        long h = (seconds % 86400) / 3600;
+        long m = (seconds % 3600) / 60;
+        long s = seconds % 60;
+        if (d > 0) return String.format("%dd %dh", d, h);
+        if (h > 0) return String.format("%dh %dm", h, m);
+        if (m > 0) return String.format("%dm %ds", m, s);
+        return String.format("%ds", s);
+    }
+}
+
+```
+
+</details>
+
+---
+
+## Agent Response
+
+### Thinking
+
+**Analyzing CSS Style**
+
+I'm currently focused on dissecting the CSS, specifically examining the styles applied to the `.table-view .table-row-cell` selector in `index.css`. I'm paying close attention to the background color, text fill, and border color properties to understand how they contribute to the overall visual presentation.
+
+
+**Addressing Cell Selection**
+
+I've realized the inherent conflict in JavaFX's default styling for table cells within selected rows. If the selected row's background is light, default text color can become indistinguishable. The issue stems from default JavaFX handling of selected cells. I'm now proposing a solution that explicitly styles the text fill of `table-cell` within a selected row and sets the background color, for visibility. I believe the solution addresses this design flaw. I'm now checking how `list-view` styles work with the same issue.
+
+
+
+
+### Actions
+
+**Tool:** `write_to_file`
+
+<details>
+<summary>Metadata</summary>
+
+- **Thinking Duration:** 0.971410200s
+- **Model:** Gemini 3.5 Flash (Low)
+</details>
+
+---
+
+### Code Edit
+
+**Status:** Completed
+**Created:** 8 June 2026, 12:18 am
+
+---
+
+## Agent Response
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Low)
+</details>
+
+---
+
+## User Request
+
+always proceed to code changes
+
+<details>
+<summary>Context</summary>
+
+**Active File:** `ShareTab.java`
+**Language:** java
+
+**Open Files:**
+- `SessionManager.java`
+- `20260607.221757_fix_deluge_download_plan.md`
+- `20260607.221757_fix_deluge_download_task.md`
+- `TorrentManager.java`
+- `ShareService.java`
+- `20260607.221757_fix_deluge_download_walkthrough.md`
+- `ShareTab.java`
+</details>
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `write_to_file`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Low)
+</details>
+
+---
+
+### Code Edit
+
+**Status:** Completed
+**Created:** 8 June 2026, 12:19 am
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `replace_file_content`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Low)
+</details>
+
+---
+
+### Code Edit
+
+**Status:** Completed
+**Created:** 8 June 2026, 12:19 am
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `replace_file_content`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Low)
+</details>
+
+---
+
+### Code Edit
+
+**Status:** Completed
+**Created:** 8 June 2026, 12:19 am
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `write_to_file`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Low)
+</details>
+
+---
+
+### Code Edit
+
+**Status:** Completed
+**Created:** 8 June 2026, 12:19 am
+
+---
+
+## Agent Response
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Low)
+</details>
+
+---
+
+## User Request
+
+dont depend on system theme or system color.
+Force colors and siaplay the UI, so that it looks same on all systems
+
+<details>
+<summary>Context</summary>
+
+**Active File:** `ShareTab.java`
+**Language:** java
+
+**Open Files:**
+- `ShareTab.java`
+- `SessionManager.java`
+- `20260607.221757_fix_deluge_download_plan.md`
+- `20260607.221757_fix_deluge_download_task.md`
+- `TorrentManager.java`
+- `ShareService.java`
+- `20260607.221757_fix_deluge_download_walkthrough.md`
+</details>
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `view_file`
+**File:** `ThemeDetector.java`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Low)
+</details>
+
+---
+
+<details>
+<summary>File: `Unknown file`</summary>
+
+**Path:** `Unknown file`
+
+```
+package com.vypeensoft.torrentshare.util;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
+/**
+ * Utility to detect the host operating system's theme preference.
+ */
+public class ThemeDetector {
+    private static final Logger log = LoggerFactory.getLogger(ThemeDetector.class);
+
+    /**
+     * Detects if Windows is configured to use Dark Mode.
+     * Defaults to false (Light Mode) on errors or non-Windows OS.
+     */
+    public static boolean isDarkMode() {
+        String os = System.getProperty("os.name").toLowerCase();
+        if (!os.contains("win")) {
+            return false;
+        }
+        try {
+            Process process = Runtime.getRuntime().exec(new String[]{
+                "reg", "query", "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize", "/v", "AppsUseLightTheme"
+            });
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    if (line.contains("AppsUseLightTheme")) {
+                        String[] parts = line.trim().split("\\s+");
+                        if (parts.length > 0) {
+                            String last = parts[parts.length - 1];
+                            // 0x0 or 0 indicates Dark mode
+                            boolean dark = last.equals("0x0") || last.equals("0");
+                            log.info("System theme detected: {}", dark ? "DARK" : "LIGHT");
+                            return dark;
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            log.warn("Failed to detect system theme via registry query: {}", e.getMessage());
+        }
+        return false;
+    }
+}
+
+```
+
+</details>
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `grep_search`
+**Query:** `ThemeDetector`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Low)
+</details>
+
+---
+
+### Local File Search
+
+**Status:** Completed
+**Created:** 8 June 2026, 12:23 am
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `view_file`
+**File:** `MainWindow.java`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Low)
+</details>
+
+---
+
+<details>
+<summary>File: `Unknown file`</summary>
+
+**Path:** `Unknown file`
+
+```
+package com.vypeensoft.torrentshare.ui;
+
+import com.vypeensoft.torrentshare.service.DownloadService;
+import com.vypeensoft.torrentshare.service.ShareService;
+import com.vypeensoft.torrentshare.service.SettingsService;
+import com.vypeensoft.torrentshare.torrent.TorrentMonitor;
+import com.vypeensoft.torrentshare.torrent.TrackerManager;
+import com.vypeensoft.torrentshare.worker.StatusRefreshTask;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.geometry.Rectangle2D;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
+import com.vypeensoft.torrentshare.util.ThemeDetector;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * Main application window for TorrentShare.
+ */
+public class MainWindow {
+    private static final Logger log = LoggerFactory.getLogger(MainWindow.class);
+
+    private final ShareService shareService;
+    private final DownloadService downloadService;
+    private final SettingsService settingsService;
+    private final TrackerManager trackerManager;
+    private final TorrentMonitor torrentMonitor;
+
+    private ShareTab shareTab;
+    private DownloadsTab downloadsTab;
+    private SettingsTab settingsTab;
+    private StatusRefreshTask refreshTask;
+
+    public MainWindow(ShareService shareService, DownloadService downloadService,
+                      SettingsService settingsService, TrackerManager trackerManager,
+                      TorrentMonitor torrentMonitor) {
+        this.shareService = shareService;
+        this.downloadService = downloadService;
+        this.settingsService = settingsService;
+        this.trackerManager = trackerManager;
+        this.torrentMonitor = torrentMonitor;
+    }
+
+    /**
+     * Initializes the stage and mounts the subtab components.
+     */
+    public void start(Stage stage) {
+        stage.setTitle("TorrentShare");
+
+        BorderPane root = new BorderPane();
+        if (ThemeDetector.isDarkMode()) {
+            root.getStyleClass().add("dark-theme");
+        }
+
+        // Header Panel with brand title
+        HBox header = buildHeader();
+        root.setTop(header);
+
+        // Core Tabs
+        TabPane tabPane = new TabPane();
+        tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
+
+        shareTab = new ShareTab(shareService, settingsService);
+        downloadsTab = new DownloadsTab(downloadService, settingsService, trackerManager, torrentMonitor);
+        settingsTab = new SettingsTab(settingsService, trackerManager);
+
+        Tab tab1 = new Tab("Share Files", shareTab.getContent());
+        Tab tab2 = new Tab("Active Downloads", downloadsTab.getContent());
+        Tab tab3 = new Tab("Settings Panel", settingsTab.getContent());
+
+        tabPane.getTabs().addAll(tab1, tab2, tab3);
+        root.setCenter(tabPane);
+
+        // Dynamically compute starting window size to exactly 75% of primary screen bounds
+        Rectangle2D visualBounds = Screen.getPrimary().getVisualBounds();
+        double defaultWidth = visualBounds.getWidth() * 0.80;
+        double defaultHeight = visualBounds.getHeight() * 0.80;
+
+        Scene scene = new Scene(root, defaultWidth, defaultHeight);
+
+        // Load the application stylesheet — without this, ALL CSS rules in index.css are ignored
+        java.net.URL cssUrl = getClass().getResource("/index.css");
+        if (cssUrl != null) {
+            scene.getStylesheets().add(cssUrl.toExternalForm());
+            log.info("Loaded application stylesheet: {}", cssUrl);
+        } else {
+            log.warn("index.css not found on classpath — UI will use default JavaFX styling");
+        }
+
+        stage.setScene(scene);
+        stage.show();
+
+        // Start real-time speeds and progress updates daemon polling
+        log.info("Starting background refresh loop...");
+        refreshTask = new StatusRefreshTask(torrentMonitor, activeStats -> {
+            downloadsTab.updateActiveDownloads(activeStats);
+        });
+        refreshTask.start();
+    }
+
+    private HBox buildHeader() {
+        HBox container = new HBox();
+        container.setPadding(new Insets(20, 30, 15, 30));
+        container.setAlignment(Pos.CENTER_LEFT);
+        container.setStyle("-fx-background-color: -fx-control-inner-background; -fx-border-color: -fx-box-border; -fx-border-width: 0 0 1 0;");
+
+        VBox titleBox = new VBox(2);
+        
+        Label title = new Label("TorrentShare");
+        title.setFont(Font.font("Outfit", FontWeight.BOLD, 26));
+
+        Label subtitle = new Label("Secure Native P2P Desktop File Seeding & Resuming");
+        subtitle.setFont(Font.font("Inter", 12));
+
+        titleBox.getChildren().addAll(title, subtitle);
+        container.getChildren().add(titleBox);
+        return container;
+    }
+
+    /**
+     * Terminate the UI polling background scheduler threads cleanly on stop.
+     */
+    public void shutdownMonitor() {
+        if (refreshTask != null) {
+            refreshTask.stop();
+        }
+    }
+}
+
+```
+
+</details>
+
+---
+
+## Agent Response
+
+### Thinking
+
+**Forcing Uniform UI**
+
+Okay, so I've just realized we shouldn't rely on `ThemeDetector.isDarkMode()` at all. The goal is a consistent UI, regardless of the system theme. It looks like we're going to need to explicitly set and manage colors for display purposes. This approach prioritizes a uniform user experience.
+
+
+
+
+### Actions
+
+**Tool:** `view_file`
+**File:** `20260603.054215_remove_dark_theme_system_theme_walkthrough.md`
+
+<details>
+<summary>Metadata</summary>
+
+- **Thinking Duration:** 0.388238300s
+- **Model:** Gemini 3.5 Flash (Low)
+</details>
+
+---
+
+<details>
+<summary>File: `Unknown file`</summary>
+
+**Path:** `Unknown file`
+
+```
+# User Prompt
+```text
+the app is now dark theme. Please remove dark theme and set it to system theme
+```
+
+# Walkthrough - Remove Dark Theme, Use System Theme
+
+## Problem
+`index.css` was setting `-fx-base: #0f0f13` and `-fx-background-color: #0c0c0e` on `.root`, which forces a dark theme globally. All controls (labels, scrollbars, panels, text fields, dialogs) had hard-coded dark/rgba colors that conflict with the system's own light/dark preference.
+
+## Fix Applied
+
+### [`index.css`](file:///x:/Projects_X/0_Active/1_Java_Active/Torrent_Share_Java_GITHUB/src/main/resources/index.css)
+
+Rewrote the file to:
+- **Removed** `-fx-base` and `-fx-background-color` overrides from `.root` — JavaFX now uses its default system-derived colors
+- **Removed** all `rgba(255,255,255,...)` (white-on-dark) background overrides
+- **Removed** dark-specific scrollbar, scrollpane, listview, tableview, textfield, panel, and dialog overrides
+- **Kept** global `.button` font rule (15px bold Outfit/Inter)
+- **Kept** `.button-primary` with the indigo accent color (works on both light and dark system themes)
+- **Kept** `.button-secondary` with neutral styling that adapts to system colors
+- **Kept** tab font size (14px bold)
+- **Kept** the font family on `.root` (Outfit/Inter) for typography consistency without imposing colors
+
+```
+
+</details>
+
+---
+
+## Agent Response
+
+### Thinking
+
+**Re-evaluating Theme Dependency**
+
+I've hit a snag. The user's initial request was to integrate the system theme, but now they're explicitly rejecting system dependency. I'm pivoting to a forceful color application strategy, guaranteeing a consistent UI across all display environments.
+
+
+
+
+### Actions
+
+**Tool:** `view_file`
+**File:** `SettingsTab.java`
+
+<details>
+<summary>Metadata</summary>
+
+- **Thinking Duration:** 0.123659900s
+- **Model:** Gemini 3.5 Flash (Low)
+</details>
+
+---
+
+<details>
+<summary>File: `Unknown file`</summary>
+
+**Path:** `Unknown file`
+
+```
+package com.vypeensoft.torrentshare.ui;
+
+import com.vypeensoft.torrentshare.model.ApplicationSettings;
+import com.vypeensoft.torrentshare.service.SettingsService;
+import com.vypeensoft.torrentshare.torrent.TrackerManager;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.stage.DirectoryChooser;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.File;
+
+/**
+ * Global Configuration Tab Panel for ports, rates, directories, and tracker addresses.
+ */
+public class SettingsTab {
+    private static final Logger log = LoggerFactory.getLogger(SettingsTab.class);
+
+    private final SettingsService settingsService;
+    private final TrackerManager trackerManager;
+
+    private VBox root;
+    private TextField downloadDirField;
+    private TextField shareDirField;
+    private TextField portField;
+    private TextField uploadLimitField;   // Input as KB/s
+    private TextField downloadLimitField; // Input as KB/s
+    private TextField connectionsField;
+    private TextField activeTorrentsField;
+
+    // Trackers Management UI
+    private ListView<String> trackersList;
+    private TextField newTrackerField;
+
+    public SettingsTab(SettingsService settingsService, TrackerManager trackerManager) {
+        this.settingsService = settingsService;
+        this.trackerManager = trackerManager;
+        buildUI();
+    }
+
+    public VBox getContent() {
+        return root;
+    }
+
+    private void buildUI() {
+        root = new VBox(24);
+        root.setPadding(new Insets(25));
+        root.setStyle("-fx-background-color: transparent;");
+
+        // Use scroll container for dense settings screen
+        ScrollPane scroll = new ScrollPane();
+        scroll.setFitToWidth(true);
+        scroll.setStyle("-fx-background-color: transparent; -fx-background: transparent;");
+
+        VBox contentBox = new VBox(24);
+        contentBox.setStyle("-fx-background-color: transparent;");
+
+        // 1. General Panel
+        VBox genPanel = new VBox(15);
+        genPanel.getStyleClass().add("glass-panel");
+
+        Label genTitle = new Label("Bandwidth & Paths Settings");
+        genTitle.setFont(Font.font("Outfit", FontWeight.BOLD, 18));
+        genTitle.setStyle("-fx-text-fill: -fx-text-base-color;");
+
+        GridPane grid = new GridPane();
+        grid.setHgap(20);
+        grid.setVgap(15);
+
+        // Directories Input
+        createBrowseRow(grid, "Download Location:", downloadDirField = new TextField(), 0);
+        createBrowseRow(grid, "Local Sharing Folder:", shareDirField = new TextField(), 1);
+
+        // Listening Port
+        createInputRow(grid, "Listen Network Port:", portField = new TextField(), 2, "Default: 6881");
+
+        // Speed limits
+        createInputRow(grid, "Upload Speed Limit (KB/s):", uploadLimitField = new TextField(), 3, "0 means unlimited");
+        createInputRow(grid, "Download Speed Limit (KB/s):", downloadLimitField = new TextField(), 4, "0 means unlimited");
+
+        // Max connections and torrents
+        createInputRow(grid, "Max Global Connections:", connectionsField = new TextField(), 5, "Default: 200");
+        createInputRow(grid, "Max Active Downloads:", activeTorrentsField = new TextField(), 6, "Default: 20");
+
+        genPanel.getChildren().addAll(genTitle, grid);
+
+        // 2. Trackers Panel
+        VBox trackPanel = new VBox(15);
+        trackPanel.getStyleClass().add("glass-panel");
+
+        Label trackTitle = new Label("BitTorrent Trackers Manager");
+        trackTitle.setFont(Font.font("Outfit", FontWeight.BOLD, 18));
+        trackTitle.setStyle("-fx-text-fill: -fx-text-base-color;");
+
+        trackersList = new ListView<>();
+        trackersList.setPrefHeight(150);
+
+        HBox trackerActions = new HBox(10);
+        newTrackerField = new TextField();
+        newTrackerField.setPromptText("udp://tracker.example.com:80/announce");
+        newTrackerField.setPrefWidth(350);
+
+        Button addBtn = new Button("Add Tracker");
+        addBtn.getStyleClass().add("button-primary");
+        addBtn.setOnAction(e -> handleAddTracker());
+
+        Button deleteBtn = new Button("Remove Tracker");
+        deleteBtn.getStyleClass().add("button-secondary");
+        deleteBtn.setOnAction(e -> handleDeleteTracker());
+
+        trackerActions.getChildren().addAll(newTrackerField, addBtn, deleteBtn);
+        trackPanel.getChildren().addAll(trackTitle, trackersList, trackerActions);
+
+        // Save Button panel
+        HBox footer = new HBox();
+        footer.setAlignment(Pos.CENTER_RIGHT);
+
+        Button saveBtn = new Button("Save Global Configuration");
+        saveBtn.getStyleClass().add("button-primary");
+        saveBtn.setOnAction(e -> handleSaveSettings());
+        footer.getChildren().add(saveBtn);
+
+        contentBox.getChildren().addAll(genPanel, trackPanel, footer);
+        scroll.setContent(contentBox);
+        root.getChildren().add(scroll);
+
+        // Load persisted values into the input controls
+        loadConfigValues();
+    }
+
+    private void createBrowseRow(GridPane grid, String title, TextField tf, int row) {
+        Label lbl = new Label(title);
+        lbl.setFont(Font.font("Inter", FontWeight.BOLD, 12));
+        lbl.setStyle("-fx-text-fill: -fx-text-base-color;");
+        grid.add(lbl, 0, row);
+
+        HBox box = new HBox(8);
+        tf.setPrefWidth(450);
+        Button browse = new Button("Browse");
+        browse.getStyleClass().add("button-secondary");
+        browse.setOnAction(e -> selectDirectory(tf));
+        box.getChildren().addAll(tf, browse);
+        grid.add(box, 1, row);
+    }
+
+    private void createInputRow(GridPane grid, String title, TextField tf, int row, String tooltip) {
+        Label lbl = new Label(title);
+        lbl.setFont(Font.font("Inter", FontWeight.BOLD, 12));
+        lbl.setStyle("-fx-text-fill: -fx-text-base-color;");
+        grid.add(lbl, 0, row);
+
+        HBox box = new HBox(12);
+        tf.setPrefWidth(200);
+        Label hint = new Label(tooltip);
+        hint.setFont(Font.font("Inter", 11));
+        hint.setStyle("-fx-text-fill: -fx-text-base-color;");
+        hint.setAlignment(Pos.CENTER_LEFT);
+        box.getChildren().addAll(tf, hint);
+        grid.add(box, 1, row);
+    }
+
+    private void selectDirectory(TextField tf) {
+        DirectoryChooser dc = new DirectoryChooser();
+        dc.setTitle("Select Configuration Folder Path");
+        File current = new File(tf.getText());
+        if (current.exists() && current.isDirectory()) {
+            dc.setInitialDirectory(current);
+        }
+        File selected = dc.showDialog(root.getScene().getWindow());
+        if (selected != null) {
+            tf.setText(selected.getAbsolutePath());
+        }
+    }
+
+    private void loadConfigValues() {
+        ApplicationSettings settings = settingsService.getSettings();
+        downloadDirField.setText(settings.downloadDir());
+        shareDirField.setText(settings.shareDir());
+        portField.setText(String.valueOf(settings.listeningPort()));
+        uploadLimitField.setText(String.valueOf(settings.uploadLimit() / 1024));
+        downloadLimitField.setText(String.valueOf(settings.downloadLimit() / 1024));
+        connectionsField.setText(String.valueOf(settings.maxConnections()));
+        activeTorrentsField.setText(String.valueOf(settings.maxActiveTorrents()));
+
+        // Populate trackers
+        refreshTrackersList();
+    }
+
+    private void refreshTrackersList() {
+        trackersList.getItems().clear();
+        trackersList.getItems().addAll(trackerManager.getTrackers());
+    }
+
+    private void handleAddTracker() {
+        String url = newTrackerField.getText().trim();
+        if (url.isEmpty()) return;
+
+        if (!url.startsWith("udp://") && !url.startsWith("http://") && !url.startsWith("https://")) {
+            showError("Invalid Tracker", "Announce URL must start with udp://, http://, or https://");
+            return;
+        }
+
+        trackerManager.addTracker(url);
+        newTrackerField.clear();
+        refreshTrackersList();
+    }
+
+    private void handleDeleteTracker() {
+        String selected = trackersList.getSelectionModel().getSelectedItem();
+        if (selected == null) return;
+
+        trackerManager.removeTracker(selected);
+        refreshTrackersList();
+    }
+
+    private void handleSaveSettings() {
+        try {
+            String dl = downloadDirField.getText().trim();
+            String sh = shareDirField.getText().trim();
+            int port = Integer.parseInt(portField.getText().trim());
+            long ul = Long.parseLong(uploadLimitField.getText().trim()) * 1024;
+            long dlLimit = Long.parseLong(downloadLimitField.getText().trim()) * 1024;
+            int connections = Integer.parseInt(connectionsField.getText().trim());
+            int torrents = Integer.parseInt(activeTorrentsField.getText().trim());
+
+            if (dl.isEmpty() || sh.isEmpty()) {
+                showError("Validation Error", "Folders paths cannot be empty.");
+                return;
+            }
+
+            if (port < 1 || port > 65535) {
+                showError("Validation Error", "Listening Port must be between 1 and 65535.");
+                return;
+            }
+
+            ApplicationSettings settings = new ApplicationSettings(dl, sh, port, ul, dlLimit, connections, torrents);
+            settingsService.updateSettings(settings);
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Settings Saved");
+            alert.setHeaderText(null);
+            alert.setContentText("Configuration successfully updated and active session limits updated!");
+            alert.showAndWait();
+
+        } catch (NumberFormatException e) {
+            showError("Type Error", "Please ensure listening ports, speed limits, and connections are valid positive numbers.");
+        }
+    }
+
+    private void showError(String title, String details) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(details);
+        alert.showAndWait();
+    }
+}
+
+```
+
+</details>
+
+---
+
+## Agent Response
+
+### Thinking
+
+**Prioritizing Color Consistency**
+
+I've decided to abandon reliance on system themes or colors. The plan is to hardcode colors and ensure a consistent UI presentation across all systems. By doing this, I'm removing the `ThemeDetector.isDarkMode()` check from `MainWindow.start`, simplifying the initial setup.
+
+
+**Enforcing a Light Theme**
+
+I'm now fully committed to a light theme for the application, irrespective of the user's system settings. I've realized that removing the `.dark-theme` class from `index.css` will ensure the light theme is enforced. I'm focusing on cleaning up any lingering `ThemeDetector.isDarkMode()` calls to maintain this consistency, and I'm currently checking `MainWindow.java` for related code.
+
+
+**Eliminating Dark Theme Elements**
+
+I've now completely removed the dark theme conditional logic in `MainWindow.java`. Specifically, I deleted the `if (ThemeDetector.isDarkMode())` block. I've confirmed that this change directly prevents the application from ever adding the "dark-theme" class. I've also verified that I no longer need `ThemeDetector.java`, and have cleaned up the related code. I'm satisfied that this removes all dynamic theme switching. Finally, I'm checking the CSS for the remaining light theme settings, and ensuring it won't be overridden.
+
+
+
+
+### Actions
+
+**Tool:** `write_to_file`
+
+<details>
+<summary>Metadata</summary>
+
+- **Thinking Duration:** 0.899511500s
+- **Model:** Gemini 3.5 Flash (Low)
+</details>
+
+---
+
+### Code Edit
+
+**Status:** Completed
+**Created:** 8 June 2026, 12:23 am
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `write_to_file`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Low)
+</details>
+
+---
+
+### Code Edit
+
+**Status:** Completed
+**Created:** 8 June 2026, 12:23 am
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `replace_file_content`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Low)
+</details>
+
+---
+
+### Code Edit
+
+**Status:** Completed
+**Created:** 8 June 2026, 12:23 am
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `replace_file_content`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Low)
+</details>
+
+---
+
+### Code Edit
+
+**Status:** Completed
+**Created:** 8 June 2026, 12:23 am
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `view_file`
+**File:** `MainWindow.java`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Low)
+</details>
+
+---
+
+<details>
+<summary>File: `Unknown file` (L19-29)</summary>
+
+**Path:** `Unknown file`
+
+```
+import javafx.scene.text.FontWeight;
+import javafx.geometry.Rectangle2D;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
+import com.vypeensoft.torrentshare.util.ThemeDetector;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * Main application window for TorrentShare.
+ */
+```
+
+</details>
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `replace_file_content`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Low)
+</details>
+
+---
+
+### Code Edit
+
+**Status:** Completed
+**Created:** 8 June 2026, 12:23 am
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `view_file`
+**File:** `MainWindow.java`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Low)
+</details>
+
+---
+
+<details>
+<summary>File: `Unknown file` (L14-27)</summary>
+
+**Path:** `Unknown file`
+
+```
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.geometry.Rectangle2D;
+import javafx.stage.Screen;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * Main application window for TorrentShare.
+ */
+```
+
+</details>
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `replace_file_content`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Low)
+</details>
+
+---
+
+### Code Edit
+
+**Status:** Completed
+**Created:** 8 June 2026, 12:24 am
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `view_file`
+**File:** `MainWindow.java`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Low)
+</details>
+
+---
+
+<details>
+<summary>File: `Unknown file` (L14-27)</summary>
+
+**Path:** `Unknown file`
+
+```
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.geometry.Rectangle2D;
+import javafx.stage.Stage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * Main application window for TorrentShare.
+ */
+```
+
+</details>
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `replace_file_content`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Low)
+</details>
+
+---
+
+### Code Edit
+
+**Status:** Completed
+**Created:** 8 June 2026, 12:24 am
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `view_file`
+**File:** `MainWindow.java`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Low)
+</details>
+
+---
+
+<details>
+<summary>File: `Unknown file` (L14-27)</summary>
+
+**Path:** `Unknown file`
+
+```
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * Main application window for TorrentShare.
+ */
+```
+
+</details>
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `replace_file_content`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Low)
+</details>
+
+---
+
+### Code Edit
+
+**Status:** Completed
+**Created:** 8 June 2026, 12:24 am
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `view_file`
+**File:** `MainWindow.java`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Low)
+</details>
+
+---
+
+<details>
+<summary>File: `Unknown file` (L14-27)</summary>
+
+**Path:** `Unknown file`
+
+```
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.geometry.Rectangle2D;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * Main application window for TorrentShare.
+ */
+```
+
+</details>
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `replace_file_content`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Low)
+</details>
+
+---
+
+### Code Edit
+
+**Status:** Completed
+**Created:** 8 June 2026, 12:24 am
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `replace_file_content`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Low)
+</details>
+
+---
+
+### Code Edit
+
+**Status:** Completed
+**Created:** 8 June 2026, 12:24 am
+
+---
+
+## Agent Response
+
+### Actions
+
+**Tool:** `write_to_file`
+
+<details>
+<summary>Metadata</summary>
+
+- **Model:** Gemini 3.5 Flash (Low)
+</details>
+
+---
+
+### Code Edit
+
+**Status:** Completed
+**Created:** 8 June 2026, 12:24 am
 
 ---
 

@@ -2,6 +2,7 @@
 .root {
     -fx-font-family: 'Outfit', 'Inter', 'Segoe UI', sans-serif;
     -fx-base: #f9fafb;
+    -fx-background-color: #f9fafb;
     
     /* Elegant Color Tokens */
     -primary-color: #6366f1;
@@ -237,6 +238,9 @@
     -fx-background-color: -row-selected;
 }
 .table-view .table-row-cell:filled:selected .label {
+    -fx-text-fill: -text-primary;
+}
+.table-view .table-row-cell:filled:selected .table-cell {
     -fx-text-fill: -text-primary;
 }
 
